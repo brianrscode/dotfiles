@@ -7,9 +7,9 @@ function run {
   fi
 }
 
+# ESTE AUTOSTART ES SOLO PARA INICIAR COSAS DENTRO DE QTILE
+
 #Set your native resolution IF it does not exist in xrandr
-#More info in the script
-#run $HOME/.config/qtile/scripts/set-screen-resolution-in-virtualbox.sh
 
 #Find out your monitor name with xrandr or arandr (save and you get this line)
 #xrandr --output VGA-1 --primary --mode 1360x768 --pos 0x0 --rotate normal
@@ -18,8 +18,8 @@ function run {
 #xrandr --output HDMI2 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off
 #autorandr horizontal
 
-#change your keyboard if you need it
-#setxkbmap -layout be
+# cambia tu teclado si lo necesitas
+# setxkbmap es
 
 keybLayout=$(setxkbmap -v | awk -F "+" '/symbols/ {print $2}')
 
@@ -30,20 +30,23 @@ fi
 #autostart ArcoLinux Welcome App
 run dex $HOME/.config/autostart/arcolinux-welcome-app.desktop &
 
-#Some ways to set your wallpaper besides variety or nitrogen
+# Algunas formas de ambientar tu fondo de pantalla además de variety o nitrogen
 #feh --bg-fill /usr/share/backgrounds/archlinux/arch-wallpaper.jpg &
 #feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &
 #wallpaper for other Arch based systems
 #feh --bg-fill /usr/share/archlinux-tweak-tool/data/wallpaper/wallpaper.png &
-#start the conky to learn the shortcuts
-(conky -c $HOME/.config/qtile/scripts/system-overview) &
 
-#start sxhkd to replace Qtile native key-bindings
+# inicia el conky para aprender los atajos
+# (conky -c $HOME/.config/qtile/scripts/system-overview) &
+
+# inicie sxhkd para reemplazar las combinaciones de teclas nativas de Qtile
 run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
 
 
-#starting utility applications at boot time
-run variety &
+# iniciar aplicaciones de utilidad en el momento del arranque
+# run variety &  Apliccion de ArcoLinux para cambiar el fondo de la pantalla
+
+# Poder ver las conexiones a internet
 run nm-applet &
 run pamac-tray &
 run xfce4-power-manager &
@@ -53,9 +56,9 @@ picom --config $HOME/.config/qtile/scripts/picom.conf &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
 
-#starting user applications at boot time
+# Muestra el icono de volumen en la barra
 run volumeicon &
-#run discord &
+# recupera el fondo de pantalla seteado
 nitrogen --restore &
 #run caffeine -a &
 #run vivaldi-stable &

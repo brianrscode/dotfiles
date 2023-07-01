@@ -1,0 +1,5 @@
+prompt:
+	PS1='[\[\e[96m\]\u\[\e[0m\]@\h \w \[\e[96;1m\]$(git branch 2>/dev/null | colrm 1 2)\[\e[0m\]]\$ '
+
+Inicializador de los comandos hechos por mi:
+	PATH="$PATH:/home/brian/comandos"
