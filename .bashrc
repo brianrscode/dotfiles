@@ -2,16 +2,18 @@
 # -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 export EDITOR='code'  # Editor de código predeterminado
 export VISUAL='nano'  # Editor de texto predeterminado
-export HISTCONTROL=ignoreboth:erasedups
+export HISTCONTROL=ignoreboth:erasedups # Controla el historial de comandos de bash. Los comandos duplicados no se guardaran en el historial ni los que comienzan con un espacio en blanco
 export PAGER='most'
 
+# Prompt
 PS1='[\[\e[96m\]\u\[\e[0m\]@\h \w \[\e[96;1m\]$(git branch 2>/dev/null | colrm 1 2)\[\e[0m\]]\$ '
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
-# If not running interactively, don't do anything
+# Si el shell no se ejecuta de forma interactiva, no hace nada
 [[ $- != *i* ]] && return
 
-
+# Verifica que los directorios existan, de ser cierto, los agrega al inicio de la variable entorno PATH
+# Esto permite que los ejecutables ubicados en esos directorios sean encontrados y ejecutados desde
+# cualquier ubicación del sistema
 if [ -d "$HOME/.bin" ] ;
   then PATH="$HOME/.bin:$PATH"
 fi
@@ -20,20 +22,19 @@ if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
 fi
 
-#ignore upper and lowercase when TAB completion
+# ignorar mayúsculas y minúsculas al completar un comando de shell bashh
 bind "set completion-ignore-case on"
 
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-### ALIASES ###
+### ALIAS ###
 #list
 alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -alFh'
 alias l='ls'
-alias l.="ls -A | egrep '^\.'"
+alias l.="ls -A | egrep '^\.'" # busca los archivos ocultos
 alias listdir="ls -d */ > list"
 
-#pacman
+#pacman -> Remplazar por gestor correspondiente
 alias sps='sudo pacman -S'
 alias spr='sudo pacman -R'
 alias sprs='sudo pacman -Rs'
@@ -66,6 +67,9 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 # -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+# Alias ​​para la gestión de software
+alias update='sudo pacman -Syyu'
+alias upd='sudo pacman -Syyu'
 
 # continuar descarga
 alias wget="wget -c"
@@ -73,21 +77,8 @@ alias wget="wget -c"
 # lista de usuarios
 alias userlist="cut -d: -f1 /etc/passwd | sort"
 
-# fusionar nuevas configuraciones
-alias merge="xrdb -merge ~/.Xresources"
-
-# Alias ​​para la gestión de software
-alias update='sudo pacman -Syyu'
-alias upd='sudo pacman -Syyu'
-
-# paru como aur helper - actualiza todo
-alias pksyua="paru -Syu --noconfirm"
-alias upall="paru -Syu --noconfirm"
-alias upa="paru -Syu --noconfirm"
-
 # ps
 alias psa="ps auxf"
-alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
 
 # grub update
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
@@ -139,14 +130,15 @@ alias rams='rate-mirrors --allow-root --disable-comments --protocol https arch  
 # montando la carpeta Public para intercambio entre anfitrión e invitado en virtualbox
 alias vbm="sudo /usr/local/bin/arcolinux-vbox-share"
 
+# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 #shopt
-shopt -s autocd # change to named directory
-shopt -s cdspell # autocorrects cd misspellings
-shopt -s cmdhist # save multi-line commands in history as single line
-shopt -s dotglob
-shopt -s histappend # do not overwrite history
-shopt -s expand_aliases # expand aliases
-
+shopt -s autocd # permite ingresar a directorios sin usar cd
+shopt -s cdspell # corrige errores tipográficos en los nombres de directorios al usar cd
+shopt -s cmdhist # habilita la característica de historial de comandos mejorada
+shopt -s dotglob # el patrón * en nombres de archivos coincidrá también con archivos ocultos
+shopt -s histappend # asegura que el historias de commandos se añada aun archivo existente en vez de sobreescribir
+shopt -s expand_aliases # permite la expación de alias en la línea de comando-------------------------
+# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 # descarga de youtube
 alias yta-aac="yt-dlp --extract-audio --audio-format aac "
 alias yta-best="yt-dlp --extract-audio --audio-format best "
@@ -199,14 +191,15 @@ ex ()
       *.deb)       ar x $1      ;;
       *.tar.xz)    tar xf $1    ;;
       *.tar.zst)   tar xf $1    ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
+      *)           echo "'$1' no se puede extraer via ex()" ;;
     esac
   else
-    echo "'$1' is not a valid file"
+    echo "'$1' no es un archivo valido"
   fi
 }
 
 #git
+alias status="git status"
 alias add="git add ."
 alias commit="git commit"
 alias push="git push origin"

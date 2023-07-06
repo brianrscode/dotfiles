@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Verifica si un proceso con el mismo nombre del comando pasado como argumento está en ejecución
+# Si no se encuentra coincidencia con otro comando, se ejecuta en segundo plano
+# Esto puede usarse para evitar ejecución duplicada de un comando o proceso específico
 function run {
   if ! pgrep -x $(basename $1 | head -c 15) 1>/dev/null;
   then
@@ -23,9 +26,6 @@ function run {
 
 #autostart ArcoLinux Welcome App
 run dex $HOME/.config/autostart/arcolinux-welcome-app.desktop &
-
-# inicia el conky para aprender los atajos
-# (conky -c $HOME/.config/qtile/scripts/system-overview) &
 
 # inicie sxhkd para reemplazar las combinaciones de teclas nativas de Qtile
 run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &

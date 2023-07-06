@@ -194,15 +194,6 @@ alt + c
 alt + e
     thunar
 
-
-#Xfce4-appfinder
-alt + F2
-    xfce4-appfinder --collapsed
-
-#Xfce4-appfinder
-alt + F3
-    xfce4-appfinder
-
 #################################################################
 # CONTROL + SHIFT KEYS
 #################################################################

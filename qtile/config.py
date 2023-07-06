@@ -13,105 +13,103 @@ mod1 = "alt"
 mod2 = "control"
 home = os.path.expanduser('~')
 
-################################################################
-################################################################
+############################################################
 ##################   Atajos de teclado    ##################
-################################################################
-################################################################
+############################################################
 
 keys = [Key(key[0], key[1], *key[2:]) for key in [
-    # La mayoría de las combinaciones están en sxhkd, excepto estas...
-    # SUPER + FUNCTION KEYS
-    ([mod], "f", lazy.window.toggle_fullscreen()),
-    ([mod], "q", lazy.window.kill()),
+        # La mayoría de las combinaciones están en sxhkd, excepto estas...
+        # SUPER + FUNCTION KEYS
+        ([mod], "f", lazy.window.toggle_fullscreen()),
+        ([mod], "q", lazy.window.kill()),
 
-    # SUPER + SHIFT KEYS
-    ([mod, "shift"], "q", lazy.window.kill()),
-    ([mod, "shift"], "r", lazy.restart()),
+        # SUPER + SHIFT KEYS
+        ([mod, "shift"], "q", lazy.window.kill()),
+        ([mod, "shift"], "r", lazy.restart()),
 
-    # QTILE LAYOUT KEYS
-    ([mod], "n", lazy.layout.normalize()),
-    ([mod], "space", lazy.next_layout()),
+        # QTILE LAYOUT KEYS
+        ([mod], "n", lazy.layout.normalize()),
+        ([mod], "space", lazy.next_layout()),
 
-    # CAMBIAR ENFOQUE
-    ([mod], "Up", lazy.layout.up()),
-    ([mod], "Down", lazy.layout.down()),
-    ([mod], "Left", lazy.layout.left()),
-    ([mod], "Right", lazy.layout.right()),
-    ([mod], "k", lazy.layout.up()),
-    ([mod], "j", lazy.layout.down()),
-    ([mod], "h", lazy.layout.left()),
-    ([mod], "l", lazy.layout.right()),
+        # CAMBIAR ENFOQUE
+        ([mod], "Up", lazy.layout.up()),
+        ([mod], "Down", lazy.layout.down()),
+        ([mod], "Left", lazy.layout.left()),
+        ([mod], "Right", lazy.layout.right()),
+        ([mod], "k", lazy.layout.up()),
+        ([mod], "j", lazy.layout.down()),
+        ([mod], "h", lazy.layout.left()),
+        ([mod], "l", lazy.layout.right()),
 
-    # REDIMENSIONAR ARRIBA, ABAJO, IZQUIERDA, DERECHA
-    ([mod, "control"], "l",
-        lazy.layout.grow_right(),
-        lazy.layout.grow(),
-        lazy.layout.increase_ratio(),
-        lazy.layout.delete(),
+        # REDIMENSIONAR ARRIBA, ABAJO, IZQUIERDA, DERECHA
+        ([mod, "control"], "l",
+            lazy.layout.grow_right(),
+            lazy.layout.grow(),
+            lazy.layout.increase_ratio(),
+            lazy.layout.delete(),
         ),
-    ([mod, "control"], "Right",
-        lazy.layout.grow_right(),
-        lazy.layout.grow(),
-        lazy.layout.increase_ratio(),
-        lazy.layout.delete(),
+        ([mod, "control"], "Right",
+            lazy.layout.grow_right(),
+            lazy.layout.grow(),
+            lazy.layout.increase_ratio(),
+            lazy.layout.delete(),
         ),
-    ([mod, "control"], "h",
-        lazy.layout.grow_left(),
-        lazy.layout.shrink(),
-        lazy.layout.decrease_ratio(),
-        lazy.layout.add(),
+        ([mod, "control"], "h",
+            lazy.layout.grow_left(),
+            lazy.layout.shrink(),
+            lazy.layout.decrease_ratio(),
+            lazy.layout.add(),
         ),
-    ([mod, "control"], "Left",
-        lazy.layout.grow_left(),
-        lazy.layout.shrink(),
-        lazy.layout.decrease_ratio(),
-        lazy.layout.add(),
+        ([mod, "control"], "Left",
+            lazy.layout.grow_left(),
+            lazy.layout.shrink(),
+            lazy.layout.decrease_ratio(),
+            lazy.layout.add(),
         ),
-    ([mod, "control"], "k",
-        lazy.layout.grow_up(),
-        lazy.layout.grow(),
-        lazy.layout.decrease_nmaster(),
+        ([mod, "control"], "k",
+            lazy.layout.grow_up(),
+            lazy.layout.grow(),
+            lazy.layout.decrease_nmaster(),
         ),
-    ([mod, "control"], "Up",
-        lazy.layout.grow_up(),
-        lazy.layout.grow(),
-        lazy.layout.decrease_nmaster(),
+        ([mod, "control"], "Up",
+            lazy.layout.grow_up(),
+            lazy.layout.grow(),
+            lazy.layout.decrease_nmaster(),
         ),
-    ([mod, "control"], "j",
-        lazy.layout.grow_down(),
-        lazy.layout.shrink(),
-        lazy.layout.increase_nmaster(),
+        ([mod, "control"], "j",
+            lazy.layout.grow_down(),
+            lazy.layout.shrink(),
+            lazy.layout.increase_nmaster(),
         ),
-    ([mod, "control"], "Down",
-        lazy.layout.grow_down(),
-        lazy.layout.shrink(),
-        lazy.layout.increase_nmaster(),
+        ([mod, "control"], "Down",
+            lazy.layout.grow_down(),
+            lazy.layout.shrink(),
+            lazy.layout.increase_nmaster(),
         ),
 
-    # DISEÑO FLIP PARA MONADTALL/MONADWIDE
-    ([mod, "shift"], "f", lazy.layout.flip()),
+        # DISEÑO FLIP PARA MONADTALL/MONADWIDE
+        ([mod, "shift"], "f", lazy.layout.flip()),
 
-    # FLIP LAYOUT FOR BSP
-    ([mod, "mod1"], "k", lazy.layout.flip_up()),
-    ([mod, "mod1"], "j", lazy.layout.flip_down()),
-    ([mod, "mod1"], "l", lazy.layout.flip_right()),
-    ([mod, "mod1"], "h", lazy.layout.flip_left()),
+        # FLIP LAYOUT FOR BSP
+        ([mod, "mod1"], "k", lazy.layout.flip_up()),
+        ([mod, "mod1"], "j", lazy.layout.flip_down()),
+        ([mod, "mod1"], "l", lazy.layout.flip_right()),
+        ([mod, "mod1"], "h", lazy.layout.flip_left()),
 
-    # MOVE WINDOWS UP OR DOWN BSP LAYOUT
-    ([mod, "shift"], "k", lazy.layout.shuffle_up()),
-    ([mod, "shift"], "j", lazy.layout.shuffle_down()),
-    ([mod, "shift"], "h", lazy.layout.shuffle_left()),
-    ([mod, "shift"], "l", lazy.layout.shuffle_right()),
+        # MOVE WINDOWS UP OR DOWN BSP LAYOUT
+        ([mod, "shift"], "k", lazy.layout.shuffle_up()),
+        ([mod, "shift"], "j", lazy.layout.shuffle_down()),
+        ([mod, "shift"], "h", lazy.layout.shuffle_left()),
+        ([mod, "shift"], "l", lazy.layout.shuffle_right()),
 
-    # MOVE WINDOWS UP OR DOWN MONADTALL/MONADWIDE LAYOUT
-    ([mod, "shift"], "Up", lazy.layout.shuffle_up()),
-    ([mod, "shift"], "Down", lazy.layout.shuffle_down()),
-    ([mod, "shift"], "Left", lazy.layout.swap_left()),
-    ([mod, "shift"], "Right", lazy.layout.swap_right()),
+        # MOVE WINDOWS UP OR DOWN MONADTALL/MONADWIDE LAYOUT
+        ([mod, "shift"], "Up", lazy.layout.shuffle_up()),
+        ([mod, "shift"], "Down", lazy.layout.shuffle_down()),
+        ([mod, "shift"], "Left", lazy.layout.swap_left()),
+        ([mod, "shift"], "Right", lazy.layout.swap_right()),
 
-    # TOGGLE FLOATING LAYOUT
-    ([mod, "shift"], "space", lazy.window.toggle_floating()),
+        # TOGGLE FLOATING LAYOUT
+        ([mod, "shift"], "space", lazy.window.toggle_floating()),
 
     ]]
 
@@ -150,15 +148,12 @@ keys.extend([
 ])
 
 ##################################################
-##################################################
 ##################   Grupos     ##################
 ##################################################
-##################################################
 
-# FOR QWERTY KEYBOARDS
-group_names = ["1", "2", "3", "4", "5", "6",]
-group_layouts = ["monadtall", "bsp", "monadtall", "monadtall", "monadtall", "monadtall"]
 group_labels = [" ", " ", "", "", " ", "󰍳 ",]
+group_names = [str(i + 1) for i in range(len(group_labels))]
+group_layouts = ["monadtall"] * len(group_labels)
 
 groups = [Group(name=n, layout=l.lower(), label=la) for n, l, la in zip(group_names, group_layouts, group_labels)]
 
@@ -179,9 +174,7 @@ for i in groups:
     ])
 
 ##################################################
-##################################################
-##################   Lyout     ##################
-##################################################
+##################   Lyout     ###################
 ##################################################
 
 layout_config = { # Configuraciones de la ventana seleccionada
@@ -191,15 +184,8 @@ layout_config = { # Configuraciones de la ventana seleccionada
     "border_normal": coloress["inactive"][0]
 }
 
-layouts = [ # Forma como se colocan las ventanas
-    layout.MonadTall(**layout_config),
-    layout.MonadWide(**layout_config),
-    layout.Matrix(**layout_config),
-    layout.Bsp(**layout_config),
-    layout.Floating(**layout_config),
-    layout.RatioTile(**layout_config),
-    layout.Max(**layout_config)
-]
+# Forma como se colocan las ventanas
+layouts = [layout.MonadTall(**layout_config)]
 
 floating_layout = layout.Floating(float_rules=[
     *layout.Floating.default_float_rules,
@@ -219,16 +205,14 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='notification'),
     Match(wm_class='splash'),
     Match(wm_class='toolbar'),
-    Match(wm_class='Arandr'),  # para configurar las pantallas
+    Match(wm_class='Arandr'),  # para configurar las resoluciones de las pantallas
     Match(wm_class='nitrogen'),
     Match(wm_class='Galculator'),
     Match(wm_class='archlinux-logout'),
 ], fullscreen_border_width = 0, border_width = 0)
 
 #################################################################
-#################################################################
 ##################   WIDGETS PARA LA BARRA    ###################
-#################################################################
 #################################################################
 
 base = lambda fg="color2", bg="color1":{
@@ -312,22 +296,13 @@ if connected_monitors > 1:
         screens.append(Screen(top=bar.Bar(widgets=other_widgets_list, size=26, opacity=0.8)))
 
 #############################################################
-#############################################################
 ##################   MOUSE CONFIGURATION   ##################
-#############################################################
 #############################################################
 
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
-         start=lazy.window.get_size())
+    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size())
 ]
-
-dgroups_key_binder = None
-dgroups_app_rules = []
-
-main = None
 
 @hook.subscribe.startup_once
 def start_once():
@@ -336,7 +311,6 @@ def start_once():
 
 @hook.subscribe.startup
 def start_always():
-    # Coloca el cursor en algo cuerdo en X
     subprocess.Popen(['xsetroot', '-cursor_name', 'left_ptr'])
 
 @hook.subscribe.client_new
@@ -347,12 +321,12 @@ def set_floating(window):
 
 floating_types = ["notification", "toolbar", "splash", "dialog"]
 
+main = None
+dgroups_key_binder = None
+dgroups_app_rules = []
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
-
 auto_fullscreen = True
-
-focus_on_window_activation = "focus" # or smart
-
+focus_on_window_activation = "focus" # or smart focus
 wmname = "LG3D"
