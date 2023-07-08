@@ -31,7 +31,7 @@ alias ls='ls --color=auto'
 alias la='ls -a'
 alias ll='ls -alFh'
 alias l='ls'
-alias l.="ls -A | egrep '^\.'" # busca los archivos ocultos
+alias l.="ls -A | grep -E '^\.'" # busca los archivos ocultos
 alias listdir="ls -d */ > list"
 
 #pacman -> Remplazar por gestor correspondiente
@@ -66,29 +66,25 @@ alias upal='paru -Syu --noconfirm'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
 # Alias ​​para la gestión de software
 alias update='sudo pacman -Syyu'
 alias upd='sudo pacman -Syyu'
-
+# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 # continuar descarga
 alias wget="wget -c"
 
 # lista de usuarios
 alias userlist="cut -d: -f1 /etc/passwd | sort"
-
 # ps
 alias psa="ps auxf"
-
 # grub update
 alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-# grub issue 08/2022
-alias install-grub-efi="sudo grub-install --target=x86_64-efi --efi-directory=/boot/efi"
 
 # -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 # add new fonts trabajar esto para cada que agrego fuentes nuevas y ocupo fc-cache como newFonts ->
-alias update-fc='sudo fc-cache -fv'
+alias nfont='sudo fc-cache -fv'
 
 # cambiar entre bash y zsh
 alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
@@ -202,6 +198,7 @@ ex ()
 alias status="git status"
 alias add="git add ."
 alias commit="git commit"
+alias origin="git remote add origin"
 alias push="git push origin"
 alias rmgitcache="rm -r ~/.cache/git"
 alias grh="git reset --hard"

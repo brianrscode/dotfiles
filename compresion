@@ -1,0 +1,33 @@
+#!/bin/bash
+
+elemento=$1
+tipo_compresion=$2
+archivo=""
+# echo $elemento
+if [[ $elemento ]]; then
+    archivo="$(echo "$elemento" | cut -d'.' -f1 | cut -d'/' -f1)"
+fi
+# echo $archivo
+
+
+case $tipo_compresion in
+    zip) zip -r "${archivo:-$elemento}.zip" "$elemento"    ;;
+    rar) rar a "${archivo:-$elemento}.rar" "$elemento"    ;;
+    tar.bz2)   tar cjf $elemento.tar.bz2 $elemento   ;;
+    tar.gz)    tar czf $elemento.tar.gz $elemento   ;;
+    bz2)       bzip2 -k $elemento   ;;
+    gz)        gzip -k $elemento    ;;
+    tar)       tar cf $elemento.tar $elemento    ;;
+    tbz2)      tar cjf $elemento.tar.bz2 $elemento   ;;
+    tgz)       tar czf $elemento.tar.gz $elemento   ;;
+    Z)         compress -k $elemento;;
+    7z)        7z a $elemento.7z $elemento      ;;
+    deb)       ar r $elemento.deb $elemento      ;;
+    tar.xz)    tar cJf $elemento.tar.xz $elemento    ;;
+    tar.zst)   tar cJf $elemento.tar.zst $elemento    ;;
+    *)         echo "Tipo de compresión no válido" ;;
+esac
+
+if [ ! $elemento ] ; then
+    echo "'$archivo' no es un archivo válido"
+fi

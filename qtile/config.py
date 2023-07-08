@@ -7,8 +7,7 @@ from libqtile.command import lazy
 from themes.colors import coloress
 from libqtile.log_utils import logger
 
-#mod4 or mod = super key
-mod = "mod4"
+mod = "mod4"  #mod4 or mod = super key
 mod1 = "alt"
 mod2 = "control"
 home = os.path.expanduser('~')
@@ -19,13 +18,11 @@ home = os.path.expanduser('~')
 
 keys = [Key(key[0], key[1], *key[2:]) for key in [
         # La mayoría de las combinaciones están en sxhkd, excepto estas...
-        # SUPER + FUNCTION KEYS
         ([mod], "f", lazy.window.toggle_fullscreen()),
-        ([mod], "q", lazy.window.kill()),
+        ([mod], "w", lazy.window.kill()),
+        ([mod, "shift"], "r", lazy.restart()),
 
         # SUPER + SHIFT KEYS
-        ([mod, "shift"], "q", lazy.window.kill()),
-        ([mod, "shift"], "r", lazy.restart()),
 
         # QTILE LAYOUT KEYS
         ([mod], "n", lazy.layout.normalize()),
@@ -141,8 +138,7 @@ def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
         if switch_screen == True:
             qtile.cmd_to_screen(i + 1)
 
-keys.extend([
-    # MOVE WINDOW TO NEXT SCREEN
+keys.extend([ # MOVE WINDOW TO NEXT SCREEN
     Key([mod,"shift"], "Right", lazy.function(window_to_next_screen, switch_screen=True)),
     Key([mod,"shift"], "Left", lazy.function(window_to_previous_screen, switch_screen=True)),
 ])
@@ -159,7 +155,6 @@ groups = [Group(name=n, layout=l.lower(), label=la) for n, l, la in zip(group_na
 
 for i in groups:
     keys.extend([
-
         #CAMBIAR ESPACIOS DE TRABAJO
         Key([mod], i.name, lazy.group[i.name].toscreen()),
         Key([mod], "Tab", lazy.screen.next_group()),
@@ -179,13 +174,12 @@ for i in groups:
 
 layout_config = { # Configuraciones de la ventana seleccionada
     "margin":5,
-    "border_width":2,
+    "border_width":1,
     "border_focus": coloress["blue2"][0],
     "border_normal": coloress["inactive"][0]
 }
 
-# Forma como se colocan las ventanas
-layouts = [layout.MonadTall(**layout_config)]
+layouts = [layout.MonadTall(**layout_config)]  # Forma como se colocan las ventanas
 
 floating_layout = layout.Floating(float_rules=[
     *layout.Floating.default_float_rules,
@@ -225,11 +219,9 @@ fuente = lambda ft="Mononoki Nerd Font", tam=16:{
     "fontsize": tam
 }
 
-def separator():
-    return widget.Sep(linewidth = 1, padding = 10, **base())
+separator = lambda: widget.Sep(linewidth = 1, padding = 10, **base())
 
-def work_spaces():
-    return [
+work_spaces = lambda: [
         widget.GroupBox(
             **base(),
             **fuente(ft="FontAwesome"),
@@ -270,30 +262,19 @@ widgets_list = [
 other_widgets_list = [
     *work_spaces(),
     separator(),
-    widget.CurrentLayout(font="Mononoki Nerd Font",**base("pink"),),
+    widget.CurrentLayout(font="Mononoki Nerd Font", **base("pink"),),
     separator(),
     widget.WindowName(**fuente(tam=12), **base("color5"),),
 ]
 
-screens = [Screen(top=bar.Bar(widgets=widgets_list, size=26, opacity=0.8)),]
+#################################################
+##################   SCREENS   ##################
+#################################################
 
-xrandr = "xrandr | grep -w 'connected' | cut -d ' ' -f 2 | wc -l"
-command = subprocess.run(
-    xrandr,
-    shell=True,
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-)
-if command.returncode != 0:
-    error = command.stderr.decode("UTF-8")
-    logger.error(f"Failed counting monitors using {xrandr}:\n{error}")
-    connected_monitors = 1
-else:
-    connected_monitors = int(command.stdout.decode("UTF-8"))
-
-if connected_monitors > 1:
-    for _ in range(1, connected_monitors):
-        screens.append(Screen(top=bar.Bar(widgets=other_widgets_list, size=26, opacity=0.8)))
+screens = [
+    Screen(top=bar.Bar(widgets=widgets_list, size=26, opacity=0.8)),
+    Screen(top=bar.Bar(widgets=other_widgets_list, size=26, opacity=0.8))
+]
 
 #############################################################
 ##################   MOUSE CONFIGURATION   ##################

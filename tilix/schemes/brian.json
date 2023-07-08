@@ -1,0 +1,36 @@
+{
+    "background-color": "#000000",
+    "badge-color": "#AC7EA8",
+    "bold-color": "#FFFFFF",
+    "comment": "",
+    "cursor-background-color": "#FFFFFF",
+    "cursor-foreground-color": "#FFFFFF",
+    "foreground-color": "#FFFFFF",
+    "highlight-background-color": "#000000",
+    "highlight-foreground-color": "#000000",
+    "name": "brian",
+    "palette": [
+        "#000000",
+        "#E9141E",
+        "#56db3a",
+        "#F6D32D",
+        "#3584E4",
+        "#D04EF7",
+        "#CCCCFF",
+        "#FFFFFF",
+
+        "#1B1D21",
+        "#E9141E",
+        "#56db3a",
+        "#F6D32D",
+        "#3584E4",
+        "#D04EF7",
+        "#3DCEEA",
+        "#FFFFFF"
+    ],
+    "use-badge-color": false,
+    "use-bold-color": false,
+    "use-cursor-color": false,
+    "use-highlight-color": false,
+    "use-theme-colors": false
+}
