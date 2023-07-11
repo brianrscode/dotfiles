@@ -1,4 +1,3 @@
-import os
 import subprocess
 from typing import List  # noqa: F401
 from libqtile import layout, bar, widget, hook
@@ -7,10 +6,12 @@ from libqtile.command import lazy
 from themes.colors import coloress
 from libqtile.log_utils import logger
 
-mod = "mod4"  #mod4 or mod = super key
+from os import path
+
+mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
-home = os.path.expanduser('~')
+qtile_path = path.join(path.expanduser('~'), ".config", "qtile")
 
 ############################################################
 ##################   Atajos de teclado    ##################
@@ -287,8 +288,7 @@ mouse = [
 
 @hook.subscribe.startup_once
 def start_once():
-    home = os.path.expanduser('~')
-    subprocess.call([home + '/.config/qtile/scripts/autostart.sh'])
+    subprocess.call([path.join(qtile_path, 'autostart.sh')])
 
 @hook.subscribe.startup
 def start_always():
@@ -303,11 +303,11 @@ def set_floating(window):
 floating_types = ["notification", "toolbar", "splash", "dialog"]
 
 main = None
+auto_fullscreen = True
+bring_front_click = True
+cursor_warp = False
 dgroups_key_binder = None
 dgroups_app_rules = []
+focus_on_window_activation = "smart"
 follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = False
-auto_fullscreen = True
-focus_on_window_activation = "focus" # or smart focus
 wmname = "LG3D"
