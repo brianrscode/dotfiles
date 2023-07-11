@@ -194,12 +194,43 @@ ex ()
   fi
 }
 
+co ()
+{
+  elemento=$1
+  tipo_compresion=$2
+  archivo=""
+  # echo $elemento
+  if [[ $elemento ]]; then
+      archivo="$(echo "$elemento" | cut -d'.' -f1 | cut -d'/' -f1)"
+  fi
+
+
+  case $tipo_compresion in
+      zip) zip -r "${archivo:-$elemento}.zip" "$elemento"    ;;
+      rar) rar a "${archivo:-$elemento}.rar" "$elemento"    ;;
+      tar)       tar cf $elemento.tar $elemento    ;;
+      bz2)       bzip2 -k $elemento   ;;
+      gz)        gzip -k $elemento    ;;
+      Z)         compress -k $elemento;;
+      7z)        7z a $elemento.7z $elemento      ;;
+      deb)       ar r $elemento.deb $elemento      ;;
+      tar.bz2 | tbz2)   tar cjf $elemento.tar.bz2 $elemento   ;;
+      tar.gz | tgz)    tar czf $elemento.tar.gz $elemento   ;;
+      tar.xz | tar.zst)    tar cJf $elemento.tar.xz $elemento    ;;
+      *)         echo "Tipo de compresión no válido" ;;
+  esac
+
+  if [ ! $elemento ] ; then
+      echo "'$archivo' no es un archivo válido"
+  fi
+}
+
 #git
 alias status="git status"
 alias add="git add ."
 alias commit="git commit"
 alias origin="git remote add origin"
-alias push="git push origin"
+alias push="git push origin main"
 alias rmgitcache="rm -r ~/.cache/git"
 alias grh="git reset --hard"
 

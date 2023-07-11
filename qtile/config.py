@@ -156,9 +156,9 @@ groups = [Group(name=n, layout=l.lower(), label=la) for n, l, la in zip(group_na
 for i in groups:
     keys.extend([
         #CAMBIAR ESPACIOS DE TRABAJO
-        Key([mod], i.name, lazy.group[i.name].toscreen()),
-        Key([mod], "Tab", lazy.screen.next_group()),
-        Key([mod, "shift" ], "Tab", lazy.screen.prev_group()),
+        # Key([mod], "Tab", lazy.screen.next_group()),
+        # Key([mod, "shift" ], "Tab", lazy.screen.prev_group()),
+        Key(["mod1"], i.name, lazy.group[i.name].toscreen()),
         Key(["mod1"], "Tab", lazy.screen.next_group()),
         Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
 
