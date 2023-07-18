@@ -1,11 +1,10 @@
 import subprocess
-from typing import List  # noqa: F401
+from typing import List
 from libqtile import layout, bar, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, Rule
 from libqtile.command import lazy
-from themes.colors import coloress
-from libqtile.log_utils import logger
 
+from themes.colors import coloress
 from os import path
 
 mod = "mod4"
@@ -22,8 +21,6 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
         ([mod], "f", lazy.window.toggle_fullscreen()),
         ([mod], "w", lazy.window.kill()),
         ([mod, "shift"], "r", lazy.restart()),
-
-        # SUPER + SHIFT KEYS
 
         # QTILE LAYOUT KEYS
         ([mod], "n", lazy.layout.normalize()),
@@ -85,7 +82,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
             lazy.layout.increase_nmaster(),
         ),
 
-        # DISEÑO FLIP PARA MONADTALL/MONADWIDE
+        # DISEÑO fullscreen PARA MONADTALL/MONADWIDE
         ([mod, "shift"], "f", lazy.layout.flip()),
 
         # FLIP LAYOUT FOR BSP
@@ -93,7 +90,6 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
         ([mod, "mod1"], "j", lazy.layout.flip_down()),
         ([mod, "mod1"], "l", lazy.layout.flip_right()),
         ([mod, "mod1"], "h", lazy.layout.flip_left()),
-
         # MOVE WINDOWS UP OR DOWN BSP LAYOUT
         ([mod, "shift"], "k", lazy.layout.shuffle_up()),
         ([mod, "shift"], "j", lazy.layout.shuffle_down()),
@@ -177,7 +173,7 @@ layout_config = { # Configuraciones de la ventana seleccionada
     "margin":5,
     "border_width":1,
     "border_focus": coloress["blue2"][0],
-    "border_normal": coloress["inactive"][0]
+    "border_normal": coloress["inactivo"][0]
 }
 
 layouts = [layout.MonadTall(**layout_config)]  # Forma como se colocan las ventanas
@@ -204,7 +200,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='nitrogen'),
     Match(wm_class='Galculator'),
     Match(wm_class='archlinux-logout'),
-], fullscreen_border_width = 0, border_width = 0)
+], fullscreen_border_width=0, border_width=0)
 
 #################################################################
 ##################   WIDGETS PARA LA BARRA    ###################
@@ -212,7 +208,7 @@ floating_layout = layout.Floating(float_rules=[
 
 base = lambda fg="color2", bg="color1":{
     "foreground": coloress[fg],
-    "background": coloress[bg]
+    "background": coloress[bg]  # background de la barra de qtile
 }
 
 fuente = lambda ft="Mononoki Nerd Font", tam=16:{
@@ -271,7 +267,6 @@ other_widgets_list = [
 #################################################
 ##################   SCREENS   ##################
 #################################################
-
 screens = [
     Screen(top=bar.Bar(widgets=widgets_list, size=26, opacity=0.8)),
     Screen(top=bar.Bar(widgets=other_widgets_list, size=26, opacity=0.8))
@@ -280,7 +275,6 @@ screens = [
 #############################################################
 ##################   MOUSE CONFIGURATION   ##################
 #############################################################
-
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
     Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size())
@@ -296,8 +290,7 @@ def start_always():
 
 @hook.subscribe.client_new
 def set_floating(window):
-    if (window.window.get_wm_transient_for()
-            or window.window.get_wm_type() in floating_types):
+    if (window.window.get_wm_transient_for() or window.window.get_wm_type() in floating_types):
         window.floating = True
 
 floating_types = ["notification", "toolbar", "splash", "dialog"]

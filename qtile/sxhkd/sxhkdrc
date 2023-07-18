@@ -1,8 +1,6 @@
 #################################################################
 # KEYBOARD BINDINGS FOR ANY TWM
-#################################################################
 
-#################################################################
 # SUPER + FUNCTION KEYS
 #################################################################
 
@@ -100,7 +98,7 @@ super + shift + s
 
 #arcolinux-welcome-app
 ctrl + alt + w
-     arcolinux-welcome-app
+    arcolinux-welcome-app
 
 #archlinux-tweak-tool
 ctrl + alt + e
@@ -108,7 +106,7 @@ ctrl + alt + e
 
 #conky-rotate
 ctrl + alt + Next
-     conky-rotate -n
+    conky-rotate -n
 
 #conky-rotate
 ctrl + alt + Prior
@@ -198,7 +196,7 @@ alt + e
 # CONTROL + SHIFT KEYS
 #################################################################
 
-#Xcfe4-TaskManager
+#Xcfe4-TaskManager -> administrador de tareas
 ctrl + shift + Escape
     xfce4-taskmanager
 
