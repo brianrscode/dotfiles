@@ -206,7 +206,7 @@ floating_layout = layout.Floating(float_rules=[
 ##################   WIDGETS PARA LA BARRA    ###################
 #################################################################
 
-base = lambda fg="color2", bg="color1":{
+base = lambda fg="white", bg="color1":{
     "foreground": coloress[fg],
     "background": coloress[bg]  # background de la barra de qtile
 }
@@ -217,6 +217,10 @@ fuente = lambda ft="Mononoki Nerd Font", tam=16:{
 }
 
 separator = lambda: widget.Sep(linewidth = 1, padding = 10, **base())
+
+icono = lambda ico="?", f="white", g="color1": widget.TextBox(**fuente(), **base(fg=f, bg=g), text=ico, padding=0)
+
+powerline = lambda f="white", g="color1": widget.TextBox(**fuente(tam=42), **base(fg=f, bg=g),text="", padding=-2)
 
 work_spaces = lambda: [
         widget.GroupBox(
@@ -241,20 +245,19 @@ widgets_list = [
     widget.CurrentLayout(font="Mononoki Nerd Font",**base("color5"),), # **base("pink"),
     separator(),
     widget.WindowName(**fuente(tam=12), **base("color5"),),
-    widget.OpenWeather(
-        **base(),
-        **fuente(),
-        app_key = "7834197c2338888258f8cb94ae14ef49",
-        location='Atlixco', format='{location_city}: {main_temp}°{units_temperature} {icon} - {weather_details}',
-        language="es",
-    ),
+    # widget.OpenWeather(
+    #     **base(),
+    #     **fuente(),
+    #     app_key = "7834197c2338888258f8cb94ae14ef49",
+    #     location='Atlixco', format='{location_city}: {main_temp}°{units_temperature} {icon} - {weather_details}',
+    #     language="es",
+    # ),
+    # separator(),
+    widget.Battery(**base("color5"), **fuente(), format='{char} {percent:2.0%}', notify_below=30),
     separator(),
-    widget.Battery(**base(), **fuente(), format='{char} {percent:2.0%}', notify_below=30,),
-    separator(),
-    # widget.TextBox(**fuente(tam=42), **base(fg="black"),text="", padding=-3,),
-    widget.TextBox(**fuente(), **base("color5"), text=" ",),
-    widget.Clock(**base("color5"), **fuente(), format="%d/%m/%Y - %H:%M"),
-    widget.Systray(background=coloress["color1"], icon_size=20, adding=4),
+    icono(" "),
+    widget.Clock(**base("color5"), **fuente(), format="%d/%m/%Y - %I:%M%p"),
+    widget.Systray(background=coloress["color1"], icon_size=20, padding=5),
 ]
 
 other_widgets_list = [
