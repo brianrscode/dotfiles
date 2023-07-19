@@ -3,6 +3,7 @@ coloress = {
     "white": ["#FFF", "#FFF"],
     "activo": ["#f1ffff", "#f1ffff"],
     "inactivo": ["#4c566a", "#4c566a"],
+    "gInactivo": ["#6B747A", "#6B747A"],
 
     "barra": ["#2F343F", "#2F343F"],
     "gSelec": ["#36c6ff", "#36c6ff"],
@@ -49,42 +50,35 @@ waifu1Completo = {
     "color19": "#46B8A4",
     "color20": "#348CAC"
 }
-waifu1Colorful = {
-    "primero": "#BF4158",
-    "segundo": "#038C8C",
-    "tercero": "#4AD9B0",
-    "cuarto": "#F29D35",
-    "quinto": "#F27166",
-}
-waifu1Bright = {
-    "primero": "#F24B59",
-    "segundo": "#F2295F",
-    "tercero": "#038C8C",
-    "cuarto": "#F29D35",
-    "quinto": "#F27166",
-}
-waifu1Mued = {
-    "primero": "#BF4158",
-    "segundo": "#038C8C",
-    "tercero": "#4AD9B0",
-    "cuarto": "#F2D9BB",
-    "quinto": "#F27166",
-}
-waifu1Deep = {
-    "primero": "#A63247",
-    "segundo": "#A63F65",
-    "tercero": "#038C8C",
-    "cuarto": "#F2D9BB",
-    "quinto": "#A6170A",
-}
-waifu1Dark = {
-    "primero": "#734854",
-    "segundo": "#A63F65",
-    "tercero": "#038C8C",
-    "cuarto": "#364035",
-    "quinto": "#59551D",
-}
 
+waifu1 = {
+    "black": ["#000", "#000"],
+    "white": ["#FFF", "#FFF"],
+    "activo": ["#f1ffff", "#f1ffff"],
+    "inactivo": ["#4c566a", "#4c566a"],
+    "gInactivo": ["#6B747A", "#6B747A"],
+
+    "barra": ["#0f101a", "#0f101a"],  # #0f101a
+    "gSelec": ["#4AD9B0", "#4AD9B0"],
+    "vFocus": ["#038C8C", "#038C8C"],
+    "wid1": "#4AD9B0",
+    "wid2": "#038C8C",
+    "wid3": "#0f101a",
+    # "CurrentLayout": "#FF6B9D", pink
+
+    # "primero": "#BF4158",
+    # "segundo": "#038C8C",-
+    # "tercero": "#4AD9B0",-
+    # "cuarto": "#F29D35",
+    # "quinto": "#F27166",-
+    # "primero": "#734854",
+    # "segundo": "#A63F65",
+    # "cuarto": "#364035",
+    # "quinto": "#59551D",
+    # "primero": "#F24B59",
+    # "segundo": "#F2295F",
+    # "cuarto": "#F2D9BB",
+}
 
 ##################################################
 ##################################################
@@ -115,40 +109,29 @@ waifu2Completo = {
     "color20": "#0A0B2C",
 }
 
-waifu2Colorful = {
-    "primero": "#0A2140",
-    "segundo": "#03658C",
-    "tercero": "#F2AB6D",
-    "cuarto": "#F2490C",
-    "quinto": "#D96459",
-}
-waifu2Bright = {
-    "primero": "#0A2140",
-    "segundo": "#0D4C73",
-    "tercero": "#F2921D",
-    "cuarto": "#F2490C",
-    "quinto": "#D95043",
-}
-waifu2Mued = {
-    "primero": "#0A2140",
-    "segundo": "#0D4C73",
-    "tercero": "#0388A6",
-    "cuarto": "#F2AB6D",
-    "quinto": "#D9AC9C",
-}
-waifu2Deep = {
-    "primero": "#00010D",
-    "segundo": "#0A2140",
-    "tercero": "#143D73",
-    "cuarto": "#0D4C73",
-    "quinto": "#D9AC9C",
-}
-waifu2Dark = {
-    "primero": "#00010D",
-    "segundo": "#0A2140",
-    "tercero": "#0D4C73",
-    "cuarto": "#03738C",
-    "quinto": "#733224",
+waifu2 = {
+    "black": ["#000", "#000"],
+    "white": ["#FFF", "#FFF"],
+    "activo": ["#f1ffff", "#f1ffff"],
+    "inactivo": ["#4c566a", "#4c566a"],
+    "gInactivo": ["#6B747A", "#6B747A"],
+
+    "barra": ["#0f101a", "#0f101a"],  # #0f101a
+    "gSelec": ["#3878B2", "#3878B2"],
+    "vFocus": ["#03738C", "#03738C"],
+    "wid1": "#03658C",
+    "wid2": "#0A2140",
+    "wid3": "#0B0A15",
+
+    # "segundo": "#0A2140",
+    # "primero": "#00010D",
+    # "tercero": "#0D4C73",
+    # "cuarto": "#03738C",
+    # "segundo": "#03658C",
+    # "tercero": "#F2AB6D",
+    # "cuarto": "#F2490C",
+    # "quinto": "#D96459",
+    # "tercero": "#F2921D",
 }
 
 
@@ -180,42 +163,27 @@ waifu3Completo = {
     "color19": "#261322",
     "color20": "#485364",
 }
-waifu3Colorful = {
-    "primero": "#BF213E",
-    "segundo": "#73123F",
-    "tercero": "#141A26",
-    "cuarto": "#D9A577",
-    "quinto": "#F2D4C2",
-}
-waifu3Bright = {
-    "primero": "#BF213E",
-    "segundo": "#D93B58",
-    "tercero": "#141A26",
-    "cuarto": "#3C4C59",
-    "quinto": "#F2DFCE",
-}
-waifu3Mued = {
-    "primero": "#BF213E",
-    "segundo": "#73123F",
-    "tercero": "#3C4C59",
-    "cuarto": "#D9A577",
-    "quinto": "#F2DFCE",
-}
-waifu3Deep = {
-    "primero": "#BF213E",
-    "segundo": "#73123F",
-    "tercero": "#141A26",
-    "cuarto": "#3C4C59",
-    "quinto": "#F2DFCE",
-}
-waifu3Dark = {
-    "primero": "#73123F",
-    "segundo": "#141A26",
-    "tercero": "#3C4C59",
-    "cuarto": "#F0F2F0",
-    "quinto": "#8C6658",
-}
 
+waifu3 = {
+    "black": ["#000", "#000"],
+    "white": ["#FFF", "#FFF"],
+    "activo": ["#f1ffff", "#f1ffff"],
+    "inactivo": ["#4c566a", "#4c566a"],
+    "gInactivo": ["#6B747A", "#6B747A"],
+
+    "barra": ["#131827", "#131827"],  # #0f101a
+    "gSelec": ["#D13649", "#D13649"],
+    "vFocus": ["#D9A577", "#D9A577"],
+    "wid1": "#D9A577",
+    "wid2": "#BF213E",
+    "wid3": "#141A26",
+
+    # "primero": "#BF213E",
+    # "segundo": "#73123F",
+    # "tercero": "#141A26",
+    # "cuarto": "#D9A577",
+    # "quinto": "#F2D4C2",
+}
 
 ##################################################
 ##################################################
@@ -245,38 +213,25 @@ waifu4Completo = {
     "color19": "#171B24",
     "color20": "#04090A",
 }
-waifu4Colorful = {
-    "primero": "#261014",
-    "segundo": "#D9A566",
-    "tercero": "#F2916D",
-    "cuarto": "#D96055",
-    "quinto": "#D92929",
-}
-waifu4Bright = {
-    "primero": "#68D918",
-    "segundo": "#D95E52",
-    "tercero": "#F21B1B",
-    "cuarto": "#D92929",
-    "quinto": "#0D0D0D",
-}
-waifu4Mued = {
-    "primero": "#D9A86C",
-    "segundo": "#F2E4D8",
-    "tercero": "#F2916D",
-    "cuarto": "#D96055",
-    "quinto": "#8C3B3B",
-}
-waifu4Deep = {
-    "primero": "#261014",
-    "segundo": "#080C59",
-    "tercero": "#D9A566",
-    "cuarto": "#8C3B3B",
-    "quinto": "#0D0D0D",
-}
-waifu4Dark = {
-    "primero": "#261014",
-    "segundo": "#0A0D40",
-    "tercero": "#1A2526",
-    "cuarto": "#012606",
-    "quinto": "#733939",
+waifu4 = {  # Waifu 1 rosa
+    "black": ["#000", "#000"],
+    "white": ["#FFF", "#FFF"],
+    "activo": ["#f1ffff", "#f1ffff"],
+    "inactivo": ["#4c566a", "#4c566a"],
+    "gInactivo": ["#6B747A", "#6B747A"],
+
+    "barra": ["#0f101a", "#0f101a"],  # #0f101a
+    "gSelec": ["#D96055", "#D96055"],
+    "vFocus": ["#D96055", "#D96055"],
+    "wid1": "#F2916D",
+    "wid2": "#D96055",
+    "wid3": "#0f101a",
+
+    # "primero": "#261014",
+    # "segundo": "#D9A566",
+    # "tercero": "#F2916D",
+    # "cuarto": "#D96055",
+    # "quinto": "#D92929",
+    # "tercero": "#F21B1B",
+
 }

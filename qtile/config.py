@@ -7,6 +7,7 @@ from libqtile.command import lazy
 from themes.colors import coloress
 from os import path
 
+coloress = coloress
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
@@ -232,7 +233,7 @@ work_spaces = lambda: [
             borderwidth = 0,
             disable_drag = True,
             active = coloress["activo"],
-            inactive = coloress["inactivo"],
+            inactive = coloress["gInactivo"],
             rounded = False,
             highlight_method = "text",
             this_current_screen_border=coloress["gSelec"][0],
@@ -267,7 +268,7 @@ widgets_list = [
 other_widgets_list = [
     *work_spaces(),
     separator(),
-    widget.CurrentLayout(font="Mononoki Nerd Font", **base("pink"),),
+    widget.CurrentLayout(font="Mononoki Nerd Font", **base(),),
     separator(),
     widget.WindowName(**fuente(tam=12), **base("white"),),
 ]
