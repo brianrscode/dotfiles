@@ -172,7 +172,7 @@ for i in groups:
 layout_config = { # Configuraciones de la ventana seleccionada
     "margin":5,
     "border_width":1,
-    "border_focus": coloress["blue2"][0],
+    "border_focus": coloress["vFocus"][0],
     "border_normal": coloress["inactivo"][0]
 }
 
@@ -206,7 +206,7 @@ floating_layout = layout.Floating(float_rules=[
 ##################   WIDGETS PARA LA BARRA    ###################
 #################################################################
 
-base = lambda fg="white", bg="color1":{
+base = lambda fg="white", bg="barra":{
     "foreground": coloress[fg],
     "background": coloress[bg]  # background de la barra de qtile
 }
@@ -218,9 +218,9 @@ fuente = lambda ft="Mononoki Nerd Font", tam=16:{
 
 separator = lambda: widget.Sep(linewidth = 1, padding = 10, **base())
 
-icono = lambda ico="?", f="white", g="color1": widget.TextBox(**fuente(), **base(fg=f, bg=g), text=ico, padding=0)
+icono = lambda ico="?", f="white", g="barra": widget.TextBox(**fuente(), **base(fg=f, bg=g), text=ico, padding=0)
 
-powerline = lambda f="white", g="color1": widget.TextBox(**fuente(tam=42), **base(fg=f, bg=g),text="", padding=-2)
+powerline = lambda f="white", g="barra": widget.TextBox(**fuente(tam=42), **base(fg=f, bg=g),text="", padding=-2)
 
 work_spaces = lambda: [
         widget.GroupBox(
@@ -231,20 +231,20 @@ work_spaces = lambda: [
             padding_x = 5,
             borderwidth = 0,
             disable_drag = True,
-            active = coloress["color9"],
-            inactive = coloress["color5"],
+            active = coloress["activo"],
+            inactive = coloress["inactivo"],
             rounded = False,
             highlight_method = "text",
-            this_current_screen_border=coloress["grupo"][0],
+            this_current_screen_border=coloress["gSelec"][0],
         ),
     ]
 
 widgets_list = [
     *work_spaces(),
     separator(),
-    widget.CurrentLayout(font="Mononoki Nerd Font",**base("color5"),), # **base("pink"),
+    widget.CurrentLayout(font="Mononoki Nerd Font", **base(),), # **base("pink"),
     separator(),
-    widget.WindowName(**fuente(tam=12), **base("color5"),),
+    widget.WindowName(**fuente(tam=12), **base(),),
     # widget.OpenWeather(
     #     **base(),
     #     **fuente(),
@@ -252,12 +252,16 @@ widgets_list = [
     #     location='Atlixco', format='{location_city}: {main_temp}°{units_temperature} {icon} - {weather_details}',
     #     language="es",
     # ),
-    # separator(),
-    widget.Battery(**base("color5"), **fuente(), format='{char} {percent:2.0%}', notify_below=30),
-    separator(),
-    icono(" "),
-    widget.Clock(**base("color5"), **fuente(), format="%d/%m/%Y - %I:%M%p"),
-    widget.Systray(background=coloress["color1"], icon_size=20, padding=5),
+    powerline(f="wid1"),  # Batería
+    icono(ico=" ", g="wid1"),
+    widget.Battery(**base(fg="white", bg="wid1"), **fuente(), format='{char} {percent:2.0%}', notify_below=30),
+    
+    powerline(f="wid2", g="wid1"),  # Fecha
+    icono(ico=" ", g="wid2"),
+    widget.Clock(**base(fg="white", bg="wid2"), **fuente(), format="%d/%m/%Y - %I:%M%p"),
+
+    powerline(f="wid3", g="wid2"),  # Systray
+    widget.Systray(background=coloress["wid3"], icon_size=20, padding=5),
 ]
 
 other_widgets_list = [
@@ -265,7 +269,7 @@ other_widgets_list = [
     separator(),
     widget.CurrentLayout(font="Mononoki Nerd Font", **base("pink"),),
     separator(),
-    widget.WindowName(**fuente(tam=12), **base("color5"),),
+    widget.WindowName(**fuente(tam=12), **base("white"),),
 ]
 
 #################################################
