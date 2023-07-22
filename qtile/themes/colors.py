@@ -1,4 +1,4 @@
-coloress = {
+noche = {
     "black": ["#000", "#000"],
     "white": ["#FFF", "#FFF"],
     "activo": ["#f1ffff", "#f1ffff"],
@@ -10,7 +10,9 @@ coloress = {
     "vFocus": ["#6272a4", "#6272a4"],
     "wid1": "#102C50",
     "wid2": "#041C3C",
-    "wid3": "#040414",
+    "wid3": "#051E31",
+    "wid4": "#040414",
+    "wid5": "#0f101a",
 
     "power2": "#F4C44C",
     "power5": "#04243C",
@@ -62,8 +64,10 @@ waifu1 = {
     "gSelec": ["#4AD9B0", "#4AD9B0"],
     "vFocus": ["#038C8C", "#038C8C"],
     "wid1": "#4AD9B0",
-    "wid2": "#038C8C",
-    "wid3": "#0f101a",
+    "wid2": "#25A4BC",
+    "wid3": "#038C8C",
+    "wid4": "#04878C",
+    "wid5": "#0f101a",
     # "CurrentLayout": "#FF6B9D", pink
 
     # "primero": "#BF4158",
@@ -78,6 +82,30 @@ waifu1 = {
     # "primero": "#F24B59",
     # "segundo": "#F2295F",
     # "cuarto": "#F2D9BB",
+}
+
+waifu1c = {
+    "black": ["#000", "#000"],
+    "white": ["#FFF", "#FFF"],
+    "activo": ["#f1ffff", "#f1ffff"],
+    "inactivo": ["#4c566a", "#4c566a"],
+    "gInactivo": ["#6B747A", "#6B747A"],
+
+    "barra": ["#0f101a", "#0f101a"],  # #0f101a
+    "gSelec": ["#4AD9B0", "#4AD9B0"],
+    "vFocus": ["#038C8C", "#038C8C"],
+    "wid1": "#F2916D",
+    "wid2": "#038C8C",
+    "wid3": "#D96055",
+    "wid4": "#04878C",
+    "wid5": "#0f101a",
+
+    # "primero": "#261014",
+    # "segundo": "#D9A566",
+    # "tercero": "#F2916D",
+    # "cuarto": "#D96055",
+    # "quinto": "#D92929",
+    # "tercero": "#F21B1B",
 }
 
 ##################################################
@@ -119,9 +147,11 @@ waifu2 = {
     "barra": ["#0f101a", "#0f101a"],  # #0f101a
     "gSelec": ["#3878B2", "#3878B2"],
     "vFocus": ["#03738C", "#03738C"],
-    "wid1": "#03658C",
-    "wid2": "#0A2140",
-    "wid3": "#0B0A15",
+    "wid1": "#3878B2",
+    "wid2": "#F2AB6D",
+    "wid3": "#0A2140",
+    "wid4": "#00010D", # 0B0A15
+    "wid5": "#0f101a",
 
     # "segundo": "#0A2140",
     # "primero": "#00010D",
@@ -174,9 +204,11 @@ waifu3 = {
     "barra": ["#131827", "#131827"],  # #0f101a
     "gSelec": ["#D13649", "#D13649"],
     "vFocus": ["#D9A577", "#D9A577"],
-    "wid1": "#D9A577",
-    "wid2": "#BF213E",
-    "wid3": "#141A26",
+    "wid1": "#F2D4C2",
+    "wid2": "#D13649",
+    "wid3": "#D9A577",
+    "wid4": "#BF213E",
+    "wid5": "#141A26",
 
     # "primero": "#BF213E",
     # "segundo": "#73123F",
@@ -223,9 +255,10 @@ waifu4 = {  # Waifu 1 rosa
     "barra": ["#0f101a", "#0f101a"],  # #0f101a
     "gSelec": ["#D96055", "#D96055"],
     "vFocus": ["#D96055", "#D96055"],
-    "wid1": "#F2916D",
-    "wid2": "#D96055",
-    "wid3": "#0f101a",
+    "wid2": "#F2916D",
+    "wid3": "#D96055",
+    "wid4": "#D92929",
+    "wid5": "#0f101a",
 
     # "primero": "#261014",
     # "segundo": "#D9A566",

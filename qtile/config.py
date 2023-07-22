@@ -4,10 +4,10 @@ from libqtile import layout, bar, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, Rule
 from libqtile.command import lazy
 
-from themes.colors import coloress
+from themes.colors import waifu1c
 from os import path
 
-coloress = coloress
+coloress = waifu1c
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
@@ -246,6 +246,9 @@ widgets_list = [
     widget.CurrentLayout(font="Mononoki Nerd Font", **base(),), # **base("pink"),
     separator(),
     widget.WindowName(**fuente(tam=12), **base(),),
+    powerline(f="wid2"),  # Batería
+    icono(ico=" ", g="wid2"),
+    widget.Pomodoro(**base(fg="white", bg="wid2"), **fuente(), color_inactive="#fff", color_active="#040414"),
     # widget.OpenWeather(
     #     **base(),
     #     **fuente(),
@@ -253,16 +256,16 @@ widgets_list = [
     #     location='Atlixco', format='{location_city}: {main_temp}°{units_temperature} {icon} - {weather_details}',
     #     language="es",
     # ),
-    powerline(f="wid1"),  # Batería
-    icono(ico=" ", g="wid1"),
-    widget.Battery(**base(fg="white", bg="wid1"), **fuente(), format='{char} {percent:2.0%}', notify_below=30),
+    powerline(f="wid3", g="wid2"),  # Batería
+    icono(ico=" ", g="wid3"),
+    widget.Battery(**base(fg="white", bg="wid3"), **fuente(), format='{char} {percent:2.0%}', notify_below=30),
     
-    powerline(f="wid2", g="wid1"),  # Fecha
-    icono(ico=" ", g="wid2"),
-    widget.Clock(**base(fg="white", bg="wid2"), **fuente(), format="%d/%m/%Y - %I:%M%p"),
+    powerline(f="wid4", g="wid3"),  # Fecha
+    icono(ico=" ", g="wid4"),
+    widget.Clock(**base(fg="white", bg="wid4"), **fuente(), format="%d/%m/%Y - %I:%M%p"),
 
-    powerline(f="wid3", g="wid2"),  # Systray
-    widget.Systray(background=coloress["wid3"], icon_size=20, padding=5),
+    powerline(f="wid5", g="wid4"),  # Systray
+    widget.Systray(background=coloress["wid5"], icon_size=20, padding=5),
 ]
 
 other_widgets_list = [
