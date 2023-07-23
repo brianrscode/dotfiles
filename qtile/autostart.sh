@@ -33,6 +33,7 @@ run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
 # Poder ver las conexiones a internet
 run nm-applet &
 run pamac-tray &
+run flameshot &
 run xfce4-power-manager &
 numlockx on &
 blueberry-tray &

@@ -5,6 +5,9 @@ set number nornu
 set guifont="Mononoki Nerd Font":16
 set splitbelow splitright
 
+" Elimina todos los espacios al final de una línea
+autocmd BufWritePre * :%s/\s\+$//e
+
 
 " colorscheme atom-dark-256
 let g:airline_theme='one'
