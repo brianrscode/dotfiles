@@ -1,27 +1,39 @@
 # Mis Dotfiles
 
 Este repositorio contiene la configuración de mis dotfiles, incluyendo la configuración de Qtile, terminal Tilix, Neofetch y Starship.rs.
-
+![Escritorio](/img/escritorio.png)
+![Escritorio](/img/escritorioApps.png)
 ## Requisitos
 
-Antes de comenzar, asegúrate de tener instalada la terminal Tilix y Starship.rs en tu sistema. Puedes seguir los siguientes pasos para instalarlos:
+Antes de comenzar, asegúrate de tener instalada la terminal Tilix, flameshot y Starship.rs en tu sistema. Puedes seguir los siguientes pasos para instalarlos:
 
 ### Terminal Tilix
 
 Sigue los pasos de instalación de Tilix según el sistema operativo que estés utilizando.
 
 Instalación en Arch y derivadas
-bash
+```bash
 sudo pacman -S tilix
+```
 
 Instalación en Fedora y derivadas
-bash
+```bash
 sudo dnf install tilix
+```
 
 Instalación en Ubuntu y derivadas
-bash
+```bash
 sudo apt-get install tilix
+```
+### Flameshot
+Es un software de captura de pantalla de código abierto. 
+Para instalarlo puedes seguir su guía de instalación para linux, windows o Mac
 
+https://flameshot.org/docs/installation/installation-linux/
+
+https://flameshot.org/docs/installation/installation-windows/
+
+https://flameshot.org/docs/installation/installation-osx/
 
 ### Starship.rs
 
