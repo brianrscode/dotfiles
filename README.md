@@ -1,34 +1,34 @@
-# Mis Dotfiles
+# Mis dotfiles
 
-Este repositorio contiene la configuración de mis dotfiles, incluyendo la configuración de Qtile, terminal Tilix, Neofetch y Starship.rs.
-![Escritorio](/img/escritorio.png)
-![Escritorio](/img/escritorioApps2.png)
-![Escritorio](/img/escritorioAppsFl.png)
+Este repositorio contiene la configuración de mis dotfiles, incluyendo la configuración de qtile, terminal tilix, neofetch y starship.rs.
+![escritorio](/img/escritorio.png)
+![escritorio](/img/escritorioApps2.png)
+![escritorio](/img/escritorioAppsFl.png)
 ## Requisitos
 
-Antes de comenzar, asegúrate de tener instalada la terminal Tilix, flameshot, neovim o vim y Starship.rs en tu sistema. Puedes seguir los siguientes pasos para instalarlos:
+Antes de comenzar, asegúrate de tener instalada la terminal tilix, flameshot, neovim o vim y starship.rs en tu sistema. puedes seguir los siguientes pasos para instalarlos:
 
-### Terminal Tilix
+### Terminal tilix
 
-Sigue los pasos de instalación de Tilix según el sistema operativo que estés utilizando.
+Sigue los pasos de instalación de tilix según el sistema operativo que estés utilizando.
 
-Instalación en Arch y derivadas
+Instalación en arch y derivadas
 ```bash
-sudo pacman -S tilix
+sudo pacman -s tilix
 ```
 
-Instalación en Fedora y derivadas
+Instalación en fedora y derivadas
 ```bash
 sudo dnf install tilix
 ```
 
-Instalación en Ubuntu y derivadas
+Instalación en ubuntu y derivadas
 ```bash
 sudo apt-get install tilix
 ```
 ### Flameshot
 Es un software de captura de pantalla de código abierto. 
-Para instalarlo puedes seguir su guía de instalación para linux, windows o Mac
+Para instalarlo puedes seguir su guía de instalación para linux, windows o mac
 
 https://flameshot.org/docs/installation/installation-linux/
 
@@ -38,22 +38,29 @@ https://flameshot.org/docs/installation/installation-osx/
 
 ### Starship.rs
 
-Sigue los pasos de instalación de Starship.rs según el sistema operativo que estés utilizando. Puedes encontrar más información en el repositorio oficial de Starship.rs: [https://starship.rs/](https://starship.rs/)
+Sigue los pasos de instalación de starship.rs según el sistema operativo que estés utilizando. Puedes encontrar más información en el repositorio oficial de starship.rs: [https://starship.rs/](https://starship.rs/)
 
 ### Neovim
-Para instalar neovim puedes seguir la [guía de instalación](https://github.com/neovim/neovim/wiki/Installing-Neovim) de la página oficial
+Para instalar neovim puedes seguir la [guía de instalación](https://github.com/neovim/neovim/wiki/installing-neovim) de la página oficial
 
-## Instalación y Uso
+## Instalación y uso
 
-Sigue estos pasos para utilizar mis dotfiles:
+### Instalación de Qtile
+Para instalar qtile puedes seguir los pasos de su [documentación](https://docs.qtile.org/en/stable/index.html)
+
+### Mis configuraciones
+Sigue los siguientes pasos para utilizar mi configuración de Qtile:
 
 1. Clona este repositorio en tu máquina:
+```bash
+https://github.com/brianrscode/dotfiles.git
+```
 
 2. Navega hasta el directorio del repositorio:
 
-3. Copia los archivos de configuración en sus ubicaciones correspondientes. Por ejemplo:
+3. Copia los archivos de mi configuración en sus ubicaciones correspondientes. Por ejemplo:
 
-   - Configuración de Qtile: copia la carpeta `qtile` en el directorio `~/.config/qtile/`.
+   - Configuración de Qtile: copia/sustituye la carpeta `qtile` en el directorio `~/.config/qtile/`.
    
 
 4. Reinicia las aplicaciones correspondientes para que los cambios surtan efecto.
