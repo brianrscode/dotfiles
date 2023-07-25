@@ -2,10 +2,11 @@
 
 Este repositorio contiene la configuración de mis dotfiles, incluyendo la configuración de Qtile, terminal Tilix, Neofetch y Starship.rs.
 ![Escritorio](/img/escritorio.png)
-![Escritorio](/img/escritorioApps.png)
+![Escritorio](/img/escritorioApps2.png)
+![Escritorio](/img/escritorioAppsFl.png)
 ## Requisitos
 
-Antes de comenzar, asegúrate de tener instalada la terminal Tilix, flameshot y Starship.rs en tu sistema. Puedes seguir los siguientes pasos para instalarlos:
+Antes de comenzar, asegúrate de tener instalada la terminal Tilix, flameshot, neovim o vim y Starship.rs en tu sistema. Puedes seguir los siguientes pasos para instalarlos:
 
 ### Terminal Tilix
 
@@ -39,6 +40,8 @@ https://flameshot.org/docs/installation/installation-osx/
 
 Sigue los pasos de instalación de Starship.rs según el sistema operativo que estés utilizando. Puedes encontrar más información en el repositorio oficial de Starship.rs: [https://starship.rs/](https://starship.rs/)
 
+### Neovim
+Para instalar neovim puedes seguir la [guía de instalación](https://github.com/neovim/neovim/wiki/Installing-Neovim) de la página oficial
 
 ## Instalación y Uso
 
