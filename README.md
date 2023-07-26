@@ -43,26 +43,18 @@ Sigue los pasos de instalación de starship.rs según el sistema operativo que e
 ### Neovim
 Para instalar neovim puedes seguir la [guía de instalación](https://github.com/neovim/neovim/wiki/installing-neovim) de la página oficial
 
-## Instalación y uso
 
-### Instalación de Qtile
+## Instalación de Qtile
 Para instalar qtile puedes seguir los pasos de su [documentación](https://docs.qtile.org/en/stable/index.html)
 
-### Mis configuraciones
-Sigue los siguientes pasos para utilizar mi configuración de Qtile:
 
-1. Clona este repositorio en tu máquina:
-```bash
-https://github.com/brianrscode/dotfiles.git
-```
-
-2. Navega hasta el directorio del repositorio:
-
-3. Copia los archivos de mi configuración en sus ubicaciones correspondientes. Por ejemplo:
-
-   - Configuración de Qtile: copia/sustituye la carpeta `qtile` en el directorio `~/.config/qtile/`.
-   
-
-4. Reinicia las aplicaciones correspondientes para que los cambios surtan efecto.
-
-¡Listo! Ahora deberías tener tu configuración de Qtile, Tilix y Neofetch aplicada en tu sistema.
+## Software
+### Básicos
+| Software                                                                                | Útilidad                 |   |   |   |
+|-----------------------------------------------------------------------------------------|--------------------------|---|---|---|
+| **[Libnotify](https://wiki.archlinux.org/title/Desktop_notifications#Standalone)**          | notificaciones           |   |   |   |
+| **[networkmanager](https://wiki.archlinux.org/index.php/NetworkManager)**                   | autoexplicativo          |   |   |   |
+| **[network-manager-applet](https://wiki.archlinux.org/index.php/NetworkManager#nm-applet)** | *networkManager* systray |   |   |   |
+| **[cbatticon](https://www.archlinux.org/packages/community/x86_64/cbatticon/)**                     | Battery systray                  |
+| **[volumeicon](https://www.archlinux.org/packages/community/x86_64/volumeicon/)**                   | Volume systray                   |
+| **[nitrogen](https://wiki.archlinux.org/index.php/Nitrogen)**                          | GUI for setting wallpapers |
