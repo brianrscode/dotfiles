@@ -225,12 +225,15 @@ co ()
   fi
 }
 
+# vim
+alias vi="nvim"
+
 #git
-alias status="git status"
-alias add="git add ."
-alias commit="git commit"
-alias origin="git remote add origin"
-alias push="git push origin main"
+alias gs="git status"
+alias ga="git add ."
+alias gc="git commit"
+alias gr="git remote add origin"
+alias gp="git push origin main"
 alias clone="git clone"
 alias rmgitcache="rm -r ~/.cache/git"
 alias grh="git reset --hard"
