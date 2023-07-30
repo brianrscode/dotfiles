@@ -243,23 +243,18 @@ work_spaces = lambda: [
 widgets_list = [
     *work_spaces(),
     separator(),
-    widget.CurrentLayout(font="Mononoki Nerd Font", **base(),), # **base("pink"),
+    widget.CurrentLayout(font="Mononoki Nerd Font", **base(),),
     separator(),
     widget.WindowName(**fuente(tam=12), **base(),),
-    powerline(f="wid2"),  # Batería
+
+    powerline(f="wid2"),  # Pomodoro
     icono(ico=" ", g="wid2"),
     widget.Pomodoro(**base(fg="white", bg="wid2"), **fuente(), color_inactive="#fff", color_active="#040414"),
-    # widget.OpenWeather(
-    #     **base(),
-    #     **fuente(),
-    #     app_key = "7834197c2338888258f8cb94ae14ef49",
-    #     location='Atlixco', format='{location_city}: {main_temp}°{units_temperature} {icon} - {weather_details}',
-    #     language="es",
-    # ),
+
     powerline(f="wid3", g="wid2"),  # Batería
     icono(ico=" ", g="wid3"),
     widget.Battery(**base(fg="white", bg="wid3"), **fuente(), format='{char} {percent:2.0%}', notify_below=30),
-    
+
     powerline(f="wid4", g="wid3"),  # Fecha
     icono(ico=" ", g="wid4"),
     widget.Clock(**base(fg="white", bg="wid4"), **fuente(), format="%d/%m/%Y - %I:%M%p"),

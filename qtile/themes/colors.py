@@ -1,10 +1,13 @@
-noche = {
+colores_comunes = {
     "black": ["#000", "#000"],
     "white": ["#FFF", "#FFF"],
     "activo": ["#f1ffff", "#f1ffff"],
     "inactivo": ["#4c566a", "#4c566a"],
     "gInactivo": ["#6B747A", "#6B747A"],
+}
 
+noche = {
+    **colores_comunes,
     "barra": ["#2F343F", "#2F343F"],
     "gSelec": ["#36c6ff", "#36c6ff"],
     "vFocus": ["#6272a4", "#6272a4"],
@@ -54,12 +57,7 @@ waifu1Completo = {
 }
 
 waifu1 = {
-    "black": ["#000", "#000"],
-    "white": ["#FFF", "#FFF"],
-    "activo": ["#f1ffff", "#f1ffff"],
-    "inactivo": ["#4c566a", "#4c566a"],
-    "gInactivo": ["#6B747A", "#6B747A"],
-
+    **colores_comunes,
     "barra": ["#0f101a", "#0f101a"],  # #0f101a
     "gSelec": ["#4AD9B0", "#4AD9B0"],
     "vFocus": ["#038C8C", "#038C8C"],
@@ -85,12 +83,7 @@ waifu1 = {
 }
 
 waifu1c = {
-    "black": ["#000", "#000"],
-    "white": ["#FFF", "#FFF"],
-    "activo": ["#f1ffff", "#f1ffff"],
-    "inactivo": ["#4c566a", "#4c566a"],
-    "gInactivo": ["#6B747A", "#6B747A"],
-
+    **colores_comunes,
     "barra": ["#0f101a", "#0f101a"],  # #0f101a
     "gSelec": ["#4AD9B0", "#4AD9B0"],
     "vFocus": ["#038C8C", "#038C8C"],
@@ -138,12 +131,7 @@ waifu2Completo = {
 }
 
 waifu2 = {
-    "black": ["#000", "#000"],
-    "white": ["#FFF", "#FFF"],
-    "activo": ["#f1ffff", "#f1ffff"],
-    "inactivo": ["#4c566a", "#4c566a"],
-    "gInactivo": ["#6B747A", "#6B747A"],
-
+    **colores_comunes,
     "barra": ["#0f101a", "#0f101a"],  # #0f101a
     "gSelec": ["#3878B2", "#3878B2"],
     "vFocus": ["#03738C", "#03738C"],
@@ -195,12 +183,7 @@ waifu3Completo = {
 }
 
 waifu3 = {
-    "black": ["#000", "#000"],
-    "white": ["#FFF", "#FFF"],
-    "activo": ["#f1ffff", "#f1ffff"],
-    "inactivo": ["#4c566a", "#4c566a"],
-    "gInactivo": ["#6B747A", "#6B747A"],
-
+    **colores_comunes,
     "barra": ["#131827", "#131827"],  # #0f101a
     "gSelec": ["#D13649", "#D13649"],
     "vFocus": ["#D9A577", "#D9A577"],
@@ -246,12 +229,7 @@ waifu4Completo = {
     "color20": "#04090A",
 }
 waifu4 = {  # Waifu 1 rosa
-    "black": ["#000", "#000"],
-    "white": ["#FFF", "#FFF"],
-    "activo": ["#f1ffff", "#f1ffff"],
-    "inactivo": ["#4c566a", "#4c566a"],
-    "gInactivo": ["#6B747A", "#6B747A"],
-
+    **colores_comunes,
     "barra": ["#0f101a", "#0f101a"],  # #0f101a
     "gSelec": ["#D96055", "#D96055"],
     "vFocus": ["#D96055", "#D96055"],

@@ -34,6 +34,7 @@ run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
 run nm-applet &
 run pamac-tray &
 run flameshot &
+run udiskie -t &  # Sirve para ver los usb conectados udisks2
 run xfce4-power-manager &
 numlockx on &
 blueberry-tray &
