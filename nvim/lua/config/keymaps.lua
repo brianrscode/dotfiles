@@ -1,4 +1,3 @@
--- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 
 --------------------------------------------------
@@ -22,7 +21,7 @@ end
 ----------------------
 ----------------------
 
--- Disable arrow keys
+-- Disable arrow keys in mode Insert and Read
 map("", "<up>", "<nop>")
 map("", "<down>", "<nop>")
 map("", "<left>", "<nop>")
@@ -42,3 +41,6 @@ map("n", "<C-k>", "10<C-y>") -- Sube 10 líneas
 
 map("n", "<leader>w", "<cmd>:w<CR>") -- "Espacio + w" guarda el documento
 map("n", "<leader>q", "<cmd>:q<CR>") -- "Espacio + q" cierra el documento
+
+map("n", "<leader>i", "A;<ENTER>") -- "Espacio + i" Agrega un ; al final de la línea y da un salto
+map("n", "<leader>o", "A{<ENTER>}<Esc>O") -- "Espacio + i" Agrega un { al final de la línea y da un salto

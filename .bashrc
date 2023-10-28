@@ -1,7 +1,7 @@
 ### EXPORT ###
 # -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-export EDITOR='code'  # Editor de código predeterminado
-export VISUAL='nano'  # Editor de texto predeterminado
+export EDITOR='code'                    # Editor de código predeterminado
+export VISUAL='nano'                    # Editor de texto predeterminado
 export HISTCONTROL=ignoreboth:erasedups # Controla el historial de comandos de bash. Los comandos duplicados no se guardaran en el historial ni los que comienzan con un espacio en blanco
 export PAGER='most'
 
@@ -14,12 +14,12 @@ PS1='[\[\e[96m\]\u\[\e[0m\]@\h \w \[\e[96;1m\]$(git branch 2>/dev/null | colrm 1
 # Verifica que los directorios existan, de ser cierto, los agrega al inicio de la variable entorno PATH
 # Esto permite que los ejecutables ubicados en esos directorios sean encontrados y ejecutados desde
 # cualquier ubicación del sistema
-if [ -d "$HOME/.bin" ] ;
-  then PATH="$HOME/.bin:$PATH"
+if [ -d "$HOME/.bin" ]; then
+	PATH="$HOME/.bin:$PATH"
 fi
 
-if [ -d "$HOME/.local/bin" ] ;
-  then PATH="$HOME/.local/bin:$PATH"
+if [ -d "$HOME/.local/bin" ]; then
+	PATH="$HOME/.local/bin:$PATH"
 fi
 
 # ignorar mayúsculas y minúsculas al completar un comando de shell bashh
@@ -44,10 +44,10 @@ alias spsii='sudo pacman -Sii'
 # -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 # muestra la lista de paquetes que necesitan este paquete - depende de mpv como ejemplo
-function_depends()  {
-    search=$(echo "$1")
-    sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
-  }
+function_depends() {
+	search=$(echo "$1")
+	sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
+}
 
 alias depends='function_depends'
 
@@ -128,11 +128,11 @@ alias vbm="sudo /usr/local/bin/arcolinux-vbox-share"
 
 # -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 #shopt
-shopt -s autocd # permite ingresar a directorios sin usar cd
-shopt -s cdspell # corrige errores tipográficos en los nombres de directorios al usar cd
-shopt -s cmdhist # habilita la característica de historial de comandos mejorada
-shopt -s dotglob # el patrón * en nombres de archivos coincidrá también con archivos ocultos
-shopt -s histappend # asegura que el historias de commandos se añada aun archivo existente en vez de sobreescribir
+shopt -s autocd         # permite ingresar a directorios sin usar cd
+shopt -s cdspell        # corrige errores tipográficos en los nombres de directorios al usar cd
+shopt -s cmdhist        # habilita la característica de historial de comandos mejorada
+shopt -s dotglob        # el patrón * en nombres de archivos coincidrá también con archivos ocultos
+shopt -s histappend     # asegura que el historias de commandos se añada aun archivo existente en vez de sobreescribir
 shopt -s expand_aliases # permite la expación de alias en la línea de comando-------------------------
 # -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 # descarga de youtube
@@ -169,72 +169,72 @@ alias xdw="ls /usr/share/wayland-sessions"
 
 # # ex = Extractor para todo tipo de archivos.
 # # uso: ex <archivo>
-ex ()
-{
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1   ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *.deb)       ar x $1      ;;
-      *.tar.xz)    tar xf $1    ;;
-      *.tar.zst)   tar xf $1    ;;
-      *)           echo "'$1' no se puede extraer via ex()" ;;
-    esac
-  else
-    echo "'$1' no es un archivo valido"
-  fi
+ex() {
+	if [ -f $1 ]; then
+		case $1 in
+		*.tar.bz2) tar xjf $1 ;;
+		*.tar.gz) tar xzf $1 ;;
+		*.bz2) bunzip2 $1 ;;
+		*.rar) unrar x $1 ;;
+		*.gz) gunzip $1 ;;
+		*.tar) tar xf $1 ;;
+		*.tbz2) tar xjf $1 ;;
+		*.tgz) tar xzf $1 ;;
+		*.zip) unzip $1 ;;
+		*.Z) uncompress $1 ;;
+		*.7z) 7z x $1 ;;
+		*.deb) ar x $1 ;;
+		*.tar.xz) tar xf $1 ;;
+		*.tar.zst) tar xf $1 ;;
+		*) echo "'$1' no se puede extraer via ex()" ;;
+		esac
+	else
+		echo "'$1' no es un archivo valido"
+	fi
 }
 
-co ()
-{
-  elemento=$1
-  tipo_compresion=$2
-  archivo=""
-  # echo $elemento
-  if [[ $elemento ]]; then
-      archivo="$(echo "$elemento" | cut -d'.' -f1 | cut -d'/' -f1)"
-  fi
+co() {
+	elemento=$1
+	tipo_compresion=$2
+	archivo=""
+	# echo $elemento
+	if [[ $elemento ]]; then
+		archivo="$(echo "$elemento" | cut -d'.' -f1 | cut -d'/' -f1)"
+	fi
 
+	case $tipo_compresion in
+	zip) zip -r "${archivo:-$elemento}.zip" "$elemento" ;;
+	rar) rar a "${archivo:-$elemento}.rar" "$elemento" ;;
+	tar) tar cf $elemento.tar $elemento ;;
+	bz2) bzip2 -k $elemento ;;
+	gz) gzip -k $elemento ;;
+	Z) compress -k $elemento ;;
+	7z) 7z a $elemento.7z $elemento ;;
+	deb) ar r $elemento.deb $elemento ;;
+	tar.bz2 | tbz2) tar cjf $elemento.tar.bz2 $elemento ;;
+	tar.gz | tgz) tar czf $elemento.tar.gz $elemento ;;
+	tar.xz | tar.zst) tar cJf $elemento.tar.xz $elemento ;;
+	*) echo "Tipo de compresión no válido" ;;
+	esac
 
-  case $tipo_compresion in
-      zip) zip -r "${archivo:-$elemento}.zip" "$elemento"    ;;
-      rar) rar a "${archivo:-$elemento}.rar" "$elemento"    ;;
-      tar)       tar cf $elemento.tar $elemento    ;;
-      bz2)       bzip2 -k $elemento   ;;
-      gz)        gzip -k $elemento    ;;
-      Z)         compress -k $elemento;;
-      7z)        7z a $elemento.7z $elemento      ;;
-      deb)       ar r $elemento.deb $elemento      ;;
-      tar.bz2 | tbz2)   tar cjf $elemento.tar.bz2 $elemento   ;;
-      tar.gz | tgz)    tar czf $elemento.tar.gz $elemento   ;;
-      tar.xz | tar.zst)    tar cJf $elemento.tar.xz $elemento    ;;
-      *)         echo "Tipo de compresión no válido" ;;
-  esac
-
-  if [ ! $elemento ] ; then
-      echo "'$archivo' no es un archivo válido"
-  fi
+	if [ ! $elemento ]; then
+		echo "'$archivo' no es un archivo válido"
+	fi
 }
 
 # vim
 alias vi="nvim"
 
 #git
-alias gs="git status"
-alias ga="git add ."
-alias gc="git commit"
-alias gr="git remote add origin"
-alias gp="git push origin main"
-alias clone="git clone"
+alias gi="git init"              # Inicializa un nuevo repositorio
+alias gs="git status"            # Muestra el estado del repositorio actual
+alias ga="git add ."             # Agrega los nuevos cambios al repositorio actual
+alias gc="git commit"            # Agrega el nuevo commit al repositorio actual
+alias gr="git remote add origin" # Agrega un repositorio remoto
+alias gp="git push origin main"  # Manda los cambios al repositorio remoto
+alias gpu="git pull origin main" # Trae los cambios de un repositorio remoto a mi repositorio local
+alias clone="git clone"          # Clona un repositorio
+alias gt="git tree"              # Muestra los commits hechos en el tiempo en forma de rama
 alias rmgitcache="rm -r ~/.cache/git"
 alias grh="git reset --hard"
 
