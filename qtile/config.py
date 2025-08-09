@@ -6,11 +6,10 @@ from libqtile.lazy import lazy
 from os import path
 from libqtile.utils import guess_terminal
 
-from themes.colors import noche
+from themes.colors import coloress
 
 terminal = guess_terminal()
 
-coloress = noche
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
@@ -149,7 +148,8 @@ keys.extend([
 ##################   Grupos     ##################
 ##################################################
 
-group_labels = [" ", " ", "", "", " ", "󰍳 "]
+# group_labels = [" ", " ", "", "", " ", "󰍳 "]
+group_labels = ["", "", "", "", "", ""]
 group_names = [str(i + 1) for i in range(len(group_labels))]
 group_layouts = ["monadtall"] * len(group_labels)
 
@@ -226,11 +226,7 @@ widgets_list = [
     separator(),
     widget.WindowName(**fuente(tam=12), **base()),
 
-    powerline(f="wid2"),
-    icono(ico=" ", g="wid2"),
-    widget.Pomodoro(**base(fg="white", bg="wid2"), **fuente(), color_inactive="#fff", color_active="#040414"),
-
-    powerline(f="wid3", g="wid2"),
+    powerline(f="wid3"),
     icono(ico=" ", g="wid3"),
     widget.Battery(**base(fg="white", bg="wid3"), **fuente(), format='{char} {percent:2.0%}', notify_below=30),
 
@@ -255,8 +251,8 @@ other_widgets_list = [
 #################################################
 
 screens = [
-    Screen(top=bar.Bar(widgets=widgets_list, size=26, opacity=0.8)),
-    Screen(top=bar.Bar(widgets=other_widgets_list, size=26, opacity=0.8))
+    Screen(bottom=bar.Bar(widgets=widgets_list, size=26, opacity=0.8)),
+    Screen(bottom=bar.Bar(widgets=other_widgets_list, size=26, opacity=0.8))
 ]
 
 #############################################################

@@ -66,5 +66,10 @@ waifu4 = {  # Waifu 1 rosa
     **widgets("#F2916D", "#C37C66", "#D96055", "#D92929"),
 }
 
+mocha = {
+    **colores_comunes,
+    **barra_y_borders(barra=["#1e1e2e", "#1e1e2e"]),
+    **widgets("#9399b2", "#7f849c", "#45475a", "#313244"),
+}
 
-coloress = waifu1c
+coloress = mocha
