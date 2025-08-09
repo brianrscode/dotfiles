@@ -24,8 +24,6 @@ function run {
 # cambia tu teclado si lo necesitas
 # setxkbmap es -----------------------------------------------------------------------
 
-#autostart ArcoLinux Welcome App
-run dex $HOME/.config/autostart/arcolinux-welcome-app.desktop &
 
 # inicie sxhkd para reemplazar las combinaciones de teclas nativas de Qtile
 run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
