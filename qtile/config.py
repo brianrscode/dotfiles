@@ -30,17 +30,10 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "n", lazy.layout.normalize()),
     ([mod], "space", lazy.next_layout()),
 
-    # CAMBIAR ENFOQUE
-    ([mod], "Up", lazy.layout.up()),
-    ([mod], "Down", lazy.layout.down()),
-    ([mod], "Left", lazy.layout.left()),
-    ([mod], "Right", lazy.layout.right()),
-    ([mod], "k", lazy.layout.up()),
-    ([mod], "j", lazy.layout.down()),
-    ([mod], "h", lazy.layout.left()),
-    ([mod], "l", lazy.layout.right()),
-
-    # REDIMENSIONAR
+    # TOGGLE FLOATING
+    ([mod, "shift"], "space", lazy.window.toggle_floating()),
+    
+     # REDIMENSIONAR
     ([mod, "control"], "l",
         lazy.layout.grow_right(),
         lazy.layout.grow(),
@@ -85,31 +78,23 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
         lazy.layout.shrink(),
         lazy.layout.increase_nmaster(),
     ),
-
-    # FLIP LAYOUT
-    ([mod, "shift"], "f", lazy.layout.flip()),
-
-    # FLIP BSP
-    ([mod, "mod1"], "k", lazy.layout.flip_up()),
-    ([mod, "mod1"], "j", lazy.layout.flip_down()),
-    ([mod, "mod1"], "l", lazy.layout.flip_right()),
-    ([mod, "mod1"], "h", lazy.layout.flip_left()),
-
-    # MOVER VENTANAS BSP
-    ([mod, "shift"], "k", lazy.layout.shuffle_up()),
-    ([mod, "shift"], "j", lazy.layout.shuffle_down()),
-    ([mod, "shift"], "h", lazy.layout.shuffle_left()),
-    ([mod, "shift"], "l", lazy.layout.shuffle_right()),
-
-    # MOVER VENTANAS MONADTALL/MONADWIDE
-    ([mod, "shift"], "Up", lazy.layout.shuffle_up()),
-    ([mod, "shift"], "Down", lazy.layout.shuffle_down()),
-    ([mod, "shift"], "Left", lazy.layout.swap_left()),
-    ([mod, "shift"], "Right", lazy.layout.swap_right()),
-
-    # TOGGLE FLOATING
-    ([mod, "shift"], "space", lazy.window.toggle_floating()),
 ]]
+
+# Movimiento entre ventanas
+directions = [("h", "left"), ("l", "right"), ("j", "down"), ("k", "up")]
+for key, dir in directions:
+    keys.append(Key([mod], key, lazy.layout.__getattr__(dir)()))
+    keys.append(Key([mod], dir.capitalize(), lazy.layout.__getattr__(dir)()))
+
+# Redimensionar
+# resize = [("h", "grow_left"), ("l", "grow_right"), ("j", "grow_down"), ("k", "grow_up")]
+# for key, action in resize:
+#     keys.append(Key([mod, "control"], key, lazy.layout.__getattr__(action)()))
+#     keys.append(Key([mod, "control"], action.split("_")[-1].capitalize(), lazy.layout.__getattr__(action)()))
+
+# Shuffle ventanas
+for key, dir in directions:
+    keys.append(Key([mod, "shift"], key, lazy.layout.__getattr__(f"shuffle_{dir}")()))
 
 @lazy.function
 def window_to_prev_group(qtile):
@@ -123,7 +108,8 @@ def window_to_next_group(qtile):
         i = qtile.groups.index(qtile.current_group)
         qtile.current_window.togroup(qtile.groups[i + 1].name)
 
-def window_to_previous_screen(qtile, switch_group=False, switch_screen=False):
+@lazy.function
+def window_to_previous_screen(qtile, switch_group=True, switch_screen=True):
     i = qtile.screens.index(qtile.current_screen)
     if i != 0:
         group = qtile.screens[i - 1].group.name
@@ -131,7 +117,8 @@ def window_to_previous_screen(qtile, switch_group=False, switch_screen=False):
         if switch_screen:
             qtile.cmd_to_screen(i - 1)
 
-def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
+@lazy.function
+def window_to_next_screen(qtile, switch_group=True, switch_screen=True):
     i = qtile.screens.index(qtile.current_screen)
     if i + 1 != len(qtile.screens):
         group = qtile.screens[i + 1].group.name
@@ -139,9 +126,10 @@ def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
         if switch_screen:
             qtile.cmd_to_screen(i + 1)
 
-keys.extend([
-    Key([mod, "shift"], "Right", lazy.function(window_to_next_screen, switch_screen=True)),
-    Key([mod, "shift"], "Left", lazy.function(window_to_previous_screen, switch_screen=True)),
+
+keys.extend([  # Cambiar entre pantallas
+    Key([mod, "shift"], "Left", window_to_previous_screen),
+    Key([mod, "shift"], "Right", window_to_next_screen),
 ])
 
 ##################################################
@@ -157,10 +145,10 @@ groups = [Group(name=n, layout=l.lower(), label=la) for n, l, la in zip(group_na
 
 for i in groups:
     keys.extend([
-        Key(["mod1"], i.name, lazy.group[i.name].toscreen()),
-        Key(["mod1"], "Tab", lazy.screen.next_group()),
-        Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.group[i.name].toscreen()),
+        Key([mod], i.name, lazy.group[i.name].toscreen()), # Ir al grupo i
+        Key([mod], "Tab", lazy.screen.next_group()),  # Siguiente grupo
+        Key([mod, "shift"], "Tab", lazy.screen.prev_group()),  # Anteriror grupo
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.group[i.name].toscreen()),  # Mover la ventana al grupo i
     ])
 
 ##################################################
@@ -168,8 +156,8 @@ for i in groups:
 ##################################################
 
 layout_config = {
-    "margin": 5,
-    "border_width": 1,
+    "margin": 2,
+    "border_width": 2,
     "border_focus": coloress["vFocus"][0],
     "border_normal": coloress["inactivo"][0]
 }
@@ -202,7 +190,7 @@ separator = lambda: widget.Sep(linewidth=1, padding=10, **base())
 icono = lambda ico="?", f="white", g="barra": widget.TextBox(**fuente(), **base(fg=f, bg=g), text=ico, padding=0)
 powerline = lambda f="white", g="barra": widget.TextBox(**fuente(tam=42), **base(fg=f, bg=g), text="", padding=-2)
 
-work_spaces = lambda: [
+work_spaces = lambda color=coloress["gSelec"][0]: [
     widget.GroupBox(
         **base(),
         **fuente(ft="FontAwesome"),
@@ -215,11 +203,12 @@ work_spaces = lambda: [
         inactive=coloress["gInactivo"],
         rounded=False,
         highlight_method="text",
-        this_current_screen_border=coloress["gSelec"][0],
+        this_current_screen_border=color,
     ),
 ]
 
-widgets_list = [
+
+bar_1 = [
     *work_spaces(),
     separator(),
     widget.CurrentLayout(font="Mononoki Nerd Font", **base()),
@@ -238,8 +227,8 @@ widgets_list = [
     widget.Systray(background=coloress["wid5"], icon_size=20, padding=5),
 ]
 
-other_widgets_list = [
-    *work_spaces(),
+bar_2 = [
+    *work_spaces(color="#ffb347"),
     separator(),
     widget.CurrentLayout(font="Mononoki Nerd Font", **base()),
     separator(),
@@ -251,8 +240,8 @@ other_widgets_list = [
 #################################################
 
 screens = [
-    Screen(bottom=bar.Bar(widgets=widgets_list, size=26, opacity=0.8)),
-    Screen(bottom=bar.Bar(widgets=other_widgets_list, size=26, opacity=0.8))
+    Screen(bottom=bar.Bar(widgets=bar_1, size=26, opacity=0.9)),
+    Screen(bottom=bar.Bar(widgets=bar_2, size=26, opacity=0.9))
 ]
 
 #############################################################

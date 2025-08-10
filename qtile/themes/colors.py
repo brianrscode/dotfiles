@@ -72,4 +72,18 @@ mocha = {
     **widgets("#9399b2", "#7f849c", "#45475a", "#313244"),
 }
 
-coloress = mocha
+temas = {
+    "noche": noche,
+    "waifu1": waifu1,
+    "waifu1c": waifu1c,
+    "waifu2": waifu2,
+    "waifu3": waifu3,
+    "waifu4": waifu4,
+    "mocha": mocha,
+}
+
+def get_tema(nombre="mocha"):
+    return temas.get(nombre, mocha)
+
+
+coloress = get_tema("mocha")

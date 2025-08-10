@@ -15,15 +15,13 @@ function run {
 # Establezca su resolución nativa SI no existe en xrandr
 
 # Averigüe el nombre de su monitor con xrandr o arandr (guarde y obtendrá esta línea)
-#xrandr --output Virtual1 --primary --mode 1360x768 --pos 0x0 --rotate normal
-#xrandr --output DP2 --primary --mode 1920x1080 --rate 60.00 --output LVDS1 --off &
-#xrandr --output LVDS1 --mode 1366x768 --output DP3 --mode 1920x1080 --right-of LVDS1
-#xrandr --output HDMI2 --mode 1920x1080 --pos 1920x0 --rotate normal --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off
 #autorandr horizontal
+
+
+xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x768 --rotate normal --output HDMI-1 --mode 1366x768 --pos 0x0 --rotate normal
 
 # cambia tu teclado si lo necesitas
 # setxkbmap es -----------------------------------------------------------------------
-
 
 # inicie sxhkd para reemplazar las combinaciones de teclas nativas de Qtile
 run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
@@ -36,8 +34,7 @@ run udiskie -t &  # Sirve para ver los usb conectados udisks2
 run xfce4-power-manager &
 numlockx on &
 blueberry-tray &
-picom --config $HOME/.config/qtile/scripts/picom.conf &
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+picom --config $HOME/.config/qtile/scripts/picom.conf &1
 
 # Muestra el icono de volumen en la barra
 run volumeicon &
