@@ -33,9 +33,6 @@ def openHtop():
 def openMenu():
     qtile.cmd_spawn(powerMenu)
 
-# def powerMenu():
-#     qtile.cmd_spawn("archlinux-logout")
-
 def init_colors():
     return [
         ["#2e3440", "#2e3440"],  # 0 background
@@ -53,6 +50,7 @@ def init_colors():
         ["#8fbcbb", "#8fbcbb"],  # 12 super cyan
         ["#5e81ac", "#5e81ac"],  # 13 super blue
         ["#242831", "#242831"],  # 14 super dark background
+        ["#00000000", "#00000000"],  # 15 transparent (2)
     ]
 
 colors = init_colors()
@@ -224,17 +222,23 @@ floating_layout = layout.Floating(float_rules=[
 ##################   WIDGETS PARA LA BARRA    ###################
 #################################################################
 
+base = lambda fg=colors[14], bg=colors[2], fs=26: {
+    "foreground": fg,
+    "background": bg,
+    "fontsize": fs,
+}
+pwl_i = lambda: widget.TextBox(text=left, **base(), padding=-1)
+pwl_d = lambda: widget.TextBox(text=right, **base())
+
 def init_widgets_defaults():
     return dict(
         font="Noto Sans Bold", 
-        fontsize=12, 
         padding=0,
-        background=colors[2], 
-        foreground=colors[14]
+        **base(fs=12),
+        margin=2,
     )
 
 widget_defaults = init_widgets_defaults()
-
 
 def init_widgets_list():
     widgets = [
@@ -247,10 +251,9 @@ def init_widgets_list():
 
         widget.Spacer(length=10),
 
-        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        pwl_i(),
         widget.GroupBox(
             font="FontAwesome",
-            fontsize=12,
             margin_y=0,
             margin_x=0,
             padding_y=0,
@@ -267,28 +270,25 @@ def init_widgets_list():
             this_screen_border=colors[4],
             other_current_screen_border=colors[14],
             other_screen_border=colors[14],
-            foreground=colors[1],
-            background=colors[14],
+            **base(fg=colors[1], bg=colors[14], fs=12),
         ),
-        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+        pwl_d(),
 
         widget.Spacer(length=20),
 
-        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        pwl_i(),
         widget.WindowName(
             font="Noto Sans Bold",
-            fontsize=10,
-            foreground=colors[1],
-            background=colors[14],
+            **base(fg=colors[1], bg=colors[14], fs=10),
             width=bar.CALCULATED,
             empty_group_string="Desktop",
             max_chars=80,
         ),
-        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+        pwl_d(),
 
         widget.Spacer(),
 
-        # widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=18),
+        # pwl_i(),
         # widget.TextBox(text="  ", foreground=colors[13], background=colors[14], fontsize=16, mouse_callbacks={"Button1": openHtop}),
         # widget.TextBox(text=" CPU ", foreground=colors[1], background=colors[14], fontsize=12),
         # widget.ThermalSensor(
@@ -319,46 +319,50 @@ def init_widgets_list():
         #     foreground=colors[1],
         #     background=colors[14],
         # ),
-        # widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=18),
+        # pwl_d(),
 
-        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
-        widget.TextBox(text=" ", foreground=colors[13], background=colors[14], fontsize=18, mouse_callbacks={"Button1": openCalendar}),
+        pwl_i(),
+        widget.TextBox(text=" ", **base(fg=colors[13], bg=colors[14], fs=18), mouse_callbacks={"Button1": openCalendar}),
         widget.Clock(
             format=" %a-%d | %H:%M ",
-            foreground=colors[1],
-            background=colors[14],
-            fontsize=12,
+            **base(fg=colors[1], bg=colors[14], fs=12),
             mouse_callbacks={"Button1": openCalendar},
         ),
-        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+        pwl_d(),
 
-        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
-        widget.TextBox(text=" ", foreground=colors[1], background=colors[14], fontsize=18),
+        widget.Spacer(length=3),
+
+        pwl_i(),
+        widget.TextBox(text=" ", **base(fg=colors[1], bg=colors[14], fs=18)),
         widget.Backlight(backlight_name="intel_backlight", background=colors[14], foreground=colors[1]),
-        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+        pwl_d(),
 
-        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
-        widget.TextBox(text=" ", foreground=colors[1], background=colors[14], fontsize=18, mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("pavucontrol")}),
+        widget.Spacer(length=3),
+
+        pwl_i(),
+        widget.TextBox(text=" ", **base(fg=colors[1], bg=colors[14], fs=18), mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("pavucontrol")}),
         widget.Volume(background=colors[14], foreground=colors[1], padding=0),
-        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+        pwl_d(),
 
-        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
-        widget.Battery(
-            format="{char} {percent:2.0%}",
-            #format="{char} {percent:2.0%} {hour:d}:{min:02d}",
-            charge_char=" 󰢝 ",
-            discharge_char=" 󰁾 ",
-            full_char=" 󰁹 ",
-            show_short_text=False,
-            foreground=colors[1],
-            background=colors[14],
-            update_interval=5,
-        ),
-        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+        widget.Spacer(length=3),
 
-        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        # pwl_i(),
+        # widget.Battery(
+        #     format="{char} {percent:2.0%}",
+        #     #format="{char} {percent:2.0%} {hour:d}:{min:02d}",
+        #     charge_char=" 󰢝 ",
+        #     discharge_char=" 󰁾 ",
+        #     full_char=" 󰁹 ",
+        #     show_short_text=False,
+        #     foreground=colors[1],
+        #     background=colors[14],
+        #     update_interval=5,
+        # ),
+        # pwl_d(),
+
+        pwl_i(),
         widget.Systray(background=colors[14], icon_size=15, padding=5),
-        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+        pwl_d(),
 
         widget.Spacer(length=5),
     ]
@@ -368,7 +372,7 @@ widgets_list = init_widgets_list()
 
 def init_screens():
     return [
-        Screen(top=bar.Bar(widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2], opacity=1.0))
+        Screen(top=bar.Bar(widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2], opacity=1.0)) # 2
     ]
 
 screens = init_screens()

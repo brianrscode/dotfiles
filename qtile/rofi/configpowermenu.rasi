@@ -100,5 +100,4 @@ button.selected {
 }
 inputbar {
     enabled: false;
-    
 }
