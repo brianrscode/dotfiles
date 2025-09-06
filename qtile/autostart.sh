@@ -27,9 +27,11 @@ xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x768 --rotate normal --ou
 run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
 
 # Poder ver las conexiones a internet
+run cbatticon &
 run nm-applet &
 run pamac-tray &
 run flameshot &
+# run volumeicon &
 run udiskie -t &  # Sirve para ver los usb conectados udisks2
 run xfce4-power-manager &
 numlockx on &

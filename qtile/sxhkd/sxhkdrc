@@ -1,6 +1,3 @@
-#################################################################
-# KEYBOARD BINDINGS FOR ANY TWM
-#################################################################
 
 #################################################################
 # SUPER + ... KEYS
@@ -9,6 +6,10 @@
 #Pavucontrol
 super + v
     pavucontrol
+
+#thunar
+super + e
+    thunar
 
 #Xkill
 super + Escape
@@ -46,23 +47,6 @@ ctrl + alt + a
 
 
 #################################################################
-# ALT + ... KEYS
-#################################################################
-
-
-#Firefox
-alt + b
-    brave
-
-#vscode
-alt + c
-    code
-
-#thunar
-alt + e
-    thunar
-
-#################################################################
 # CONTROL + SHIFT KEYS
 #################################################################
 
@@ -70,18 +54,28 @@ alt + e
 ctrl + shift + Escape
     xfce4-taskmanager
 
-
 #Raises volume
 XF86AudioRaiseVolume
-    amixer set Master 10%+
+    pamixer --increase 5
 
 #Lowers volume
 XF86AudioLowerVolume
-    amixer set Master 10%-
+    pamixer --decrease 5
 
 #Mute
 XF86AudioMute
-    amixer -D pulse set Master 1+ toggle
+    pamixer --toggle-mute
+
+#Brightness up
+XF86MonBrightnessUp
+    brightnessctl set +10%
+
+#Brightness down
+XF86MonBrightnessDown
+    brightnessctl set 10%-
+
+
+
 
 #PLAY
 XF86AudioPlay
@@ -98,12 +92,3 @@ XF86AudioPrev
 #Stop
 XF86AudioStop
     playerctl stop
-
-#Brightness up
-XF86MonBrightnessUp
-    xbacklight -inc 10
-
-#Brightness down
-XF86MonBrightnessDown
-    xbacklight -dec 10
-

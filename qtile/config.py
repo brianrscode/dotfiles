@@ -6,7 +6,7 @@ from libqtile.lazy import lazy
 from os import path
 from libqtile.utils import guess_terminal
 
-from themes.colors import coloress
+from themes.colors import colores
 
 terminal = guess_terminal()
 
@@ -14,6 +14,7 @@ mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
 qtile_path = path.join(path.expanduser('~'), ".config", "qtile")
+powerMenu = "bash .config/qtile/powermenu.sh"
 
 ############################################################
 ##################   Atajos de teclado    ##################
@@ -21,6 +22,7 @@ qtile_path = path.join(path.expanduser('~'), ".config", "qtile")
 
 keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "Return", lazy.spawn(terminal)),
+    ([mod], "q", lazy.spawn(powerMenu)),
 
     ([mod], "f", lazy.window.toggle_fullscreen()),
     ([mod], "w", lazy.window.kill()),
@@ -158,8 +160,8 @@ for i in groups:
 layout_config = {
     "margin": 2,
     "border_width": 2,
-    "border_focus": coloress["vFocus"][0],
-    "border_normal": coloress["inactivo"][0]
+    "border_focus": colores["vFocus"][0],
+    "border_normal": colores["inactivo"][0]
 }
 
 layouts = [layout.MonadTall(**layout_config)]
@@ -177,8 +179,8 @@ floating_layout = layout.Floating(float_rules=[
 #################################################################
 
 base = lambda fg="white", bg="barra": {
-    "foreground": coloress[fg],
-    "background": coloress[bg]
+    "foreground": colores[fg],
+    "background": colores[bg]
 }
 
 fuente = lambda ft="Mononoki Nerd Font", tam=16: {
@@ -190,7 +192,7 @@ separator = lambda: widget.Sep(linewidth=1, padding=10, **base())
 icono = lambda ico="?", f="white", g="barra": widget.TextBox(**fuente(), **base(fg=f, bg=g), text=ico, padding=0)
 powerline = lambda f="white", g="barra": widget.TextBox(**fuente(tam=42), **base(fg=f, bg=g), text="", padding=-2)
 
-work_spaces = lambda color=coloress["gSelec"][0]: [
+work_spaces = lambda color=colores["gSelec"][0]: [
     widget.GroupBox(
         **base(),
         **fuente(ft="FontAwesome"),
@@ -199,8 +201,8 @@ work_spaces = lambda color=coloress["gSelec"][0]: [
         padding_x=5,
         borderwidth=0,
         disable_drag=True,
-        active=coloress["activo"],
-        inactive=coloress["gInactivo"],
+        active=colores["activo"],
+        inactive=colores["gInactivo"],
         rounded=False,
         highlight_method="text",
         this_current_screen_border=color,
@@ -224,7 +226,30 @@ bar_1 = [
     widget.Clock(**base(fg="white", bg="wid4"), **fuente(), format="%d/%m/%Y - %I:%M%p"),
 
     powerline(f="wid5", g="wid4"),
-    widget.Systray(background=coloress["wid5"], icon_size=20, padding=5),
+    widget.Systray(background=colores["wid5"], icon_size=20, padding=5),
+
+    powerline(f="black", g="wid5"),
+    widget.WidgetBox(
+        widgets=[
+            widget.QuickExit(
+                default_text=' 󰍃',
+                countdown_format=' {}  ',
+                background=colores["black"],
+                **fuente()
+            ),
+            widget.TextBox(
+                " 󰐥 ",
+                background=colores["black"],
+                **fuente(),
+                mouse_callbacks={'Button1': lazy.spawn(powerMenu)}
+            ),
+        ],
+        text_closed=' ',
+        text_open=' ',
+        **base(bg="black"),
+        **fuente(),
+    ),
+
 ]
 
 bar_2 = [
