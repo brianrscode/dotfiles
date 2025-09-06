@@ -8,6 +8,13 @@ from libqtile.utils import guess_terminal
 
 from themes.colors import colores
 
+from libqtile import qtile
+from libqtile.widget import Spacer
+import os
+import socket
+import subprocess
+
+
 terminal = guess_terminal()
 
 mod = "mod4"
@@ -16,6 +23,43 @@ mod2 = "control"
 qtile_path = path.join(path.expanduser('~'), ".config", "qtile")
 powerMenu = "bash .config/qtile/powermenu.sh"
 
+
+def openCalendar():
+    qtile.cmd_spawn("gsimplecal")
+
+def openHtop():
+    qtile.cmd_spawn("alacritty -e htop")
+
+def openMenu():
+    qtile.cmd_spawn(powerMenu)
+
+# def powerMenu():
+#     qtile.cmd_spawn("archlinux-logout")
+
+def init_colors():
+    return [
+        ["#2e3440", "#2e3440"],  # 0 background
+        ["#d8dee9", "#d8dee9"],  # 1 foreground
+        ["#3b4252", "#3b4252"],  # 2 background lighter
+        ["#bf616a", "#bf616a"],  # 3 red
+        ["#a3be8c", "#a3be8c"],  # 4 green
+        ["#ebcb8b", "#ebcb8b"],  # 5 yellow
+        ["#81a1c1", "#81a1c1"],  # 6 blue
+        ["#b48ead", "#b48ead"],  # 7 magenta
+        ["#88c0d0", "#88c0d0"],  # 8 cyan
+        ["#e5e9f0", "#e5e9f0"],  # 9 white
+        ["#4c566a", "#4c566a"],  # 10 grey
+        ["#d08770", "#d08770"],  # 11 orange
+        ["#8fbcbb", "#8fbcbb"],  # 12 super cyan
+        ["#5e81ac", "#5e81ac"],  # 13 super blue
+        ["#242831", "#242831"],  # 14 super dark background
+    ]
+
+colors = init_colors()
+left = ""
+right = ""
+
+
 ############################################################
 ##################   Atajos de teclado    ##################
 ############################################################
@@ -23,6 +67,8 @@ powerMenu = "bash .config/qtile/powermenu.sh"
 keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "Return", lazy.spawn(terminal)),
     ([mod], "q", lazy.spawn(powerMenu)),
+
+    ([mod], "b", lazy.hide_show_bar()),
 
     ([mod], "f", lazy.window.toggle_fullscreen()),
     ([mod], "w", lazy.window.kill()),
@@ -178,96 +224,155 @@ floating_layout = layout.Floating(float_rules=[
 ##################   WIDGETS PARA LA BARRA    ###################
 #################################################################
 
-base = lambda fg="white", bg="barra": {
-    "foreground": colores[fg],
-    "background": colores[bg]
-}
+def init_widgets_defaults():
+    return dict(
+        font="Noto Sans Bold", 
+        fontsize=12, 
+        padding=0,
+        background=colors[2], 
+        foreground=colors[14]
+    )
 
-fuente = lambda ft="Mononoki Nerd Font", tam=16: {
-    "font": ft,
-    "fontsize": tam
-}
-
-separator = lambda: widget.Sep(linewidth=1, padding=10, **base())
-icono = lambda ico="?", f="white", g="barra": widget.TextBox(**fuente(), **base(fg=f, bg=g), text=ico, padding=0)
-powerline = lambda f="white", g="barra": widget.TextBox(**fuente(tam=42), **base(fg=f, bg=g), text="", padding=-2)
-
-work_spaces = lambda color=colores["gSelec"][0]: [
-    widget.GroupBox(
-        **base(),
-        **fuente(ft="FontAwesome"),
-        margin_x=0,
-        padding_y=6,
-        padding_x=5,
-        borderwidth=0,
-        disable_drag=True,
-        active=colores["activo"],
-        inactive=colores["gInactivo"],
-        rounded=False,
-        highlight_method="text",
-        this_current_screen_border=color,
-    ),
-]
+widget_defaults = init_widgets_defaults()
 
 
-bar_1 = [
-    *work_spaces(),
-    separator(),
-    widget.CurrentLayout(font="Mononoki Nerd Font", **base()),
-    separator(),
-    widget.WindowName(**fuente(tam=12), **base()),
+def init_widgets_list():
+    widgets = [
+        widget.Spacer(length=10),
 
-    powerline(f="wid3"),
-    icono(ico=" ", g="wid3"),
-    widget.Battery(**base(fg="white", bg="wid3"), **fuente(), format='{char} {percent:2.0%}', notify_below=30),
+        widget.Image(
+            filename="~/.config/qtile/icons/python.png",
+            mouse_callbacks={"Button1": openMenu},
+        ),
 
-    powerline(f="wid4", g="wid3"),
-    icono(ico=" ", g="wid4"),
-    widget.Clock(**base(fg="white", bg="wid4"), **fuente(), format="%d/%m/%Y - %I:%M%p"),
+        widget.Spacer(length=10),
 
-    powerline(f="wid5", g="wid4"),
-    widget.Systray(background=colores["wid5"], icon_size=20, padding=5),
+        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        widget.GroupBox(
+            font="FontAwesome",
+            fontsize=12,
+            margin_y=0,
+            margin_x=0,
+            padding_y=0,
+            padding_x=4,
+            disable_drag=True,
+            use_mouse_wheel=True,
+            active=colors[13],
+            inactive=colors[10],
+            rounded=True,
+            highlight_color=colors[2],
+            highlight_method="text",
+            block_highlight_text_color=colors[6],
+            this_current_screen_border=colors[4],
+            this_screen_border=colors[4],
+            other_current_screen_border=colors[14],
+            other_screen_border=colors[14],
+            foreground=colors[1],
+            background=colors[14],
+        ),
+        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
 
-    powerline(f="black", g="wid5"),
-    widget.WidgetBox(
-        widgets=[
-            widget.QuickExit(
-                default_text=' 󰍃',
-                countdown_format=' {}  ',
-                background=colores["black"],
-                **fuente()
-            ),
-            widget.TextBox(
-                " 󰐥 ",
-                background=colores["black"],
-                **fuente(),
-                mouse_callbacks={'Button1': lazy.spawn(powerMenu)}
-            ),
-        ],
-        text_closed=' ',
-        text_open=' ',
-        **base(bg="black"),
-        **fuente(),
-    ),
+        widget.Spacer(length=20),
 
-]
+        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        widget.WindowName(
+            font="Noto Sans Bold",
+            fontsize=10,
+            foreground=colors[1],
+            background=colors[14],
+            width=bar.CALCULATED,
+            empty_group_string="Desktop",
+            max_chars=80,
+        ),
+        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
 
-bar_2 = [
-    *work_spaces(color="#ffb347"),
-    separator(),
-    widget.CurrentLayout(font="Mononoki Nerd Font", **base()),
-    separator(),
-    widget.WindowName(**fuente(tam=12), **base("white")),
-]
+        widget.Spacer(),
 
-#################################################
-##################   SCREENS   ##################
-#################################################
+        # widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=18),
+        # widget.TextBox(text="  ", foreground=colors[13], background=colors[14], fontsize=16, mouse_callbacks={"Button1": openHtop}),
+        # widget.TextBox(text=" CPU ", foreground=colors[1], background=colors[14], fontsize=12),
+        # widget.ThermalSensor(
+        #     foreground=colors[1],
+        #     background=colors[14],
+        #     metric=True,
+        #     padding=3,
+        #     tag_sensor="Package id 0",
+        #     threshold=80,
+        #     mouse_callbacks={"Button1": openHtop},
+        # ),
+        # widget.TextBox(text=" GPU ", foreground=colors[1], background=colors[14], fontsize=12),
+        # widget.ThermalSensor(
+        #     foreground=colors[1],
+        #     background=colors[14],
+        #     metric=True,
+        #     padding=3,
+        #     tag_sensor="GPU",
+        #     threshold=80,
+        #     mouse_callbacks={"Button1": openHtop},
+        # ),
+        # widget.Sep(foreground=colors[1], background=colors[14], linewidth=2, padding=2, size_percent=50),
+        # widget.TextBox(text="  ", foreground=colors[13], background=colors[14], fontsize=16),
+        # widget.Memory(
+        #     measure_mem="G",
+        #     format="{MemUsed: .1f}G/{MemTotal: .1f}G ",
+        #     update_interval=5,
+        #     foreground=colors[1],
+        #     background=colors[14],
+        # ),
+        # widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=18),
 
-screens = [
-    Screen(bottom=bar.Bar(widgets=bar_1, size=26, opacity=0.9)),
-    Screen(bottom=bar.Bar(widgets=bar_2, size=26, opacity=0.9))
-]
+        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        widget.TextBox(text=" ", foreground=colors[13], background=colors[14], fontsize=18, mouse_callbacks={"Button1": openCalendar}),
+        widget.Clock(
+            format=" %a-%d | %H:%M ",
+            foreground=colors[1],
+            background=colors[14],
+            fontsize=12,
+            mouse_callbacks={"Button1": openCalendar},
+        ),
+        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+
+        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        widget.TextBox(text=" ", foreground=colors[1], background=colors[14], fontsize=18),
+        widget.Backlight(backlight_name="intel_backlight", background=colors[14], foreground=colors[1]),
+        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+
+        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        widget.TextBox(text=" ", foreground=colors[1], background=colors[14], fontsize=18, mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("pavucontrol")}),
+        widget.Volume(background=colors[14], foreground=colors[1], padding=0),
+        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+
+        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        widget.Battery(
+            format="{char} {percent:2.0%}",
+            #format="{char} {percent:2.0%} {hour:d}:{min:02d}",
+            charge_char=" 󰢝 ",
+            discharge_char=" 󰁾 ",
+            full_char=" 󰁹 ",
+            show_short_text=False,
+            foreground=colors[1],
+            background=colors[14],
+            update_interval=5,
+        ),
+        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+
+        widget.TextBox(text=left, foreground=colors[14], background=colors[2], fontsize=26, padding=-1),
+        widget.Systray(background=colors[14], icon_size=15, padding=5),
+        widget.TextBox(text=right, foreground=colors[14], background=colors[2], fontsize=26),
+
+        widget.Spacer(length=5),
+    ]
+    return widgets
+
+widgets_list = init_widgets_list()
+
+def init_screens():
+    return [
+        Screen(top=bar.Bar(widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2], opacity=1.0))
+    ]
+
+screens = init_screens()
+
 
 #############################################################
 ##################   MOUSE CONFIGURATION   ##################
