@@ -372,7 +372,7 @@ widgets_list = init_widgets_list()
 
 def init_screens():
     return [
-        Screen(top=bar.Bar(widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2], opacity=1.0)) # 2
+        Screen(top=bar.Bar(widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2], opacity=0.9))
     ]
 
 screens = init_screens()

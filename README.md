@@ -1,6 +1,7 @@
 # Mis dotfiles
 
-![escritorio](/img/escritorioApps2.png)
+![escritorio](/img/escritorio_06_09_25.png)
+![escritorio](/img/escritorio2_06_09_25.png)
 
 
 ### Flameshot
@@ -19,6 +20,9 @@ Sigue los pasos de instalación de starship.rs según el sistema operativo que e
 
 ## Instalación de Qtile
 Para instalar qtile puedes seguir los pasos de su [documentación](https://docs.qtile.org/en/stable/index.html)
+
+### Instalación automática
+Solo ejecuta mi archivo `install.sh`
 
 
 ## Software
