@@ -340,7 +340,7 @@ def init_widgets_list():
         widget.Spacer(length=3),
 
         pwl_i(),
-        widget.TextBox(text=" ", **base(fg=colors[1], bg=colors[14], fs=18), mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("pavucontrol")}),
+        widget.TextBox(text="  ", **base(fg=colors[1], bg=colors[14], fs=18), mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("pavucontrol")}),
         widget.Volume(background=colors[14], foreground=colors[1], padding=0),
         pwl_d(),
 

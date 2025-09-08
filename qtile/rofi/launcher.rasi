@@ -17,7 +17,7 @@ configuration {
 	sidebar-mode: 					false;
 }
 
-@import "colors.rasi"
+@import "launcher_colors.rasi"
 
 * {
   background-color: @al;
