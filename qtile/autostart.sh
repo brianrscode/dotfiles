@@ -38,8 +38,6 @@ numlockx on &
 blueberry-tray &
 picom --config $HOME/.config/qtile/scripts/picom.conf &1
 
-# Muestra el icono de volumen en la barra
-run volumeicon &
 # recupera el fondo de pantalla seteado
 nitrogen --restore &
 #run caffeine -a &

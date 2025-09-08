@@ -27,6 +27,9 @@ powerMenu = "bash .config/qtile/powermenu.sh"
 def openCalendar():
     qtile.cmd_spawn("gsimplecal")
 
+def pavucontrol():
+    qtile.cmd_spawn("pavucontrol")
+
 def openHtop():
     qtile.cmd_spawn("alacritty -e htop")
 
@@ -214,8 +217,7 @@ floating_layout = layout.Floating(float_rules=[
     *layout.Floating.default_float_rules,
     Match(wm_class='Arandr'),
     Match(wm_class='nitrogen'),
-    Match(wm_class='Galculator'),
-    Match(wm_class='archlinux-logout'),
+    Match(wm_class='thunar'),
 ], fullscreen_border_width=0, border_width=0)
 
 #################################################################
@@ -288,43 +290,10 @@ def init_widgets_list():
 
         widget.Spacer(),
 
-        # pwl_i(),
-        # widget.TextBox(text="  ", foreground=colors[13], background=colors[14], fontsize=16, mouse_callbacks={"Button1": openHtop}),
-        # widget.TextBox(text=" CPU ", foreground=colors[1], background=colors[14], fontsize=12),
-        # widget.ThermalSensor(
-        #     foreground=colors[1],
-        #     background=colors[14],
-        #     metric=True,
-        #     padding=3,
-        #     tag_sensor="Package id 0",
-        #     threshold=80,
-        #     mouse_callbacks={"Button1": openHtop},
-        # ),
-        # widget.TextBox(text=" GPU ", foreground=colors[1], background=colors[14], fontsize=12),
-        # widget.ThermalSensor(
-        #     foreground=colors[1],
-        #     background=colors[14],
-        #     metric=True,
-        #     padding=3,
-        #     tag_sensor="GPU",
-        #     threshold=80,
-        #     mouse_callbacks={"Button1": openHtop},
-        # ),
-        # widget.Sep(foreground=colors[1], background=colors[14], linewidth=2, padding=2, size_percent=50),
-        # widget.TextBox(text="  ", foreground=colors[13], background=colors[14], fontsize=16),
-        # widget.Memory(
-        #     measure_mem="G",
-        #     format="{MemUsed: .1f}G/{MemTotal: .1f}G ",
-        #     update_interval=5,
-        #     foreground=colors[1],
-        #     background=colors[14],
-        # ),
-        # pwl_d(),
-
         pwl_i(),
         widget.TextBox(text=" ", **base(fg=colors[13], bg=colors[14], fs=18), mouse_callbacks={"Button1": openCalendar}),
         widget.Clock(
-            format=" %a-%d | %H:%M ",
+            format=" %A-%d | %H:%M ",
             **base(fg=colors[1], bg=colors[14], fs=12),
             mouse_callbacks={"Button1": openCalendar},
         ),
@@ -340,25 +309,11 @@ def init_widgets_list():
         widget.Spacer(length=3),
 
         pwl_i(),
-        widget.TextBox(text="  ", **base(fg=colors[1], bg=colors[14], fs=18), mouse_callbacks={"Button1": lambda: qtile.cmd_spawn("pavucontrol")}),
+        widget.TextBox(text="  ", **base(fg=colors[1], bg=colors[14], fs=18), mouse_callbacks={"Button1": pavucontrol}),
         widget.Volume(background=colors[14], foreground=colors[1], padding=0),
         pwl_d(),
 
         widget.Spacer(length=3),
-
-        # pwl_i(),
-        # widget.Battery(
-        #     format="{char} {percent:2.0%}",
-        #     #format="{char} {percent:2.0%} {hour:d}:{min:02d}",
-        #     charge_char=" 󰢝 ",
-        #     discharge_char=" 󰁾 ",
-        #     full_char=" 󰁹 ",
-        #     show_short_text=False,
-        #     foreground=colors[1],
-        #     background=colors[14],
-        #     update_interval=5,
-        # ),
-        # pwl_d(),
 
         pwl_i(),
         widget.Systray(background=colors[14], icon_size=15, padding=5),
@@ -372,7 +327,7 @@ widgets_list = init_widgets_list()
 
 def init_screens():
     return [
-        Screen(top=bar.Bar(widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2], opacity=0.9))
+        Screen(top=bar.Bar(widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2]))
     ]
 
 screens = init_screens()
