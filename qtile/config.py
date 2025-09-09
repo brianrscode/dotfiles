@@ -1,17 +1,14 @@
 import subprocess
-from typing import List
 from libqtile import layout, bar, widget, hook
-from libqtile.config import Click, Drag, Group, Key, Match, Screen
+from libqtile.config import Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from os import path
 from libqtile.utils import guess_terminal
 
-from themes.colors import colores
+from themes.colors import colores, colors
 
 from libqtile import qtile
 from libqtile.widget import Spacer
-import os
-import socket
 import subprocess
 
 
@@ -36,27 +33,7 @@ def openHtop():
 def openMenu():
     qtile.cmd_spawn(powerMenu)
 
-def init_colors():
-    return [
-        ["#2e3440", "#2e3440"],  # 0 background
-        ["#d8dee9", "#d8dee9"],  # 1 foreground
-        ["#3b4252", "#3b4252"],  # 2 background lighter
-        ["#bf616a", "#bf616a"],  # 3 red
-        ["#a3be8c", "#a3be8c"],  # 4 green
-        ["#ebcb8b", "#ebcb8b"],  # 5 yellow
-        ["#81a1c1", "#81a1c1"],  # 6 blue
-        ["#b48ead", "#b48ead"],  # 7 magenta
-        ["#88c0d0", "#88c0d0"],  # 8 cyan
-        ["#e5e9f0", "#e5e9f0"],  # 9 white
-        ["#4c566a", "#4c566a"],  # 10 grey
-        ["#d08770", "#d08770"],  # 11 orange
-        ["#8fbcbb", "#8fbcbb"],  # 12 super cyan
-        ["#5e81ac", "#5e81ac"],  # 13 super blue
-        ["#242831", "#242831"],  # 14 super dark background
-        ["#00000000", "#00000000"],  # 15 transparent (2)
-    ]
 
-colors = init_colors()
 left = ""
 right = ""
 
