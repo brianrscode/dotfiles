@@ -1,0 +1,8 @@
+[general]
+import = [
+"fonts.toml",
+"catppuccin-mocha.toml"
+]
+
+
+
