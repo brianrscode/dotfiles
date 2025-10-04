@@ -30,12 +30,12 @@ run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
 run cbatticon &
 run nm-applet &
 run pamac-tray &
-run flameshot &
+# run flameshot &
 # run volumeicon &
 run udiskie -t &  # Sirve para ver los usb conectados udisks2
 run xfce4-power-manager &
 numlockx on &
-blueberry-tray &
+# blueberry-tray &
 picom --config $HOME/.config/qtile/scripts/picom.conf &1
 
 # recupera el fondo de pantalla seteado

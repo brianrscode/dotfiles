@@ -27,8 +27,11 @@ super + d
     rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/qtile/rofi/launcher.rasi
 
 #reload sxhkd:
-super + shift + s
+super + shift + r
 	pkill -USR1 -x sxhkd
+
+super + shift + s
+    flameshot gui
 
 #################################################################
 # CONTROL + ALT KEYS
