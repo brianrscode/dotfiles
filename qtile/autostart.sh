@@ -36,7 +36,7 @@ run udiskie -t &  # Sirve para ver los usb conectados udisks2
 run xfce4-power-manager &
 numlockx on &
 # blueberry-tray &
-picom --config $HOME/.config/qtile/scripts/picom.conf &1
+picom --config $HOME/.config/qtile/scripts/picom.conf &
 
 # recupera el fondo de pantalla seteado
 nitrogen --restore &

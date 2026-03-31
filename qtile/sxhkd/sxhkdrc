@@ -90,7 +90,7 @@ XF86AudioNext
 
 #previous
 XF86AudioPrev
-    playerctl pevious
+	playerctl previous
 
 #Stop
 XF86AudioStop
