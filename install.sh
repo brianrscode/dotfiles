@@ -57,7 +57,15 @@ fi
 
 echo "Instalando paquetes adicionales..."
 pacman -S --noconfirm \
+	networkmanager \
 	pavucontrol \
+	alsa-utils \
+	playerctl \
+	htop \
+	thunar \
+	xfce4-settings \
+	xfce4-appfinder \
+	xfce4-taskmanager \
 	brightnessctl \
 	network-manager-applet \
 	flameshot \
@@ -73,6 +81,8 @@ pacman -S --noconfirm \
 	rofi \
 	pamixer \
 	lxappearance \
-	gsimplecal
+	gsimplecal \
+	noto-fonts \
+	ttf-font-awesome
 
 echo "✅ Todo listo. Ahora puedes iniciar Qtile con 'startx'."
