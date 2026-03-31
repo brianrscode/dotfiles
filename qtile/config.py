@@ -18,7 +18,7 @@ mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
 qtile_path = path.join(path.expanduser("~"), ".config", "qtile")
-powerMenu = "bash .config/qtile/powermenu.sh"
+powerMenu = f'bash "{path.join(qtile_path, "powermenu.sh")}"'
 
 
 def openCalendar():
@@ -142,22 +142,28 @@ for key, dir in directions:
 
 @lazy.function
 def window_to_prev_group(qtile):
-    if qtile.current_window is not None:
-        i = qtile.groups.index(qtile.current_group)
-        qtile.current_window.togroup(qtile.groups[i - 1].name)
+    if qtile.current_window is None:
+        return
+    i = qtile.groups.index(qtile.current_group)
+    prev_group = qtile.groups[(i - 1) % len(qtile.groups)].name
+    qtile.current_window.togroup(prev_group)
 
 
 @lazy.function
 def window_to_next_group(qtile):
-    if qtile.current_window is not None:
-        i = qtile.groups.index(qtile.current_group)
-        qtile.current_window.togroup(qtile.groups[i + 1].name)
+    if qtile.current_window is None:
+        return
+    i = qtile.groups.index(qtile.current_group)
+    next_group = qtile.groups[(i + 1) % len(qtile.groups)].name
+    qtile.current_window.togroup(next_group)
 
 
 @lazy.function
 def window_to_previous_screen(qtile, switch_group=True, switch_screen=True):
+    if qtile.current_window is None:
+        return
     i = qtile.screens.index(qtile.current_screen)
-    if i != 0:
+    if i != 0 and qtile.screens[i - 1].group is not None:
         group = qtile.screens[i - 1].group.name
         qtile.current_window.togroup(group, switch_group=switch_group)
         if switch_screen:
@@ -166,8 +172,10 @@ def window_to_previous_screen(qtile, switch_group=True, switch_screen=True):
 
 @lazy.function
 def window_to_next_screen(qtile, switch_group=True, switch_screen=True):
+    if qtile.current_window is None:
+        return
     i = qtile.screens.index(qtile.current_screen)
-    if i + 1 != len(qtile.screens):
+    if i + 1 != len(qtile.screens) and qtile.screens[i + 1].group is not None:
         group = qtile.screens[i + 1].group.name
         qtile.current_window.togroup(group, switch_group=switch_group)
         if switch_screen:
