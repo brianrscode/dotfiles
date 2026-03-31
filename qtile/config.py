@@ -17,18 +17,21 @@ terminal = guess_terminal()
 mod = "mod4"
 mod1 = "alt"
 mod2 = "control"
-qtile_path = path.join(path.expanduser('~'), ".config", "qtile")
+qtile_path = path.join(path.expanduser("~"), ".config", "qtile")
 powerMenu = "bash .config/qtile/powermenu.sh"
 
 
 def openCalendar():
     qtile.cmd_spawn("gsimplecal")
 
+
 def pavucontrol():
     qtile.cmd_spawn("pavucontrol")
 
+
 def openHtop():
     qtile.cmd_spawn("alacritty -e htop")
+
 
 def openMenu():
     qtile.cmd_spawn(powerMenu)
@@ -42,69 +45,83 @@ right = ""
 ##################   Atajos de teclado    ##################
 ############################################################
 
-keys = [Key(key[0], key[1], *key[2:]) for key in [
-    ([mod], "Return", lazy.spawn(terminal)),
-    ([mod], "q", lazy.spawn(powerMenu)),
-
-    ([mod], "b", lazy.hide_show_bar()),
-
-    ([mod], "f", lazy.window.toggle_fullscreen()),
-    ([mod], "w", lazy.window.kill()),
-    ([mod, "shift"], "r", lazy.restart()),
-
-    # QTILE LAYOUT KEYS
-    ([mod], "n", lazy.layout.normalize()),
-    ([mod], "space", lazy.next_layout()),
-
-    # TOGGLE FLOATING
-    ([mod, "shift"], "space", lazy.window.toggle_floating()),
-    
-     # REDIMENSIONAR
-    ([mod, "control"], "l",
-        lazy.layout.grow_right(),
-        lazy.layout.grow(),
-        lazy.layout.increase_ratio(),
-        lazy.layout.delete(),
-    ),
-    ([mod, "control"], "Right",
-        lazy.layout.grow_right(),
-        lazy.layout.grow(),
-        lazy.layout.increase_ratio(),
-        lazy.layout.delete(),
-    ),
-    ([mod, "control"], "h",
-        lazy.layout.grow_left(),
-        lazy.layout.shrink(),
-        lazy.layout.decrease_ratio(),
-        lazy.layout.add(),
-    ),
-    ([mod, "control"], "Left",
-        lazy.layout.grow_left(),
-        lazy.layout.shrink(),
-        lazy.layout.decrease_ratio(),
-        lazy.layout.add(),
-    ),
-    ([mod, "control"], "k",
-        lazy.layout.grow_up(),
-        lazy.layout.grow(),
-        lazy.layout.decrease_nmaster(),
-    ),
-    ([mod, "control"], "Up",
-        lazy.layout.grow_up(),
-        lazy.layout.grow(),
-        lazy.layout.decrease_nmaster(),
-    ),
-    ([mod, "control"], "j",
-        lazy.layout.grow_down(),
-        lazy.layout.shrink(),
-        lazy.layout.increase_nmaster(),
-    ),
-    ([mod, "control"], "Down",
-        lazy.layout.grow_down(),
-        lazy.layout.shrink(),
-        lazy.layout.increase_nmaster(),
-    ),
-]]
+keys = [
+    Key(key[0], key[1], *key[2:])
+    for key in [
+        ([mod], "Return", lazy.spawn(terminal)),
+        ([mod], "q", lazy.spawn(powerMenu)),
+        ([mod], "b", lazy.hide_show_bar()),
+        ([mod], "f", lazy.window.toggle_fullscreen()),
+        ([mod], "w", lazy.window.kill()),
+        ([mod, "shift"], "r", lazy.restart()),
+        # QTILE LAYOUT KEYS
+        ([mod], "n", lazy.layout.normalize()),
+        ([mod], "space", lazy.next_layout()),
+        # TOGGLE FLOATING
+        ([mod, "shift"], "space", lazy.window.toggle_floating()),
+        # REDIMENSIONAR
+        (
+            [mod, "control"],
+            "l",
+            lazy.layout.grow_right(),
+            lazy.layout.grow(),
+            lazy.layout.increase_ratio(),
+            lazy.layout.delete(),
+        ),
+        (
+            [mod, "control"],
+            "Right",
+            lazy.layout.grow_right(),
+            lazy.layout.grow(),
+            lazy.layout.increase_ratio(),
+            lazy.layout.delete(),
+        ),
+        (
+            [mod, "control"],
+            "h",
+            lazy.layout.grow_left(),
+            lazy.layout.shrink(),
+            lazy.layout.decrease_ratio(),
+            lazy.layout.add(),
+        ),
+        (
+            [mod, "control"],
+            "Left",
+            lazy.layout.grow_left(),
+            lazy.layout.shrink(),
+            lazy.layout.decrease_ratio(),
+            lazy.layout.add(),
+        ),
+        (
+            [mod, "control"],
+            "k",
+            lazy.layout.grow_up(),
+            lazy.layout.grow(),
+            lazy.layout.decrease_nmaster(),
+        ),
+        (
+            [mod, "control"],
+            "Up",
+            lazy.layout.grow_up(),
+            lazy.layout.grow(),
+            lazy.layout.decrease_nmaster(),
+        ),
+        (
+            [mod, "control"],
+            "j",
+            lazy.layout.grow_down(),
+            lazy.layout.shrink(),
+            lazy.layout.increase_nmaster(),
+        ),
+        (
+            [mod, "control"],
+            "Down",
+            lazy.layout.grow_down(),
+            lazy.layout.shrink(),
+            lazy.layout.increase_nmaster(),
+        ),
+    ]
+]
 
 # Movimiento entre ventanas
 directions = [("h", "left"), ("l", "right"), ("j", "down"), ("k", "up")]
@@ -122,17 +139,20 @@ for key, dir in directions:
 for key, dir in directions:
     keys.append(Key([mod, "shift"], key, lazy.layout.__getattr__(f"shuffle_{dir}")()))
 
+
 @lazy.function
 def window_to_prev_group(qtile):
     if qtile.current_window is not None:
         i = qtile.groups.index(qtile.current_group)
         qtile.current_window.togroup(qtile.groups[i - 1].name)
 
+
 @lazy.function
 def window_to_next_group(qtile):
     if qtile.current_window is not None:
         i = qtile.groups.index(qtile.current_group)
         qtile.current_window.togroup(qtile.groups[i + 1].name)
+
 
 @lazy.function
 def window_to_previous_screen(qtile, switch_group=True, switch_screen=True):
@@ -142,6 +162,7 @@ def window_to_previous_screen(qtile, switch_group=True, switch_screen=True):
         qtile.current_window.togroup(group, switch_group=switch_group)
         if switch_screen:
             qtile.cmd_to_screen(i - 1)
+
 
 @lazy.function
 def window_to_next_screen(qtile, switch_group=True, switch_screen=True):
@@ -153,10 +174,12 @@ def window_to_next_screen(qtile, switch_group=True, switch_screen=True):
             qtile.cmd_to_screen(i + 1)
 
 
-keys.extend([  # Cambiar entre pantallas
-    Key([mod, "shift"], "Left", window_to_previous_screen),
-    Key([mod, "shift"], "Right", window_to_next_screen),
-])
+keys.extend(
+    [  # Cambiar entre pantallas
+        Key([mod, "shift"], "Left", window_to_previous_screen),
+        Key([mod, "shift"], "Right", window_to_next_screen),
+    ]
+)
 
 ##################################################
 ##################   Grupos     ##################
@@ -167,15 +190,30 @@ group_labels = ["", "", "", "", "", ""]
 group_names = [str(i + 1) for i in range(len(group_labels))]
 group_layouts = ["monadtall"] * len(group_labels)
 
-groups = [Group(name=n, layout=l.lower(), label=la) for n, l, la in zip(group_names, group_layouts, group_labels)]
+groups = [
+    Group(name=n, layout=l.lower(), label=la)
+    for n, l, la in zip(group_names, group_layouts, group_labels)
+]
 
 for i in groups:
-    keys.extend([
-        Key([mod], i.name, lazy.group[i.name].toscreen()), # Ir al grupo i
+    keys.extend(
+        [
+            Key([mod], i.name, lazy.group[i.name].toscreen()),  # Ir al grupo i
+            Key(
+                [mod, "shift"],
+                i.name,
+                lazy.window.togroup(i.name),
+                lazy.group[i.name].toscreen(),
+            ),  # Mover la ventana al grupo i
+        ]
+    )
+
+keys.extend(
+    [
         Key([mod], "Tab", lazy.screen.next_group()),  # Siguiente grupo
         Key([mod, "shift"], "Tab", lazy.screen.prev_group()),  # Anteriror grupo
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name), lazy.group[i.name].toscreen()),  # Mover la ventana al grupo i
-    ])
+    ]
+)
 
 ##################################################
 ##################   Layout     ##################
@@ -185,17 +223,21 @@ layout_config = {
     "margin": 2,
     "border_width": 2,
     "border_focus": colores["vFocus"][0],
-    "border_normal": colores["inactivo"][0]
+    "border_normal": colores["inactivo"][0],
 }
 
 layouts = [layout.MonadTall(**layout_config)]
 
-floating_layout = layout.Floating(float_rules=[
-    *layout.Floating.default_float_rules,
-    Match(wm_class='Arandr'),
-    Match(wm_class='nitrogen'),
-    Match(wm_class='thunar'),
-], fullscreen_border_width=0, border_width=0)
+floating_layout = layout.Floating(
+    float_rules=[
+        *layout.Floating.default_float_rules,
+        Match(wm_class="Arandr"),
+        Match(wm_class="nitrogen"),
+        Match(wm_class="thunar"),
+    ],
+    fullscreen_border_width=0,
+    border_width=0,
+)
 
 #################################################################
 ##################   WIDGETS PARA LA BARRA    ###################
@@ -209,27 +251,27 @@ base = lambda fg=colors[14], bg=colors[2], fs=26: {
 pwl_i = lambda: widget.TextBox(text=left, **base(), padding=-1)
 pwl_d = lambda: widget.TextBox(text=right, **base())
 
+
 def init_widgets_defaults():
     return dict(
-        font="Noto Sans Bold", 
+        font="Noto Sans Bold",
         padding=0,
         **base(fs=12),
         margin=2,
     )
 
+
 widget_defaults = init_widgets_defaults()
+
 
 def init_widgets_list():
     widgets = [
         widget.Spacer(length=10),
-
         widget.Image(
             filename="~/.config/qtile/icons/python.png",
             mouse_callbacks={"Button1": openMenu},
         ),
-
         widget.Spacer(length=10),
-
         pwl_i(),
         widget.GroupBox(
             font="FontAwesome",
@@ -252,9 +294,7 @@ def init_widgets_list():
             **base(fg=colors[1], bg=colors[14], fs=12),
         ),
         pwl_d(),
-
         widget.Spacer(length=20),
-
         pwl_i(),
         widget.WindowName(
             font="Noto Sans Bold",
@@ -264,48 +304,58 @@ def init_widgets_list():
             max_chars=80,
         ),
         pwl_d(),
-
         widget.Spacer(),
-
         pwl_i(),
-        widget.TextBox(text=" ", **base(fg=colors[13], bg=colors[14], fs=18), mouse_callbacks={"Button1": openCalendar}),
+        widget.TextBox(
+            text=" ",
+            **base(fg=colors[13], bg=colors[14], fs=18),
+            mouse_callbacks={"Button1": openCalendar},
+        ),
         widget.Clock(
             format=" %A-%d | %H:%M ",
             **base(fg=colors[1], bg=colors[14], fs=12),
             mouse_callbacks={"Button1": openCalendar},
         ),
         pwl_d(),
-
         widget.Spacer(length=3),
-
         pwl_i(),
         widget.TextBox(text=" ", **base(fg=colors[1], bg=colors[14], fs=18)),
-        widget.Backlight(backlight_name="intel_backlight", background=colors[14], foreground=colors[1]),
+        widget.Backlight(
+            backlight_name="intel_backlight",
+            background=colors[14],
+            foreground=colors[1],
+        ),
         pwl_d(),
-
         widget.Spacer(length=3),
-
         pwl_i(),
-        widget.TextBox(text="  ", **base(fg=colors[1], bg=colors[14], fs=18), mouse_callbacks={"Button1": pavucontrol}),
+        widget.TextBox(
+            text="  ",
+            **base(fg=colors[1], bg=colors[14], fs=18),
+            mouse_callbacks={"Button1": pavucontrol},
+        ),
         widget.Volume(background=colors[14], foreground=colors[1], padding=0),
         pwl_d(),
-
         widget.Spacer(length=3),
-
         pwl_i(),
         widget.Systray(background=colors[14], icon_size=15, padding=5),
         pwl_d(),
-
         widget.Spacer(length=5),
     ]
     return widgets
 
+
 widgets_list = init_widgets_list()
+
 
 def init_screens():
     return [
-        Screen(top=bar.Bar(widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2]))
+        Screen(
+            top=bar.Bar(
+                widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2]
+            )
+        )
     ]
+
 
 screens = init_screens()
 
@@ -315,22 +365,36 @@ screens = init_screens()
 #############################################################
 
 mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size())
+    Drag(
+        [mod],
+        "Button1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+    Drag(
+        [mod], "Button3", lazy.window.set_size_floating(), start=lazy.window.get_size()
+    ),
 ]
+
 
 @hook.subscribe.startup_once
 def start_once():
-    subprocess.call([path.join(qtile_path, 'autostart.sh')])
+    subprocess.call([path.join(qtile_path, "autostart.sh")])
+
 
 @hook.subscribe.startup
 def start_always():
-    subprocess.Popen(['xsetroot', '-cursor_name', 'left_ptr'])
+    subprocess.Popen(["xsetroot", "-cursor_name", "left_ptr"])
+
 
 @hook.subscribe.client_new
 def set_floating(window):
-    if (window.window.get_wm_transient_for() or window.window.get_wm_type() in floating_types):
+    if (
+        window.window.get_wm_transient_for()
+        or window.window.get_wm_type() in floating_types
+    ):
         window.floating = True
+
 
 floating_types = ["notification", "toolbar", "splash", "dialog"]
 
