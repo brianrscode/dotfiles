@@ -254,8 +254,8 @@ base = lambda fg=colors[14], bg=colors[2], fs=26: {
     "background": bg,
     "fontsize": fs,
 }
-pwl_i = lambda: widget.TextBox(text=left, **base(), padding=-1)
-pwl_d = lambda: widget.TextBox(text=right, **base())
+pwl_i = lambda: widget.TextBox(text=left, **base(), padding=0, margin=0)
+pwl_d = lambda: widget.TextBox(text=right, **base(), padding=0, margin=0)
 
 
 def init_widgets_defaults():
@@ -263,7 +263,7 @@ def init_widgets_defaults():
         font="Noto Sans Bold",
         padding=0,
         **base(fs=12),
-        margin=2,
+        margin=0,
     )
 
 
@@ -276,7 +276,7 @@ def init_widgets_list():
         widget.Image(
             filename="~/.config/qtile/icons/python.png",
             mouse_callbacks={"Button1": openMenu},
-            margin=3,
+            margin=1,
         ),
         widget.Spacer(length=10),
         pwl_i(),
@@ -315,7 +315,7 @@ def init_widgets_list():
         pwl_i(),
         widget.TextBox(
             text=" ",
-            **base(fg=colors[13], bg=colors[14], fs=14),
+            **base(fg=colors[1], bg=colors[14], fs=12),
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Clock(
@@ -358,7 +358,7 @@ def init_screens():
     return [
         Screen(
             top=bar.Bar(
-                widgets=widgets_list, size=26, margin=[4, 4, 1, 4], background=colors[2]
+                widgets=widgets_list, size=22, margin=[4, 4, 0, 4], background=colors[2]
             )
         )
     ]
@@ -394,6 +394,9 @@ def start_always():
     subprocess.Popen(["xsetroot", "-cursor_name", "left_ptr"])
 
 
+floating_types = ["notification", "toolbar", "splash", "dialog"]
+
+
 @hook.subscribe.client_new
 def set_floating(window):
     if (
@@ -402,8 +405,6 @@ def set_floating(window):
     ):
         window.floating = True
 
-
-floating_types = ["notification", "toolbar", "splash", "dialog"]
 
 main = None
 auto_fullscreen = True

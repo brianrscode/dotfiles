@@ -16,7 +16,20 @@ function run {
 # Averigüe el nombre de su monitor con xrandr o arandr (guarde y obtendrá esta línea)
 #autorandr horizontal
 
-xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x768 --rotate normal --output HDMI-1 --mode 1366x768 --pos 0x0 --rotate normal
+# Resolucion dinamica - detecta el monitor principal automaticamente
+PRIMARY=$(xrandr | grep -E "^[a-zA-Z0-9-]+ connected primary" | awk '{print $1}')
+if [ -z "$PRIMARY" ]; then
+    PRIMARY=$(xrandr | grep -E "^[a-zA-Z0-9-]+ connected" | head -1 | awk '{print $1}')
+fi
+
+if [ -n "$PRIMARY" ]; then
+    xrandr --output "$PRIMARY" --primary --auto
+    # Detectar y configurar segundo monitor si existe
+    SECONDARY=$(xrandr | grep -E "^[a-zA-Z0-9-]+ connected" | grep -v "$PRIMARY" | awk '{print $1}')
+    if [ -n "$SECONDARY" ]; then
+        xrandr --output "$SECONDARY" --right-of "$PRIMARY" --auto
+    fi
+fi
 
 # cambia tu teclado si lo necesitas
 # setxkbmap es -----------------------------------------------------------------------
