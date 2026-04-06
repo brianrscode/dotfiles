@@ -4,10 +4,9 @@
 # Si no se encuentra coincidencia con otro comando, se ejecuta en segundo plano
 # Esto puede usarse para evitar ejecución duplicada de un comando o proceso específico
 function run {
-  if ! pgrep -x $(basename $1 | head -c 15) 1>/dev/null;
-  then
-    $@&
-  fi
+    if ! pgrep -x $(basename $1 | head -c 15) 1>/dev/null; then
+        $@ &
+    fi
 }
 
 # ESTE AUTOSTART ES SOLO PARA INICIAR COSAS DENTRO DE QTILE
@@ -16,7 +15,6 @@ function run {
 
 # Averigüe el nombre de su monitor con xrandr o arandr (guarde y obtendrá esta línea)
 #autorandr horizontal
-
 
 xrandr --output eDP-1 --primary --mode 1366x768 --pos 0x768 --rotate normal --output HDMI-1 --mode 1366x768 --pos 0x0 --rotate normal
 
@@ -32,7 +30,7 @@ run nm-applet &
 run pamac-tray &
 # run flameshot &
 # run volumeicon &
-run udiskie -t &  # Sirve para ver los usb conectados udisks2
+run udiskie -t & # Sirve para ver los usb conectados udisks2
 run xfce4-power-manager &
 numlockx on &
 # blueberry-tray &
@@ -40,6 +38,8 @@ picom --config $HOME/.config/qtile/scripts/picom.conf &
 
 # recupera el fondo de pantalla seteado
 nitrogen --restore &
+#feh --bg-scale ~/Fondos/akatsuki.webp
+#feh --auto-reload
 #run caffeine -a &
 #run vivaldi-stable &
 # run firefox &

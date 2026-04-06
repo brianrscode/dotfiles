@@ -8,8 +8,6 @@ from libqtile.utils import guess_terminal
 from themes.colors import colores, colors
 
 from libqtile import qtile
-from libqtile.widget import Spacer
-import subprocess
 
 
 terminal = guess_terminal()
@@ -278,6 +276,7 @@ def init_widgets_list():
         widget.Image(
             filename="~/.config/qtile/icons/python.png",
             mouse_callbacks={"Button1": openMenu},
+            margin=3,
         ),
         widget.Spacer(length=10),
         pwl_i(),
@@ -316,7 +315,7 @@ def init_widgets_list():
         pwl_i(),
         widget.TextBox(
             text=" ",
-            **base(fg=colors[13], bg=colors[14], fs=18),
+            **base(fg=colors[13], bg=colors[14], fs=14),
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Clock(
@@ -326,19 +325,19 @@ def init_widgets_list():
         ),
         pwl_d(),
         widget.Spacer(length=3),
-        pwl_i(),
-        widget.TextBox(text=" ", **base(fg=colors[1], bg=colors[14], fs=18)),
-        widget.Backlight(
-            backlight_name="intel_backlight",
-            background=colors[14],
-            foreground=colors[1],
-        ),
-        pwl_d(),
+        # pwl_i(),
+        # widget.TextBox(text=" ", **base(fg=colors[1], bg=colors[14], fs=18)),
+        # widget.Backlight(
+        #     backlight_name="intel_backlight",
+        #     background=colors[14],
+        #     foreground=colors[1],
+        # ),
+        # pwl_d(),
         widget.Spacer(length=3),
         pwl_i(),
         widget.TextBox(
             text="  ",
-            **base(fg=colors[1], bg=colors[14], fs=18),
+            **base(fg=colors[1], bg=colors[14], fs=14),
             mouse_callbacks={"Button1": pavucontrol},
         ),
         widget.Volume(background=colors[14], foreground=colors[1], padding=0),
@@ -359,7 +358,7 @@ def init_screens():
     return [
         Screen(
             top=bar.Bar(
-                widgets=widgets_list, size=26, margin=[8, 8, 4, 8], background=colors[2]
+                widgets=widgets_list, size=26, margin=[4, 4, 1, 4], background=colors[2]
             )
         )
     ]
