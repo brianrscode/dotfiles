@@ -25,7 +25,8 @@ pacman -S --noconfirm \
 	alacritty \
 	sxhkd \
 	arandr \
-	git
+	git \
+	neovim
 
 echo "Verificando archivo .xinitrc..."
 if [ ! -f "$XINITRC" ]; then
@@ -59,6 +60,15 @@ if [ -d "$DOTFILES_DIR/qtile" ]; then
 	chown -R $SUDO_USER:$SUDO_USER "$CONFIG_DIR/qtile"
 else
 	echo "No se encontró la carpeta 'qtile' en el repositorio clonado."
+fi
+
+if [ -d "$DOTFILES_DIR/fonts" ]; then
+	echo "Instalando fuentes para todos los usuarios..."
+	mkdir -p /usr/local/share/fonts
+	cp -r "$DOTFILES_DIR/fonts/." /usr/local/share/fonts/
+	fc-cache -f
+else
+	echo "No se encontró la carpeta 'fonts' en el repositorio clonado."
 fi
 
 echo "Instalando paquetes adicionales..."
