@@ -18,10 +18,10 @@ pacman -Syu --noconfirm
 
 echo "Instalando paquetes base..."
 pacman -S --noconfirm \
+	base-devel \
 	xorg-server \
 	xorg-xinit \
 	xorg-apps \
-	qtile \
 	alacritty \
 	sxhkd \
 	arandr \
@@ -75,8 +75,6 @@ pacman -S --noconfirm \
 	blueberry \
 	picom \
 	volumeicon \
-	cbatticon \
-	nitrogen \
 	dmenu \
 	rofi \
 	pamixer \
@@ -84,5 +82,20 @@ pacman -S --noconfirm \
 	gsimplecal \
 	noto-fonts \
 	ttf-font-awesome
+
+echo "Verificando/Instalando yay (AUR helper)..."
+if ! command -v yay &> /dev/null; then
+	pacman -S --needed --noconfirm base-devel git
+	cd /tmp
+	rm -rf yay
+	sudo -u $SUDO_USER git clone https://aur.archlinux.org/yay.git
+	cd yay
+	sudo -u $SUDO_USER makepkg -si --noconfirm
+fi
+
+echo "Instalando dependencias desde AUR..."
+sudo -u $SUDO_USER yay -S --noconfirm \
+	nitrogen \
+	cbatticon
 
 echo "✅ Todo listo. Ahora puedes iniciar Qtile con 'startx'."
