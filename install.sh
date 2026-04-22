@@ -26,7 +26,12 @@ pacman -S --noconfirm \
 	sxhkd \
 	arandr \
 	git \
-	neovim
+	neovim \
+	lazygit \
+	ripgrep \
+	fd \
+	fzf \
+	tree-sitter-cli
 
 echo "Verificando archivo .xinitrc..."
 if [ ! -f "$XINITRC" ]; then
