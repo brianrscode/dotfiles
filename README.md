@@ -22,7 +22,19 @@ Sigue los pasos de instalación de starship.rs según el sistema operativo que e
 Para instalar qtile puedes seguir los pasos de su [documentación](https://docs.qtile.org/en/stable/index.html)
 
 ### Instalación automática
-Solo ejecuta mi archivo `install.sh`
+Puedes instalar todo automáticamente sin necesidad de clonar el repositorio de forma manual utilizando una de las siguientes opciones:
+
+**Opción 1: En una sola línea (recomendado)**
+```bash
+curl -fsSL https://raw.githubusercontent.com/brianrscode/dotfiles/main/install.sh | sudo bash
+```
+
+**Opción 2: Descargar y ejecutar**
+```bash
+curl -LO https://raw.githubusercontent.com/brianrscode/dotfiles/main/install.sh
+chmod +x install.sh
+sudo ./install.sh
+```
 
 
 ## Software

@@ -41,9 +41,15 @@ else
 	echo "La línea 'exec qtile start' ya existe en .xinitrc."
 fi
 
-echo "Clonando el repositorio de dotfiles..."
-cd "$USER_HOME"
-sudo -u $SUDO_USER git clone "$DOTFILES_REPO"
+if [ -d "$DOTFILES_DIR" ]; then
+	echo "Actualizando el repositorio de dotfiles..."
+	cd "$DOTFILES_DIR"
+	sudo -u $SUDO_USER git pull
+else
+	echo "Clonando el repositorio de dotfiles..."
+	cd "$USER_HOME"
+	sudo -u $SUDO_USER git clone "$DOTFILES_REPO"
+fi
 
 if [ -d "$DOTFILES_DIR/qtile" ]; then
 	echo "Copiando configuración de qtile a ~/.config/..."
