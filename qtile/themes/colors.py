@@ -1,6 +1,6 @@
 import os
 
-DEFAULT_THEME = "mocha"
+DEFAULT_THEME = "dark"
 
 THEMES = {
     "mocha": {
