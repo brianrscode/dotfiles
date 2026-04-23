@@ -119,19 +119,32 @@ install_pkg tree-sitter-cli
 echo "=============================================="
 echo "6) Instalando extras opcionales (AUR)"
 echo "=============================================="
-echo "Verificando/Instalando yay (AUR helper)..."
-if ! command -v yay &> /dev/null; then
-	install_pkg base-devel
-	install_pkg git
-	cd /tmp
-	rm -rf yay
-	sudo -u $SUDO_USER git clone https://aur.archlinux.org/yay.git
-	cd yay
-	sudo -u $SUDO_USER makepkg -si --noconfirm
+INSTALL_AUR="n"
+if [ -r /dev/tty ]; then
+	read -r -p "¿Deseas instalar paquetes opcionales desde AUR con yay? [s/N]: " INSTALL_AUR < /dev/tty
+else
+	echo "No hay terminal interactiva. Se omitira la instalacion de paquetes AUR."
 fi
 
-echo "Instalando dependencias desde AUR..."
-sudo -u $SUDO_USER yay -S --noconfirm nitrogen || echo "⚠️ No se pudo instalar: nitrogen"
-sudo -u $SUDO_USER yay -S --noconfirm cbatticon || echo "⚠️ No se pudo instalar: cbatticon"
+if [[ "$INSTALL_AUR" =~ ^[sSyY]$ ]]; then
+	echo "Verificando/Instalando yay (AUR helper)..."
+	if ! command -v yay &> /dev/null; then
+		install_pkg base-devel
+		install_pkg git
+		cd /tmp
+		rm -rf yay
+		sudo -u $SUDO_USER git clone https://aur.archlinux.org/yay.git
+		cd yay
+		sudo -u $SUDO_USER makepkg -si --noconfirm || echo "⚠️ No se pudo instalar yay. Se omiten paquetes AUR."
+	fi
+
+	if command -v yay &> /dev/null; then
+		echo "Instalando dependencias desde AUR..."
+		sudo -u $SUDO_USER yay -S --needed --noconfirm nitrogen || echo "⚠️ No se pudo instalar: nitrogen"
+		sudo -u $SUDO_USER yay -S --needed --noconfirm cbatticon || echo "⚠️ No se pudo instalar: cbatticon"
+	fi
+else
+	echo "Se omitio la instalacion de paquetes AUR."
+fi
 
 echo "✅ Todo listo. Ahora puedes iniciar sesión en Qtile desde tu display manager."
