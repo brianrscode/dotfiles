@@ -193,7 +193,7 @@ keys.extend(
 ##################################################
 
 # group_labels = [" ", " ", "", "", " ", "󰍳 "]
-group_labels = ["", "", "", "", "", ""]
+group_labels = [" ", " ", "", "", " ", "󰍳 "]
 group_names = [str(i + 1) for i in range(len(group_labels))]
 group_layouts = ["monadtall"] * len(group_labels)
 
@@ -243,7 +243,7 @@ floating_layout = layout.Floating(
         Match(wm_class="thunar"),
     ],
     fullscreen_border_width=0,
-        border_width=0,
+    border_width=0,
 )
 
 #################################################################
@@ -252,9 +252,9 @@ floating_layout = layout.Floating(
 
 def init_widgets_defaults():
     return dict(
-        font="Noto Sans Bold",
+        font="Fira Sans Medium",
         padding=3,
-        fontsize=12,
+        fontsize=10,
         foreground=theme["segment_fg"],
         background=theme["bar_background"],
     )
@@ -265,99 +265,99 @@ widget_defaults = init_widgets_defaults()
 
 def init_widgets_list():
     widgets = [
-        widget.Sep(linewidth=0, padding=6, background=theme["bar_background"]),
-        widget.Image(
-            filename="~/.config/qtile/icons/python.png",
-            margin=3,
-            background=theme["bar_background"],
-            mouse_callbacks={"Button1": openMenu},
-        ),
-        widget.Sep(linewidth=0, padding=6, background=theme["bar_background"]),
-        
+        widget.Sep(linewidth=0, padding=6, background=theme["groups_bg"]),
         ### Grupos ###
         widget.GroupBox(
-            font="FontAwesome",
+            font="Mononoki Nerd Font",
             borderwidth=3,
             active=theme["group_active"],
             inactive=theme["group_inactive"],
             rounded=False,
             highlight_method="line",
-            highlight_color=theme["bar_background"],
+            highlight_color=theme["groups_bg"],
             this_current_screen_border=theme["group_this_screen_border"],
-            this_screen_border=theme["border_focus"],
-            other_screen_border=theme["bar_background"],
+            this_screen_border=theme["groups_bg"],
+            other_screen_border=theme["groups_bg"],
             foreground=theme["segment_fg"],
-            background=theme["bar_background"],
+            background=theme["groups_bg"],
             disable_drag=True,
             use_mouse_wheel=True,
             padding_x=4,
         ),
-        widget.Sep(padding=6, linewidth=0, background=theme["bar_background"]),
-        
-        ### Window Name ###
-        widget.WindowName(
-            font="Noto Sans Bold",
-            foreground=theme["segment_fg"],
-            background=theme["bar_background"],
-            fontsize=10,
-            empty_group_string="Desktop",
-            max_chars=80,
-        ),
+        widget.Sep(padding=6, linewidth=0, background=theme["separator"]),
         widget.Spacer(),
 
         ### Systray ###
-        widget.Systray(background=theme.get("color3", theme["bar_background"]), padding=10),
-        widget.Sep(linewidth=0, padding=6, background=theme.get("color3", theme["bar_background"])),
+        widget.Systray(background=theme["systray"], padding=10),
+        widget.Sep(linewidth=0, padding=6, background=theme["systray"]),
 
         ### Volume ###
-        widget.Sep(padding=9, linewidth=0, background=theme.get("color3", theme["bar_background"])),
+        widget.Sep(padding=9, linewidth=0, background=theme["color3"]),
         widget.TextBox(
-            text=" ", 
-            font="FontAwesome",
-            foreground=theme.get("color3fg", theme["segment_fg"]),
-            background=theme.get("color3", theme["bar_background"]),
+            text="󰕾 ",
+            font="Mononoki Nerd Font",
+            foreground=theme["color3fg"],
+            background=theme["color3"],
             fontsize=14,
             padding=0,
             mouse_callbacks={"Button1": pavucontrol},
         ),
         widget.Volume(
-            foreground=theme.get("color3fg", theme["segment_fg"]),
-            background=theme.get("color3", theme["bar_background"]),
+            foreground=theme["color3fg"],
+            background=theme["color3"],
         ),
-        widget.Sep(padding=6, linewidth=0, background=theme.get("color3", theme["bar_background"])),
+        widget.Sep(padding=6, linewidth=0, background=theme["color3"]),
+
+        ### Battery ###
+        widget.Sep(padding=6, linewidth=0, background=theme["color4"]),
+        widget.TextBox(
+            foreground=theme["color4fg"],
+            background=theme["color4"],
+            text=" ",
+            font="Font Awesome 6 Free Solid",
+            fontsize=13,
+        ),
+        widget.Battery(
+            foreground=theme["color4fg"],
+            background=theme["color4"],
+            format="{percent:2.0%}",
+            update_interval=30,
+        ),
+        widget.Sep(padding=6, linewidth=0, background=theme["color4"]),
 
         ### Clock (Date) ###
-        widget.Sep(padding=6, linewidth=0, background=theme.get("color1", theme["bar_background"])),
+        widget.Sep(padding=6, linewidth=0, background=theme["color1"]),
         widget.TextBox(
-            foreground=theme.get("color1fg", theme["segment_fg"]),
-            background=theme.get("color1", theme["bar_background"]),
-            text=" ",
-            font="FontAwesome",
+            foreground=theme["color1fg"],
+            background=theme["color1"],
+            text=" ",
+            font="Font Awesome 6 Free Solid",
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Clock(
-            foreground=theme.get("color1fg", theme["segment_fg"]),
-            background=theme.get("color1", theme["bar_background"]),
-            format="%d/%m/%y",
+            foreground=theme["color1fg"],
+            background=theme["color1"],
+            format="%m/%d/%y",
             mouse_callbacks={"Button1": openCalendar},
         ),
-        widget.Sep(padding=6, linewidth=0, background=theme.get("color1", theme["bar_background"])),
-        
+        widget.Sep(padding=6, linewidth=0, background=theme["color1"]),
+
         ### Clock (Time) ###
+        widget.Sep(padding=6, linewidth=0, background=theme["color5"]),
         widget.TextBox(
-            foreground=theme.get("color5fg", theme["segment_fg"]),
-            background=theme.get("color5", theme["bar_background"]),
-            text=" ", 
-            font="FontAwesome",
+            foreground=theme["color5fg"],
+            background=theme["color5"],
+            text=" ",
+            font="Font Awesome 6 Free Solid",
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Clock(
-            foreground=theme.get("color5fg", theme["segment_fg"]),
-            background=theme.get("color5", theme["bar_background"]),
+            foreground=theme["color5fg"],
+            background=theme["color5"],
             format="%A - %H:%M",
             mouse_callbacks={"Button1": openCalendar},
         ),
-        widget.Sep(padding=6, linewidth=0, background=theme.get("color5", theme["bar_background"])),
+        widget.Sep(padding=6, linewidth=0, background=theme["color5"]),
     ]
     return widgets
 
@@ -370,13 +370,19 @@ def init_screens():
         Screen(
             top=bar.Bar(
                 widgets=widgets_list,
-                size=26,
+                size=20,
                 margin=0,
                 background=theme["bar_background"],
-                opacity=0.9,
+                opacity=1.0,
             )
         )
     ]
+
+
+screens = init_screens()
+
+
+#############################################################
 ##################   MOUSE CONFIGURATION   ##################
 #############################################################
 
