@@ -1,284 +1,276 @@
-### EXPORT ###
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-export EDITOR='code'                    # Editor de código predeterminado
-export VISUAL='nano'                    # Editor de texto predeterminado
-export HISTCONTROL=ignoreboth:erasedups # Controla el historial de comandos de bash. Los comandos duplicados no se guardaran en el historial ni los que comienzan con un espacio en blanco
-export PAGER='most'
+#!/usr/bin/env bash
 
-# Prompt
-PS1='[\[\e[96m\]\u\[\e[0m\]@\h \w \[\e[96;1m\]$(git branch 2>/dev/null | colrm 1 2)\[\e[0m\]]\$ '
-
-# Si el shell no se ejecuta de forma interactiva, no hace nada
+# Si no es shell interactiva, salir.
 [[ $- != *i* ]] && return
 
-# Verifica que los directorios existan, de ser cierto, los agrega al inicio de la variable entorno PATH
-# Esto permite que los ejecutables ubicados en esos directorios sean encontrados y ejecutados desde
-# cualquier ubicación del sistema
-if [ -d "$HOME/.bin" ]; then
-	PATH="$HOME/.bin:$PATH"
+### Entorno
+export EDITOR="${EDITOR:-nvim}"
+export VISUAL="${VISUAL:-nvim}"
+export PAGER="${PAGER:-less}"
+export HISTCONTROL=ignoreboth:erasedups
+export HISTSIZE=10000
+export HISTFILESIZE=20000
+
+# Locale: intenta es_MX, con fallback seguro.
+export LANG="${LANG:-es_MX.UTF-8}"
+export LANGUAGE="${LANGUAGE:-es_MX:es}"
+if locale -a 2>/dev/null | grep -qi '^es_MX\.utf8$'; then
+    export LC_ALL="es_MX.UTF-8"
+elif locale -a 2>/dev/null | grep -qi '^en_US\.utf8$'; then
+    export LC_ALL="en_US.UTF-8"
+else
+    export LC_ALL="C.UTF-8"
 fi
 
-if [ -d "$HOME/.local/bin" ]; then
-	PATH="$HOME/.local/bin:$PATH"
-fi
+### PATH
+for dir in "$HOME/.local/bin" "$HOME/.bin" "$HOME/.programas" "$HOME/comandos" "$HOME/.opencode/bin"; do
+    [ -d "$dir" ] && PATH="$dir:$PATH"
+done
+export PATH
 
-# ignorar mayúsculas y minúsculas al completar un comando de shell bashh
+### Opciones de shell
+shopt -s autocd
+shopt -s cdspell
+shopt -s cmdhist
+shopt -s histappend
 bind "set completion-ignore-case on"
 
-### ALIAS ###
-#list
-alias ls='ls --color=auto'
-alias la='ls -a'
-alias ll='ls -alFh'
-alias l='ls'
-alias l.="ls -A | grep -E '^\.'" # busca los archivos ocultos
-alias listdir="ls -d */ > list"
+### Alias base
+alias ls="ls --color=auto"
+alias l="ls --color=auto"
+alias ll="ls -alFh"
+alias la="ls -a"
+alias l.="ls -A | grep -E '^\\.'"
 
-#pacman -> Remplazar por gestor correspondiente
-alias sps='sudo pacman -S'
-alias spr='sudo pacman -R'
-alias sprs='sudo pacman -Rs'
-alias sprdd='sudo pacman -Rdd'
-alias spqo='sudo pacman -Qo'
-alias spsii='sudo pacman -Sii'
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+alias ..="cd .."
+alias ...="cd ../.."
+alias cd..="cd .."
+alias pdw="pwd"
 
-# muestra la lista de paquetes que necesitan este paquete - depende de mpv como ejemplo
-function_depends() {
-	search=$(echo "$1")
-	sudo pacman -Sii $search | grep "Required" | sed -e "s/Required By     : //g" | sed -e "s/  /\n/g"
-}
-
-alias depends='function_depends'
-
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-#corregir errores tipográficos obvios
-alias cd..='cd ..'
-alias pdw='pwd'
-alias udpate='sudo pacman -Syyu'
-alias upate='sudo pacman -Syyu'
-alias updte='sudo pacman -Syyu'
-alias updqte='sudo pacman -Syyu'
-alias upqll='paru -Syu --noconfirm'
-alias upal='paru -Syu --noconfirm'
-
-# Coloree la salida del comando grep para facilitar su uso (bueno para archivos de registro)
-alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-
-# Alias ​​para la gestión de software
-alias update='sudo pacman -Syyu'
-alias upd='sudo pacman -Syyu'
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-# continuar descarga
+alias vi="nvim"
+alias vim="nvim"
+alias pfre="pip freeze > requirements.txt"
 alias wget="wget -c"
-
-# lista de usuarios
 alias userlist="cut -d: -f1 /etc/passwd | sort"
-# ps
 alias psa="ps auxf"
-# grub update
-alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-# add new fonts trabajar esto para cada que agrego fuentes nuevas y ocupo fc-cache como newFonts ->
-alias nfont='sudo fc-cache -fv'
-
-# cambiar entre bash y zsh
-alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
-alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
-alias tofish="sudo chsh $USER -s /bin/fish && echo 'Now log out.'"
-
-# kill commands
-# quickly kill conkies
-alias kc='killall conky'
-# quickly kill polybar
-alias kp='killall polybar'
-# quickly kill picom
-alias kpi='killall picom'
-
-#hardware info --short
-alias hw="hwinfo --short"
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-
-# control de audio pulseaudio o pipewire
-alias audio="pactl info | grep 'Server Name'"
-
-# comprobar vulnerabilidades microcódigo
-alias microcode='grep . /sys/devices/system/cpu/vulnerabilities/*'
-
-# verifique la cpu
-alias cpu="cpuid -i | grep uarch | head -n 1"
-
-# obtenga los espejos más rápidos en su vecindario
-alias mirror="sudo reflector -f 30 -l 30 --number 10 --verbose --save /etc/pacman.d/mirrorlist"
-alias mirrord="sudo reflector --latest 30 --number 10 --sort delay --save /etc/pacman.d/mirrorlist"
-alias mirrors="sudo reflector --latest 30 --number 10 --sort score --save /etc/pacman.d/mirrorlist"
-alias mirrora="sudo reflector --latest 30 --number 10 --sort age --save /etc/pacman.d/mirrorlist"
-# nuestro experimental - la mejor opción por el momento
-alias mirrorx="sudo reflector --age 6 --latest 20  --fastest 20 --threads 5 --sort rate --protocol https --save /etc/pacman.d/mirrorlist"
-alias mirrorxx="sudo reflector --age 6 --latest 20  --fastest 20 --threads 20 --sort rate --protocol https --save /etc/pacman.d/mirrorlist"
-alias ram='rate-mirrors --allow-root --disable-comments arch | sudo tee /etc/pacman.d/mirrorlist'
-alias rams='rate-mirrors --allow-root --disable-comments --protocol https arch  | sudo tee /etc/pacman.d/mirrorlist'
-
-# montando la carpeta Public para intercambio entre anfitrión e invitado en virtualbox
-alias vbm="sudo /usr/local/bin/arcolinux-vbox-share"
-
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-#shopt
-shopt -s autocd         # permite ingresar a directorios sin usar cd
-shopt -s cdspell        # corrige errores tipográficos en los nombres de directorios al usar cd
-shopt -s cmdhist        # habilita la característica de historial de comandos mejorada
-shopt -s dotglob        # el patrón * en nombres de archivos coincidrá también con archivos ocultos
-shopt -s histappend     # asegura que el historias de commandos se añada aun archivo existente en vez de sobreescribir
-shopt -s expand_aliases # permite la expación de alias en la línea de comando-------------------------
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-# descarga de youtube
-alias yta-aac="yt-dlp --extract-audio --audio-format aac "
-alias yta-best="yt-dlp --extract-audio --audio-format best "
-alias yta-flac="yt-dlp --extract-audio --audio-format flac "
-alias yta-mp3="yt-dlp --extract-audio --audio-format mp3 "
-alias ytv-best="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "
-
-# Paquetes instalados recientemente
-alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -200 | nl"
-alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
-
-# iso y versión utilizada para instalar ArcoLinux
-alias iso="cat /etc/dev-rel | awk -F '=' '/ISO/ {print $2}'"
-alias isoo="cat /etc/dev-rel"
-#-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Muy bueno -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
-# vscode para archivos de configuración importantes
-alias vf="$EDITOR ~/.config/fish/config.fish"
-alias vz="$EDITOR ~/.zshrc"
-alias bh="$EDITOR ~/.bashrc"
-#alias nneofetch="$EDITOR ~/.config/neofetch/config.conf"
-
-#shutdown or reboot
+alias apaga="shutdown now"
 alias ssn="sudo shutdown now"
 alias sr="reboot"
 
-# actualizar mejores imágenes de pantalla de bloqueo
-alias bls="betterlockscreen -u /usr/share/backgrounds/arcolinux/"
+alias \
+    clar="clear" \
+    claer="clear" \
+    lear="clear" \
+    clea="clear" \
+    cear="clear" \
+    cler="clear" \
+    clera="clear" \
+    celar="clear" \
+    cearl="clear"
 
-# proporcione la lista de todos los escritorios instalados - escritorios xsessions
-alias xd="ls /usr/share/xsessions"
-alias xdw="ls /usr/share/wayland-sessions"
+### Alias de Git
+alias gi="git init"
+alias gs="git status"
+alias gaa="git add"
+alias ga="git add ."
+alias gc="git commit"
+alias gcm="git commit -m"
+alias gr="git remote add origin"
+alias gd="git diff"
+alias gsw="git switch"
+alias gswc="git switch -c"
+alias clone="git clone"
+alias gt="git log --graph --oneline --decorate --all"
 
-# # ex = Extractor para todo tipo de archivos.
-# # uso: ex <archivo>
-ex() {
-	if [ -f $1 ]; then
-		case $1 in
-		*.tar.bz2) tar xjf $1 ;;
-		*.tar.gz) tar xzf $1 ;;
-		*.bz2) bunzip2 $1 ;;
-		*.rar) unrar x $1 ;;
-		*.gz) gunzip $1 ;;
-		*.tar) tar xf $1 ;;
-		*.tbz2) tar xjf $1 ;;
-		*.tgz) tar xzf $1 ;;
-		*.zip) unzip $1 ;;
-		*.Z) uncompress $1 ;;
-		*.7z) 7z x $1 ;;
-		*.deb) ar x $1 ;;
-		*.tar.xz) tar xf $1 ;;
-		*.tar.zst) tar xf $1 ;;
-		*) echo "'$1' no se puede extraer via ex()" ;;
-		esac
-	else
-		echo "'$1' no es un archivo valido"
-	fi
+gp() {
+    local branch
+    branch="$(git branch --show-current 2>/dev/null)"
+    if [ -z "$branch" ]; then
+        echo "No se detecto una rama actual."
+        return 1
+    fi
+    git push -u origin "$branch"
 }
 
-co() {
-	elemento=$1
-	tipo_compresion=$2
-	archivo=""
-	# echo $elemento
-	if [[ $elemento ]]; then
-		archivo="$(echo "$elemento" | cut -d'.' -f1 | cut -d'/' -f1)"
-	fi
-
-	case $tipo_compresion in
-	zip) zip -r "${archivo:-$elemento}.zip" "$elemento" ;;
-	rar) rar a "${archivo:-$elemento}.rar" "$elemento" ;;
-	tar) tar cf $elemento.tar $elemento ;;
-	bz2) bzip2 -k $elemento ;;
-	gz) gzip -k $elemento ;;
-	Z) compress -k $elemento ;;
-	7z) 7z a $elemento.7z $elemento ;;
-	deb) ar r $elemento.deb $elemento ;;
-	tar.bz2 | tbz2) tar cjf $elemento.tar.bz2 $elemento ;;
-	tar.gz | tgz) tar czf $elemento.tar.gz $elemento ;;
-	tar.xz | tar.zst) tar cJf $elemento.tar.xz $elemento ;;
-	*) echo "Tipo de compresión no válido" ;;
-	esac
-
-	if [ ! $elemento ]; then
-		echo "'$archivo' no es un archivo válido"
-	fi
+gpu() {
+    local branch
+    branch="$(git branch --show-current 2>/dev/null)"
+    if [ -z "$branch" ]; then
+        echo "No se detecto una rama actual."
+        return 1
+    fi
+    git pull --rebase origin "$branch"
 }
 
-entorno() {
-	VENV_DIR="venv"
+### Alias de uv
+alias uvi="uv init"
+alias uva="uv add"
+alias uvre="uv remove"
+alias uvs="uv sync"
+alias uvl="uv lock"
+alias uvr="uv run"
 
-	if [ ! -d "$VENV_DIR" ]; then
-		python -m venv $VENV_DIR
-	fi
-	activar
+### Utilidades
+crear_env() {
+    if [ -f .env ]; then
+        echo ".env ya existe. No se sobreescribe."
+        return 0
+    fi
+
+    cat > .env <<'EOF'
+SECRET_KEY=
+DEBUG=True
+# ALLOWED_HOSTS=#dominio.com
+DATABASE_URL=
+NAME_DB=
+USER_DB=
+PASSWORD_DB=
+HOST_DB=
+PORT_DB=
+# CSRF_TRUSTED_ORIGINS=#https://ejemplo.com
+EOF
 }
 
 activar() {
-	VENV_DIR="venv"
+    local venv_dir="venv"
 
-	if [ -f "$VENV_DIR/bin/activate" ]; then
-		source $VENV_DIR/bin/activate
-	fi
+    if [ -f "$venv_dir/bin/activate" ]; then
+        echo -e "\e[1;34mActivando entorno virtual...\e[0m"
+        # shellcheck disable=SC1091
+        source "$venv_dir/bin/activate"
+        echo -e "\e[1;32mEntorno virtual activado\e[0m"
+    elif [ -f "$venv_dir/Scripts/activate" ]; then
+        echo -e "\e[1;34mActivando entorno virtual...\e[0m"
+        # shellcheck disable=SC1091
+        source "$venv_dir/Scripts/activate"
+        echo -e "\e[1;32mEntorno virtual activado\e[0m"
+    else
+        echo -e "\e[1;31mNo se pudo activar el entorno virtual. Ruta desconocida.\e[0m"
+        return 1
+    fi
+}
+
+entorno() {
+    local venv_dir="venv"
+
+    if [ "$1" = "-h" ]; then
+        echo "-h    Muestra esta ayuda"
+        echo "-r    Instala dependencias desde requirements.txt"
+        echo "-un   Desinstala dependencias desde requirements.txt"
+        echo "-v    Instala dependencias para vision por computadora"
+        echo "-d    Instala dependencias para Django y crea proyecto"
+        echo "-drf  Instala dependencias para Django REST Framework y crea proyecto"
+        return
+    fi
+
+    if [ ! -d "$venv_dir" ]; then
+        echo -e "\e[1;34mCreando entorno virtual...\e[0m"
+        python -m venv "$venv_dir"
+        echo -e "\e[1;32mEntorno virtual creado en $venv_dir\e[0m"
+    fi
+
+    activar || return 1
+
+    echo -e "\e[1;34mActualizando pip...\e[0m"
+    python -m pip install --upgrade pip
+    echo -e "\e[1;32mpip actualizado en el entorno virtual\e[0m"
+
+    case "$1" in
+        -r)
+            echo -e "\e[1;34mInstalando dependencias desde requirements.txt...\e[0m"
+            pip install -r requirements.txt
+            echo -e "\e[1;32mDependencias instaladas\e[0m"
+            ;;
+        -un)
+            echo -e "\e[1;34mDesinstalando dependencias desde requirements.txt...\e[0m"
+            pip uninstall -y -r requirements.txt
+            echo -e "\e[1;32mDependencias desinstaladas\e[0m"
+            ;;
+        -v)
+            echo -e "\e[1;34mInstalando dependencias para vision por computadora...\e[0m"
+            pip install opencv-contrib-python
+            pfre
+            echo -e "\e[1;32mDependencias instaladas y requirements.txt generado\e[0m"
+            ;;
+        -d)
+            local project_name="${2:-core}"
+            echo -e "\e[1;34mInstalando dependencias para Django...\e[0m"
+            pip install django
+            pfre
+            echo -e "\e[1;34mCreando proyecto...\e[0m"
+            django-admin startproject "$project_name" .
+            echo "LOGIN_REDIRECT_URL = '/'" >> "$project_name/settings.py"
+            echo "LOGOUT_REDIRECT_URL = '/'" >> "$project_name/settings.py"
+            crear_env
+            echo -e "\e[1;32mProyecto creado -> $project_name\e[0m"
+            ;;
+        -drf)
+            local project_name="${2:-core}"
+            echo -e "\e[1;34mInstalando dependencias para Django REST Framework...\e[0m"
+            pip install django djangorestframework
+            pfre
+            django-admin startproject "$project_name" .
+            crear_env
+            echo -e "\e[1;32mProyecto creado -> $project_name\e[0m"
+            ;;
+    esac
 }
 
 run() {
-	if ! [ -f manage.py ]; then
-		return 1
-	fi
+    if [ ! -f manage.py ]; then
+        echo -e "\e[1;31mNo se encontro manage.py en el directorio actual.\e[0m"
+        return 1
+    fi
 
-	if [ -z "$1" ]; then
-		python manage.py runserver
-	fi
+    if [ -z "$1" ]; then
+        echo -e "\e[1;34mEjecutando el servidor de desarrollo de Django...\e[0m"
+        python manage.py runserver
+    else
+        echo -e "\e[1;34mEjecutando el servidor de desarrollo de Django en '$1'...\e[0m"
+        python manage.py runserver "$1"
+    fi
 }
 
-# vim
-alias vi="nvim"
+ex() {
+    if [ -z "$1" ] || [ ! -f "$1" ]; then
+        echo "'$1' no es un archivo valido"
+        return 1
+    fi
 
-#git
-alias gi="git init"              # Inicializa un nuevo repositorio
-alias gs="git status"            # Muestra el estado del repositorio actual
-alias ga="git add ."             # Agrega los nuevos cambios al repositorio actual
-alias gc="git commit"            # Agrega el nuevo commit al repositorio actual
-alias gr="git remote add origin" # Agrega un repositorio remoto
-alias gp="git push origin main"  # Manda los cambios al repositorio remoto
-alias gpu="git pull origin main" # Trae los cambios de un repositorio remoto a mi repositorio local
-alias clone="git clone"          # Clona un repositorio
-alias gt="git tree"              # Muestra los commits hechos en el tiempo en forma de rama
-alias rmgitcache="rm -r ~/.cache/git"
-alias grh="git reset --hard"
+    case "$1" in
+        *.rar) unrar x "$1" ;;
+        *.gz) gunzip "$1" ;;
+        *.tar) tar xf "$1" ;;
+        *.tbz2) tar xjf "$1" ;;
+        *.tgz) tar xzf "$1" ;;
+        *.zip) unzip "$1" ;;
+        *.Z) uncompress "$1" ;;
+        *.7z) 7z x "$1" ;;
+        *.tar.xz) tar xf "$1" ;;
+        *.tar.zst) tar xf "$1" ;;
+        *)
+            echo "'$1' no se puede extraer via ex()"
+            return 1
+            ;;
+    esac
+}
 
-#create a file called .bashrc-personal and put all your personal aliases
-#in there. They will not be overwritten by skel.
+### Integraciones opcionales
+if command -v starship >/dev/null 2>&1; then
+    eval "$(starship init bash)"
+fi
 
+if command -v zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init bash)"
+fi
+
+if command -v uv >/dev/null 2>&1; then
+    eval "$(uv generate-shell-completion bash)"
+fi
+
+alias bh="$EDITOR ~/.bashrc"
+alias vf="$EDITOR ~/.config/fish/config.fish"
+alias vz="$EDITOR ~/.zshrc"
+
+# Carga aliases/funciones locales que no quieras versionar.
 [[ -f ~/.bashrc-personal ]] && . ~/.bashrc-personal
-
-# neofetch
-
-#####################################
-#     COMANDOS PERSONALIZADOS       #
-#####################################
-
-PATH="$PATH:/home/brian/comandos"
-
-alias apaga="shutdown now"
-
-eval "$(starship init bash)"
-# -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_ Hasta aquí -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
