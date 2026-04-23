@@ -1,163 +1,56 @@
-#######################################################
-############### Ajustes predeterminados ###############
-#######################################################
+import os
 
-class TemaBase:
-    colores_comunes = {
-        "black": ["#000", "#000"],
-        "white": ["#FFF", "#FFF"],
-        "activo": ["#f1ffff", "#f1ffff"],
-        "inactivo": ["#4c566a", "#4c566a"],
-        "gInactivo": ["#6B747A", "#6B747A"],
-    }
+DEFAULT_THEME = "mocha"
 
-    def __init__(
-            self,
-            barra: list[str, str]=None,
-            selec: list[str, str]=None,
-            focus: list[str, str]=None,
-            widget1: str="",
-            widget2: str="",
-            widget3: str="",
-            widget4: str="",
-            widget5: str="#0f101a"
-            ):
-
-        # Elementos comunes
-        self.colores = dict(self.colores_comunes)  # Copia para no mutar la clase base
-        
-        # Barra de navegación y bordes de las ventanas
-        self.colores.update({
-            "barra": barra or ["#0f101a", "#0f101a"],
-            "gSelec": selec or ["#4AD9B0", "#4AD9B0"],
-            "vFocus": focus or ["#038C8C", "#038C8C"],
-        })
-
-        # Widgets
-        self.colores.update({
-            "wid1": widget1,
-            "wid2": widget2,
-            "wid3": widget3,
-            "wid4": widget4,
-            "wid5": widget5,
-        })
-
-    def obtener_colores(self):
-        return self.colores
-
-
-#######################################################
-######################## TEMAS ########################
-#######################################################
-
-class Noche(TemaBase):
-    def __init__(self):
-        super().__init__(
-            barra=["#2F343F", "#2F343F"],
-            selec=["#36c6ff", "#36c6ff"],
-            focus=["#6272a4", "#6272a4"],
-            widget1="#102C50",
-            widget2="#041C3C",
-            widget3="#051E31",
-            widget4="#040414"
-        )
-
-
-class Waifu(TemaBase):
-    def __init__(self):
-        super().__init__(
-            widget1="#F2916D",
-            widget2="#038C8C",
-            widget3="#D96055",
-            widget4="#04878C"
-        )
-
-class Waifu2(TemaBase):
-    def __init__(self):
-        super().__init__(
-            barra=["#0f101a", "#0f101a"],
-            selec=["#3878B2", "#3878B2"],
-            focus=["#03738C", "#03738C"],
-            widget1="#3878B2",
-            widget2="#F2AB6D",
-            widget3="#0A2140",
-            widget4="#00010D"
-        )
-
-class Waifu3(TemaBase):
-    def __init__(self):
-        super().__init__(
-            barra=["#131827", "#131827"],
-            selec=["#D13649", "#D13649"],
-            focus=["#D9A577", "#D9A577"],
-            widget1="#F2D4C2",
-            widget2="#D13649",
-            widget3="#D9A577",
-            widget4="#BF213E"
-        )
-
-class Waifu4(TemaBase):
-    def __init__(self):
-        super().__init__(
-            barra=["#0f101a", "#0f101a"],
-            selec=["#D96055", "#D96055"],
-            focus=["#D96055", "#D96055"],
-            widget1="#F2916D",
-            widget2="#C37C66",
-            widget3="#D96055",
-            widget4="#D92929"
-        )
-
-class Mocha(TemaBase):
-    def __init__(self):
-        super().__init__(
-            barra=["#0F0F1C", "#0F0F1C"], # #1a1b26 #0F0F1C  #1A1C31
-            widget1="#BEBEBE",# 9399b2
-            widget2="#949494", # 7f849c
-            widget3="#7A7A7A", # 45475a
-            widget4="#545454", # 313244
-            widget5="#3C3C3C"
-        )
-
-
-#######################################################
-################## Gestión de temas ###################
-#######################################################
-
-temas = {
-    "noche": Noche,
-    "waifu": Waifu,
-    "waifu2": Waifu2,
-    "waifu3": Waifu3,
-    "waifu4": Waifu4,
-    "mocha": Mocha,
+THEMES = {
+    "mocha": {
+        "bar_background": "#3b4252",
+        "segment_bg": "#242831",
+        "segment_fg": "#d8dee9",
+        "border_focus": "#038C8C",
+        "border_normal": "#4c566a",
+        "group_active": "#5e81ac",
+        "group_inactive": "#4c566a",
+        "group_highlight": "#3b4252",
+        "group_block_text": "#81a1c1",
+        "group_this_screen_border": "#a3be8c",
+        "group_other_screen_border": "#242831",
+    },
+    "noche": {
+        "bar_background": "#2F343F",
+        "segment_bg": "#040414",
+        "segment_fg": "#f1ffff",
+        "border_focus": "#6272a4",
+        "border_normal": "#4c566a",
+        "group_active": "#36c6ff",
+        "group_inactive": "#6B747A",
+        "group_highlight": "#2F343F",
+        "group_block_text": "#36c6ff",
+        "group_this_screen_border": "#36c6ff",
+        "group_other_screen_border": "#040414",
+    },
 }
 
 
-def get_tema(nombre="mocha"):
-    tema_clase = temas.get(nombre, Mocha)
-    return tema_clase().obtener_colores()
+def get_theme(name: str = DEFAULT_THEME) -> dict[str, str]:
+    selected_theme = (name or DEFAULT_THEME).lower()
+    return THEMES.get(selected_theme, THEMES[DEFAULT_THEME]).copy()
 
 
-def init_colors():
-    return [
-        ["#2e3440", "#2e3440"],  # 0 background
-        ["#d8dee9", "#d8dee9"],  # 1 foreground
-        ["#3b4252", "#3b4252"],  # 2 background lighter
-        ["#bf616a", "#bf616a"],  # 3 red
-        ["#a3be8c", "#a3be8c"],  # 4 green
-        ["#ebcb8b", "#ebcb8b"],  # 5 yellow
-        ["#81a1c1", "#81a1c1"],  # 6 blue
-        ["#b48ead", "#b48ead"],  # 7 magenta
-        ["#88c0d0", "#88c0d0"],  # 8 cyan
-        ["#e5e9f0", "#e5e9f0"],  # 9 white
-        ["#4c566a", "#4c566a"],  # 10 grey
-        ["#d08770", "#d08770"],  # 11 orange
-        ["#8fbcbb", "#8fbcbb"],  # 12 super cyan
-        ["#5e81ac", "#5e81ac"],  # 13 super blue
-        ["#242831", "#242831"],  # 14 super dark background
-        ["#00000000", "#00000000"],  # 15 transparent (2)
-    ]
+def get_active_theme() -> dict[str, str]:
+    return get_theme(os.getenv("QTILE_THEME", DEFAULT_THEME))
 
-colors = init_colors()
-colores = get_tema("mocha")
+
+def get_tema(nombre: str = DEFAULT_THEME) -> dict[str, list[str]]:
+    tema = get_theme(nombre)
+    return {
+        "barra": [tema["bar_background"], tema["bar_background"]],
+        "vFocus": [tema["border_focus"], tema["border_focus"]],
+        "inactivo": [tema["border_normal"], tema["border_normal"]],
+        "activo": [tema["segment_fg"], tema["segment_fg"]],
+        "gInactivo": [tema["group_inactive"], tema["group_inactive"]],
+        "gSelec": [tema["group_active"], tema["group_active"]],
+    }
+
+
+theme = get_active_theme()

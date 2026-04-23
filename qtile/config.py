@@ -5,7 +5,7 @@ from libqtile.lazy import lazy
 from os import path
 from libqtile.utils import guess_terminal
 
-from themes.colors import colores, colors
+from themes.colors import get_active_theme
 
 from libqtile import qtile
 
@@ -17,6 +17,7 @@ mod1 = "alt"
 mod2 = "control"
 qtile_path = path.join(path.expanduser("~"), ".config", "qtile")
 powerMenu = f'bash "{path.join(qtile_path, "powermenu.sh")}"'
+theme = get_active_theme()
 
 
 def openCalendar():
@@ -228,8 +229,8 @@ keys.extend(
 layout_config = {
     "margin": 2,
     "border_width": 2,
-    "border_focus": colores["vFocus"][0],
-    "border_normal": colores["inactivo"][0],
+    "border_focus": theme["border_focus"],
+    "border_normal": theme["border_normal"],
 }
 
 layouts = [layout.MonadTall(**layout_config)]
@@ -249,7 +250,7 @@ floating_layout = layout.Floating(
 ##################   WIDGETS PARA LA BARRA    ###################
 #################################################################
 
-base = lambda fg=colors[14], bg=colors[2], fs=26: {
+base = lambda fg=theme["segment_bg"], bg=theme["bar_background"], fs=26: {
     "foreground": fg,
     "background": bg,
     "fontsize": fs,
@@ -288,24 +289,24 @@ def init_widgets_list():
             padding_x=4,
             disable_drag=True,
             use_mouse_wheel=True,
-            active=colors[13],
-            inactive=colors[10],
+            active=theme["group_active"],
+            inactive=theme["group_inactive"],
             rounded=True,
-            highlight_color=colors[2],
+            highlight_color=theme["group_highlight"],
             highlight_method="text",
-            block_highlight_text_color=colors[6],
-            this_current_screen_border=colors[4],
-            this_screen_border=colors[4],
-            other_current_screen_border=colors[14],
-            other_screen_border=colors[14],
-            **base(fg=colors[1], bg=colors[14], fs=12),
+            block_highlight_text_color=theme["group_block_text"],
+            this_current_screen_border=theme["group_this_screen_border"],
+            this_screen_border=theme["group_this_screen_border"],
+            other_current_screen_border=theme["group_other_screen_border"],
+            other_screen_border=theme["group_other_screen_border"],
+            **base(fg=theme["segment_fg"], bg=theme["segment_bg"], fs=12),
         ),
         pwl_d(),
         widget.Spacer(length=20),
         pwl_i(),
         widget.WindowName(
             font="Noto Sans Bold",
-            **base(fg=colors[1], bg=colors[14], fs=10),
+            **base(fg=theme["segment_fg"], bg=theme["segment_bg"], fs=10),
             width=bar.CALCULATED,
             empty_group_string="Desktop",
             max_chars=80,
@@ -315,36 +316,40 @@ def init_widgets_list():
         pwl_i(),
         widget.TextBox(
             text=" ",
-            **base(fg=colors[1], bg=colors[14], fs=12),
+            **base(fg=theme["segment_fg"], bg=theme["segment_bg"], fs=12),
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Clock(
             format=" %A-%d | %H:%M ",
-            **base(fg=colors[1], bg=colors[14], fs=12),
+            **base(fg=theme["segment_fg"], bg=theme["segment_bg"], fs=12),
             mouse_callbacks={"Button1": openCalendar},
         ),
         pwl_d(),
         widget.Spacer(length=3),
         # pwl_i(),
-        # widget.TextBox(text=" ", **base(fg=colors[1], bg=colors[14], fs=18)),
+        # widget.TextBox(text=" ", **base(fg=theme["segment_fg"], bg=theme["segment_bg"], fs=18)),
         # widget.Backlight(
         #     backlight_name="intel_backlight",
-        #     background=colors[14],
-        #     foreground=colors[1],
+        #     background=theme["segment_bg"],
+        #     foreground=theme["segment_fg"],
         # ),
         # pwl_d(),
         widget.Spacer(length=3),
         pwl_i(),
         widget.TextBox(
             text="  ",
-            **base(fg=colors[1], bg=colors[14], fs=14),
+            **base(fg=theme["segment_fg"], bg=theme["segment_bg"], fs=14),
             mouse_callbacks={"Button1": pavucontrol},
         ),
-        widget.Volume(background=colors[14], foreground=colors[1], padding=0),
+        widget.Volume(
+            background=theme["segment_bg"],
+            foreground=theme["segment_fg"],
+            padding=0,
+        ),
         pwl_d(),
         widget.Spacer(length=3),
         pwl_i(),
-        widget.Systray(background=colors[14], icon_size=15, padding=5),
+        widget.Systray(background=theme["segment_bg"], icon_size=15, padding=5),
         pwl_d(),
         widget.Spacer(length=5),
     ]
@@ -358,7 +363,10 @@ def init_screens():
     return [
         Screen(
             top=bar.Bar(
-                widgets=widgets_list, size=22, margin=[4, 4, 0, 4], background=colors[2]
+                widgets=widgets_list,
+                size=22,
+                margin=[4, 4, 0, 4],
+                background=theme["bar_background"],
             )
         )
     ]
