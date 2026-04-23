@@ -16,20 +16,25 @@ XINITRC="$USER_HOME/.xinitrc"
 echo "Actualizando el sistema..."
 pacman -Syu --noconfirm
 
+install_pkg() {
+	if ! pacman -S --needed --noconfirm "$1"; then
+		echo "⚠️ No se pudo instalar: $1. Continuando con el siguiente paquete..."
+	fi
+}
+
 echo "Instalando paquetes base y de desarrollo..."
-pacman -S --needed --noconfirm \
-	base-devel \
-	xorg-server \
-	xorg-xinit \
-	xorg-apps \
-	sxhkd \
-	git \
-	neovim \
-	lazygit \
-	ripgrep \
-	fd \
-	fzf \
-	tree-sitter-cli
+install_pkg base-devel
+install_pkg xorg-server
+install_pkg xorg-xinit
+install_pkg xorg-apps
+install_pkg sxhkd
+install_pkg git
+install_pkg neovim
+install_pkg lazygit
+install_pkg ripgrep
+install_pkg fd
+install_pkg fzf
+install_pkg tree-sitter-cli
 
 echo "Verificando archivo .xinitrc..."
 if [ ! -f "$XINITRC" ]; then
@@ -75,30 +80,30 @@ else
 fi
 
 echo "Instalando paquetes adicionales para Qtile..."
-pacman -S --needed --noconfirm \
-	networkmanager \
-	network-manager-applet \
-	pavucontrol \
-	alsa-utils \
-	playerctl \
-	brightnessctl \
-	flameshot \
-	udiskie \
-	xfce4-power-manager \
-	numlockx \
-	picom \
-	volumeicon \
-	dmenu \
-	rofi \
-	pamixer \
-	gsimplecal \
-	thunar \
-	noto-fonts \
-	ttf-font-awesome
+install_pkg networkmanager
+install_pkg network-manager-applet
+install_pkg pavucontrol
+install_pkg alsa-utils
+install_pkg playerctl
+install_pkg brightnessctl
+install_pkg flameshot
+install_pkg udiskie
+install_pkg xfce4-power-manager
+install_pkg numlockx
+install_pkg picom
+install_pkg volumeicon
+install_pkg dmenu
+install_pkg rofi
+install_pkg pamixer
+install_pkg gsimplecal
+install_pkg thunar
+install_pkg noto-fonts
+install_pkg ttf-font-awesome
 
 echo "Verificando/Instalando yay (AUR helper)..."
 if ! command -v yay &> /dev/null; then
-	pacman -S --needed --noconfirm base-devel git
+	install_pkg base-devel
+	install_pkg git
 	cd /tmp
 	rm -rf yay
 	sudo -u $SUDO_USER git clone https://aur.archlinux.org/yay.git
@@ -107,8 +112,7 @@ if ! command -v yay &> /dev/null; then
 fi
 
 echo "Instalando dependencias desde AUR..."
-sudo -u $SUDO_USER yay -S --noconfirm \
-	nitrogen \
-	cbatticon
+sudo -u $SUDO_USER yay -S --noconfirm nitrogen || echo "⚠️ No se pudo instalar: nitrogen"
+sudo -u $SUDO_USER yay -S --noconfirm cbatticon || echo "⚠️ No se pudo instalar: cbatticon"
 
 echo "✅ Todo listo. Ahora puedes iniciar Qtile con 'startx'."
