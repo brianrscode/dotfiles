@@ -77,32 +77,54 @@ else
 fi
 
 echo "Instalando paquetes adicionales..."
-pacman -S --noconfirm \
-	networkmanager \
-	pavucontrol \
-	alsa-utils \
-	playerctl \
-	htop \
-	thunar \
-	xfce4-settings \
-	xfce4-appfinder \
-	xfce4-taskmanager \
-	brightnessctl \
-	network-manager-applet \
-	flameshot \
-	udiskie \
-	xfce4-power-manager \
-	numlockx \
-	blueberry \
-	picom \
-	volumeicon \
-	dmenu \
-	rofi \
-	pamixer \
-	lxappearance \
-	gsimplecal \
-	noto-fonts \
-	ttf-font-awesome
+# Demonio principal para gestionar conexiones de red
+pacman -S --noconfirm networkmanager
+# Interfaz gráfica para PulseAudio (Control de Volumen)
+pacman -S --noconfirm pavucontrol
+# Utilidades de sistema para arquitectura de sonido ALSA
+pacman -S --noconfirm alsa-utils
+# Utilidad para controlar reproductores multimedia por línea de comandos
+pacman -S --noconfirm playerctl
+# Monitor de sistema interactivo
+pacman -S --noconfirm htop
+# Gestor de archivos ligero
+pacman -S --noconfirm thunar
+# Herramientas de configuración general de XFCE
+pacman -S --noconfirm xfce4-settings
+# Buscador de aplicaciones de XFCE
+pacman -S --noconfirm xfce4-appfinder
+# Administrador de tareas gráfico de XFCE
+pacman -S --noconfirm xfce4-taskmanager
+# Utilidad para controlar el brillo de la pantalla
+pacman -S --noconfirm brightnessctl
+# Applet de bandeja del sistema para NetworkManager (Wi-Fi)
+pacman -S --noconfirm network-manager-applet
+# Herramienta para tomar y editar capturas de pantalla
+pacman -S --noconfirm flameshot
+# Herramienta para montar automáticamente memorias USB
+pacman -S --noconfirm udiskie
+# Gestor de energía (apagar pantalla, tapa del portátil)
+pacman -S --noconfirm xfce4-power-manager
+# Utilidad para encender automáticamente el teclado numérico
+pacman -S --noconfirm numlockx
+# Compositor de ventanas para X11 (transparencias, sombras)
+pacman -S --noconfirm picom
+# Control de volumen ligero para la bandeja del sistema
+pacman -S --noconfirm volumeicon
+# Menú dinámico minimalista para lanzar aplicaciones
+pacman -S --noconfirm dmenu
+# Lanzador de aplicaciones moderno y personalizable
+pacman -S --noconfirm rofi
+# Mezclador de línea de comandos para PulseAudio
+pacman -S --noconfirm pamixer
+# Cambiador de temas e iconos para aplicaciones GTK
+pacman -S --noconfirm lxappearance
+# Calendario emergente ligero para la bandeja del sistema
+pacman -S --noconfirm gsimplecal
+# Fuentes de Google para soportar caracteres de todos los idiomas
+pacman -S --noconfirm noto-fonts
+# Fuente de iconos útil para barras de estado
+pacman -S --noconfirm ttf-font-awesome
 
 echo "Verificando/Instalando yay (AUR helper)..."
 if ! command -v yay &> /dev/null; then
