@@ -115,6 +115,8 @@ install_pkg fd
 install_pkg fzf
 install_pkg xorg-apps
 install_pkg tree-sitter-cli
+install_pkg nodejs
+install_pkg npm
 
 echo "=============================================="
 echo "6) Instalando extras opcionales (AUR)"
