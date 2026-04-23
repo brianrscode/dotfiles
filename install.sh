@@ -11,7 +11,6 @@ USER_HOME=$(eval echo ~${SUDO_USER})
 CONFIG_DIR="$USER_HOME/.config"
 DOTFILES_REPO="https://github.com/brianrscode/dotfiles.git"
 DOTFILES_DIR="$USER_HOME/dotfiles"
-XINITRC="$USER_HOME/.xinitrc"
 
 echo "Actualizando el sistema..."
 pacman -Syu --noconfirm
@@ -25,7 +24,6 @@ install_pkg() {
 echo "Instalando paquetes base y de desarrollo..."
 install_pkg base-devel
 install_pkg xorg-server
-install_pkg xorg-xinit
 install_pkg xorg-apps
 install_pkg sxhkd
 install_pkg git
@@ -35,20 +33,6 @@ install_pkg ripgrep
 install_pkg fd
 install_pkg fzf
 install_pkg tree-sitter-cli
-
-echo "Verificando archivo .xinitrc..."
-if [ ! -f "$XINITRC" ]; then
-	echo "Creando .xinitrc..."
-	touch "$XINITRC"
-	chown $SUDO_USER:$SUDO_USER "$XINITRC"
-fi
-
-if ! grep -Fxq "exec qtile start" "$XINITRC"; then
-	echo "Agregando 'exec qtile start' a .xinitrc..."
-	echo "exec qtile start" >>"$XINITRC"
-else
-	echo "La línea 'exec qtile start' ya existe en .xinitrc."
-fi
 
 if [ -d "$DOTFILES_DIR" ]; then
 	echo "Actualizando el repositorio de dotfiles..."
@@ -115,4 +99,4 @@ echo "Instalando dependencias desde AUR..."
 sudo -u $SUDO_USER yay -S --noconfirm nitrogen || echo "⚠️ No se pudo instalar: nitrogen"
 sudo -u $SUDO_USER yay -S --noconfirm cbatticon || echo "⚠️ No se pudo instalar: cbatticon"
 
-echo "✅ Todo listo. Ahora puedes iniciar Qtile con 'startx'."
+echo "✅ Todo listo. Ahora puedes iniciar sesión en Qtile desde tu display manager."
