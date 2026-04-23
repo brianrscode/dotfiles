@@ -29,6 +29,25 @@ THEMES = {
         "group_this_screen_border": "#36c6ff",
         "group_other_screen_border": "#040414",
     },
+    "dark": {
+        "bar_background": "#1a1b26",
+        "segment_bg": "#1a1b26",
+        "segment_fg": "#c0caf5",
+        "border_focus": "#bb9af7",
+        "border_normal": "#1a1b26",
+        "group_active": "#bb9af7",
+        "group_inactive": "#c0caf5",
+        "group_highlight": "#1a1b26",
+        "group_block_text": "#bb9af7",
+        "group_this_screen_border": "#9ece6a",
+        "group_other_screen_border": "#1a1b26",
+        "color1": "#1a1b26",
+        "color1fg": "#cc6666",
+        "color3": "#1a1b26",
+        "color3fg": "#bb9af7",
+        "color5": "#1a1b26",
+        "color5fg": "#9ece6a",
+    },
 }
 
 
