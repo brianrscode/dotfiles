@@ -26,6 +26,9 @@ alt + d
 super + d
     rofi -no-config -no-lazy-grab -show drun -modi drun -theme ~/.config/qtile/rofi/launcher.rasi
 
+alt + s
+    source ~/.config/qtile/scripts/RofiSearch.sh
+
 #reload sxhkd:
 super + shift + r
 	pkill -USR1 -x sxhkd
