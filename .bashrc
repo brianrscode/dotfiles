@@ -12,10 +12,10 @@ export HISTSIZE=10000
 export HISTFILESIZE=20000
 
 # Locale: intenta es_MX, con fallback seguro.
-export LANG="${LANG:-es_MX.UTF-8}"
-export LANGUAGE="${LANGUAGE:-es_MX:es}"
-if locale -a 2>/dev/null | grep -qi '^es_MX\.utf8$'; then
-    export LC_ALL="es_MX.UTF-8"
+export LANG="${LANG:-en_US.UTF-8}"
+export LANGUAGE="${LANGUAGE:-en_US:en}"
+if locale -a 2>/dev/null | grep -qi '^en_US\.utf8$'; then
+    export LC_ALL="en_US.UTF-8"
 elif locale -a 2>/dev/null | grep -qi '^en_US\.utf8$'; then
     export LC_ALL="en_US.UTF-8"
 else
@@ -117,7 +117,7 @@ crear_env() {
         return 0
     fi
 
-    cat > .env <<'EOF'
+    cat >.env <<'EOF'
 SECRET_KEY=
 DEBUG=True
 # ALLOWED_HOSTS=#dominio.com
@@ -176,43 +176,43 @@ entorno() {
     echo -e "\e[1;32mpip actualizado en el entorno virtual\e[0m"
 
     case "$1" in
-        -r)
-            echo -e "\e[1;34mInstalando dependencias desde requirements.txt...\e[0m"
-            pip install -r requirements.txt
-            echo -e "\e[1;32mDependencias instaladas\e[0m"
-            ;;
-        -un)
-            echo -e "\e[1;34mDesinstalando dependencias desde requirements.txt...\e[0m"
-            pip uninstall -y -r requirements.txt
-            echo -e "\e[1;32mDependencias desinstaladas\e[0m"
-            ;;
-        -v)
-            echo -e "\e[1;34mInstalando dependencias para vision por computadora...\e[0m"
-            pip install opencv-contrib-python
-            pfre
-            echo -e "\e[1;32mDependencias instaladas y requirements.txt generado\e[0m"
-            ;;
-        -d)
-            local project_name="${2:-core}"
-            echo -e "\e[1;34mInstalando dependencias para Django...\e[0m"
-            pip install django
-            pfre
-            echo -e "\e[1;34mCreando proyecto...\e[0m"
-            django-admin startproject "$project_name" .
-            echo "LOGIN_REDIRECT_URL = '/'" >> "$project_name/settings.py"
-            echo "LOGOUT_REDIRECT_URL = '/'" >> "$project_name/settings.py"
-            crear_env
-            echo -e "\e[1;32mProyecto creado -> $project_name\e[0m"
-            ;;
-        -drf)
-            local project_name="${2:-core}"
-            echo -e "\e[1;34mInstalando dependencias para Django REST Framework...\e[0m"
-            pip install django djangorestframework
-            pfre
-            django-admin startproject "$project_name" .
-            crear_env
-            echo -e "\e[1;32mProyecto creado -> $project_name\e[0m"
-            ;;
+    -r)
+        echo -e "\e[1;34mInstalando dependencias desde requirements.txt...\e[0m"
+        pip install -r requirements.txt
+        echo -e "\e[1;32mDependencias instaladas\e[0m"
+        ;;
+    -un)
+        echo -e "\e[1;34mDesinstalando dependencias desde requirements.txt...\e[0m"
+        pip uninstall -y -r requirements.txt
+        echo -e "\e[1;32mDependencias desinstaladas\e[0m"
+        ;;
+    -v)
+        echo -e "\e[1;34mInstalando dependencias para vision por computadora...\e[0m"
+        pip install opencv-contrib-python
+        pfre
+        echo -e "\e[1;32mDependencias instaladas y requirements.txt generado\e[0m"
+        ;;
+    -d)
+        local project_name="${2:-core}"
+        echo -e "\e[1;34mInstalando dependencias para Django...\e[0m"
+        pip install django
+        pfre
+        echo -e "\e[1;34mCreando proyecto...\e[0m"
+        django-admin startproject "$project_name" .
+        echo "LOGIN_REDIRECT_URL = '/'" >>"$project_name/settings.py"
+        echo "LOGOUT_REDIRECT_URL = '/'" >>"$project_name/settings.py"
+        crear_env
+        echo -e "\e[1;32mProyecto creado -> $project_name\e[0m"
+        ;;
+    -drf)
+        local project_name="${2:-core}"
+        echo -e "\e[1;34mInstalando dependencias para Django REST Framework...\e[0m"
+        pip install django djangorestframework
+        pfre
+        django-admin startproject "$project_name" .
+        crear_env
+        echo -e "\e[1;32mProyecto creado -> $project_name\e[0m"
+        ;;
     esac
 }
 
@@ -238,20 +238,20 @@ ex() {
     fi
 
     case "$1" in
-        *.rar) unrar x "$1" ;;
-        *.gz) gunzip "$1" ;;
-        *.tar) tar xf "$1" ;;
-        *.tbz2) tar xjf "$1" ;;
-        *.tgz) tar xzf "$1" ;;
-        *.zip) unzip "$1" ;;
-        *.Z) uncompress "$1" ;;
-        *.7z) 7z x "$1" ;;
-        *.tar.xz) tar xf "$1" ;;
-        *.tar.zst) tar xf "$1" ;;
-        *)
-            echo "'$1' no se puede extraer via ex()"
-            return 1
-            ;;
+    *.rar) unrar x "$1" ;;
+    *.gz) gunzip "$1" ;;
+    *.tar) tar xf "$1" ;;
+    *.tbz2) tar xjf "$1" ;;
+    *.tgz) tar xzf "$1" ;;
+    *.zip) unzip "$1" ;;
+    *.Z) uncompress "$1" ;;
+    *.7z) 7z x "$1" ;;
+    *.tar.xz) tar xf "$1" ;;
+    *.tar.zst) tar xf "$1" ;;
+    *)
+        echo "'$1' no se puede extraer via ex()"
+        return 1
+        ;;
     esac
 }
 
