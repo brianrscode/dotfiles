@@ -36,6 +36,8 @@ fi
 
 # inicie sxhkd para reemplazar las combinaciones de teclas nativas de Qtile
 run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
+xrandr --output Virtual-1 --primary --mode 1680x1050 --pos 0x0 --rotate normal --output Virtual-2 --off --output Virtual-3 --off --output Virtual-4 --off --output Virtual-5 --off --output Virtual-6 --off --output Virtual-7 --off --output Virtual-8 --off
+picom --config $HOME/.config/qtile/scripts/picom.conf &
 
 # Poder ver las conexiones a internet
 run cbatticon &
@@ -47,11 +49,11 @@ run udiskie -t & # Sirve para ver los usb conectados udisks2
 run xfce4-power-manager &
 numlockx on &
 # blueberry-tray &
-picom --config $HOME/.config/qtile/scripts/picom.conf &
 
 # recupera el fondo de pantalla seteado
-nitrogen --restore &
-#feh --bg-scale ~/Fondos/akatsuki.webp
+# nitrogen --restore &
+feh --bg-scale ~/wallpapers/0anime10.png
+notify-send "Config lista" "Todo bien"
 #feh --auto-reload
 #run caffeine -a &
 #run vivaldi-stable &
