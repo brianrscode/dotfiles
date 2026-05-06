@@ -1,6 +1,6 @@
 import os
 
-DEFAULT_THEME = "dark"
+DEFAULT_THEME = "mocha"
 
 THEME_BASE = {
     "bar_background": "#1a1b26",
@@ -41,6 +41,7 @@ THEMES = {
         "group_inactive": "#7f849c",
         "group_this_screen_border": "#a6e3a1",
         "group_other_screen_border": "#0F0F1C",
+        "systray": "#0F0F1C",
         "color1fg": "#f38ba8",
         "color2fg": "#89dceb",
         "color3fg": "#f5c2e7",

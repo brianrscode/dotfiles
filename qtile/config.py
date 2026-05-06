@@ -58,67 +58,6 @@ keys = [
         ([mod], "space", lazy.next_layout()),
         # TOGGLE FLOATING
         ([mod, "shift"], "space", lazy.window.toggle_floating()),
-        # REDIMENSIONAR
-        (
-            [mod, "control"],
-            "l",
-            lazy.layout.grow_right(),
-            lazy.layout.grow(),
-            lazy.layout.increase_ratio(),
-            lazy.layout.delete(),
-        ),
-        (
-            [mod, "control"],
-            "Right",
-            lazy.layout.grow_right(),
-            lazy.layout.grow(),
-            lazy.layout.increase_ratio(),
-            lazy.layout.delete(),
-        ),
-        (
-            [mod, "control"],
-            "h",
-            lazy.layout.grow_left(),
-            lazy.layout.shrink(),
-            lazy.layout.decrease_ratio(),
-            lazy.layout.add(),
-        ),
-        (
-            [mod, "control"],
-            "Left",
-            lazy.layout.grow_left(),
-            lazy.layout.shrink(),
-            lazy.layout.decrease_ratio(),
-            lazy.layout.add(),
-        ),
-        (
-            [mod, "control"],
-            "k",
-            lazy.layout.grow_up(),
-            lazy.layout.grow(),
-            lazy.layout.decrease_nmaster(),
-        ),
-        (
-            [mod, "control"],
-            "Up",
-            lazy.layout.grow_up(),
-            lazy.layout.grow(),
-            lazy.layout.decrease_nmaster(),
-        ),
-        (
-            [mod, "control"],
-            "j",
-            lazy.layout.grow_down(),
-            lazy.layout.shrink(),
-            lazy.layout.increase_nmaster(),
-        ),
-        (
-            [mod, "control"],
-            "Down",
-            lazy.layout.grow_down(),
-            lazy.layout.shrink(),
-            lazy.layout.increase_nmaster(),
-        ),
     ]
 ]
 
@@ -128,11 +67,43 @@ for key, dir in directions:
     keys.append(Key([mod], key, lazy.layout.__getattr__(dir)()))
     keys.append(Key([mod], dir.capitalize(), lazy.layout.__getattr__(dir)()))
 
-# Redimensionar
-# resize = [("h", "grow_left"), ("l", "grow_right"), ("j", "grow_down"), ("k", "grow_up")]
-# for key, action in resize:
-#     keys.append(Key([mod, "control"], key, lazy.layout.__getattr__(action)()))
-#     keys.append(Key([mod, "control"], action.split("_")[-1].capitalize(), lazy.layout.__getattr__(action)()))
+# Redimensionar ventanas
+resizes = [
+    (
+        "h",
+        "Left",
+        lazy.layout.grow_left(),
+        lazy.layout.shrink(),
+        lazy.layout.decrease_ratio(),
+        lazy.layout.add(),
+    ),
+    (
+        "l",
+        "Right",
+        lazy.layout.grow_right(),
+        lazy.layout.grow(),
+        lazy.layout.increase_ratio(),
+        lazy.layout.delete(),
+    ),
+    (
+        "k",
+        "Up",
+        lazy.layout.grow_up(),
+        lazy.layout.grow(),
+        lazy.layout.decrease_nmaster(),
+    ),
+    (
+        "j",
+        "Down",
+        lazy.layout.grow_down(),
+        lazy.layout.shrink(),
+        lazy.layout.increase_nmaster(),
+    ),
+]
+
+for key, arrow, *actions in resizes:
+    keys.append(Key([mod, "control"], key, *actions))
+    keys.append(Key([mod, "control"], arrow, *actions))
 
 # Shuffle ventanas
 for key, dir in directions:

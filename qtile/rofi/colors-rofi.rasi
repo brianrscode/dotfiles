@@ -1,30 +1,17 @@
-/* ---- 💫 https://github.com/JaKooLit 💫 ---- */  
- /* wallust template - colors-rofi */
+/* Mocha Theme - colors-rofi */
 
 * {
-active-background: #60697E;
-active-foreground: #BFE3EA;
-normal-background: #000007;
-normal-foreground: #BFE3EA;
-urgent-background: #BE869D;
-urgent-foreground: #BFE3EA;
-
-alternate-active-background: #47A6BD;
-alternate-active-foreground: #BFE3EA;
-alternate-normal-background: #000007;
-alternate-normal-foreground: #BFE3EA;
-alternate-urgent-background: #000007;
-alternate-urgent-foreground: #BFE3EA;
-
-selected-active-background: #60697E;
-selected-active-foreground: #BFE3EA;
-selected-normal-background: #9BCED9;
-selected-normal-foreground: #BFE3EA;
-selected-urgent-background: #BE869D;
-selected-urgent-foreground: #BFE3EA;
-
-background-color: #000007;
-background: rgba(0,0,0,0.7);
-foreground: #9BCED9;
-border-color: #60697E;
+    background:                  #0F0F1C;
+    foreground:                  #cdd6f4;
+    selected-normal-background:  #89b4fa;
+    selected-normal-foreground:  #0F0F1C;
+    selected-active-background:  #a6e3a1;
+    selected-active-foreground:  #0F0F1C;
+    selected-urgent-background:  #89b4fa;
+    selected-urgent-foreground:  #0F0F1C;
+    active-background:           #a6e3a1;
+    active-foreground:           #0F0F1C;
+    urgent-background:           #f38ba8;
+    urgent-foreground:           #0F0F1C;
+    border-color:                #89b4fa;
 }
