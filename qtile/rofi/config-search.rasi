@@ -16,8 +16,8 @@ configuration {
     me-accept-entry:            "MousePrimary";
 	window-format:              "{w} · {c} · {t}";
 	dpi:						1;
-	font: "Inter Medium 10";
-	// font: "Mononoki Nerd Font 10";
+	// font: "Inter Medium 10";
+	font: "Mononoki Nerd Font 10";
 }
 
 /* ---- Load wallust colors ---- */
@@ -39,9 +39,9 @@ configuration {
 /* ---- Window ---- */
 window {
 	width: 40%;
-    y-offset: 6px;
+    y-offset: 26px;
     location: north;
-    
+
     enabled:                    true;
     fullscreen:                 false;
     transparency:               "real";
@@ -71,12 +71,13 @@ inputbar {
     border-radius:               25px;
     orientation:                 horizontal;
     children:                    ["entry"];
-    background-image:            url("~/.config/rofi/.current_wallpaper", width);
+    background-image:            url("~/wallpapers/0anime10.png", width);
+    // background-image:            url("~/.config/rofi/.current_wallpaper", width);
 }
 
 /* ---- Entry input ---- */
 entry {
-	placeholder: "🔎 Google Search";
+	placeholder: "  Google Search";
     enabled:                     true;
     expand:                      false;
     width:                       100%;
@@ -218,8 +219,8 @@ element-text {
     cursor:                      inherit;
     vertical-align:              0.5;
     horizontal-align:            0.0;
-    font:	"Inter Medium 11";
-    // font:	"Mononoki Nerd Font 10";
+    // font:	"Inter Medium 11";
+    font:	"Mononoki Nerd Font 10";
 }
 
 /* ---- Message ---- */
