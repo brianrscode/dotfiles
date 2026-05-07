@@ -221,6 +221,7 @@ floating_layout = layout.Floating(
 ##################   WIDGETS PARA LA BARRA    ###################
 #################################################################
 
+
 def init_widgets_defaults():
     return dict(
         font="Fira Sans Medium",
@@ -257,10 +258,19 @@ def init_widgets_list():
         ),
         widget.Sep(padding=6, linewidth=0, background=theme["separator"]),
         widget.Spacer(),
-
         ### Systray ###
-        widget.Systray(background=theme["systray"], padding=10),
-        widget.Sep(linewidth=0, padding=6, background=theme["systray"]),
+        widget.WidgetBox(
+            widgets=[
+                widget.Systray(background=theme["systray"], padding=10),
+                widget.Sep(linewidth=0, padding=6, background=theme["systray"]),
+            ],
+            text_closed=" 󰍟 ",
+            text_open=" 󰍟 ",
+            background=theme["systray"],
+            foreground=theme["segment_fg"],
+            font="Mononoki Nerd Font",
+            fontsize=14,
+        ),
 
         ### Volume ###
         widget.Sep(padding=9, linewidth=0, background=theme["color3"]),
@@ -279,22 +289,39 @@ def init_widgets_list():
         ),
         widget.Sep(padding=6, linewidth=0, background=theme["color3"]),
 
-        ### Battery ###
-        widget.Sep(padding=6, linewidth=0, background=theme["color4"]),
+        ### Network ###
+        widget.Sep(padding=6, linewidth=0, background=theme["color2"]),
         widget.TextBox(
-            foreground=theme["color4fg"],
-            background=theme["color4"],
-            text=" ",
-            font="Font Awesome 6 Free Solid",
-            fontsize=13,
+            foreground=theme["color2fg"],
+            background=theme["color2"],
+            text="󰖩 ",
+            font="Mononoki Nerd Font",
+            fontsize=14,
         ),
-        widget.Battery(
-            foreground=theme["color4fg"],
-            background=theme["color4"],
-            format="{percent:2.0%}",
-            update_interval=30,
+        widget.Net(
+            interface="ens33",
+            format="{down} ↓↑ {up}",
+            foreground=theme["color2fg"],
+            background=theme["color2"],
         ),
-        widget.Sep(padding=6, linewidth=0, background=theme["color4"]),
+        widget.Sep(padding=6, linewidth=0, background=theme["color2"]),
+
+        ### Battery (Commented out for future use) ###
+        # widget.Sep(padding=6, linewidth=0, background=theme["color4"]),
+        # widget.TextBox(
+        #    foreground=theme["color4fg"],
+        #    background=theme["color4"],
+        #    text=" ",
+        #    font="Font Awesome 6 Free Solid",
+        #    fontsize=13,
+        # ),
+        # widget.Battery(
+        #    foreground=theme["color4fg"],
+        #    background=theme["color4"],
+        #    format="{percent:2.0%}",
+        #    update_interval=30,
+        # ),
+        # widget.Sep(padding=6, linewidth=0, background=theme["color4"]),
 
         ### Clock (Date) ###
         widget.Sep(padding=6, linewidth=0, background=theme["color1"]),
@@ -312,7 +339,6 @@ def init_widgets_list():
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Sep(padding=6, linewidth=0, background=theme["color1"]),
-
         ### Clock (Time) ###
         widget.Sep(padding=6, linewidth=0, background=theme["color5"]),
         widget.TextBox(

@@ -40,12 +40,12 @@ xrandr --output Virtual-1 --primary --mode 1680x1050 --pos 0x0 --rotate normal -
 picom --config $HOME/.config/qtile/scripts/picom.conf &
 
 # Poder ver las conexiones a internet
-run cbatticon &
+# run cbatticon &
 run nm-applet &
 run pamac-tray &
 # run flameshot &
 # run volumeicon &
-run udiskie -t & # Sirve para ver los usb conectados udisks2
+# run udiskie -t & # Sirve para ver los usb conectados udisks2
 run xfce4-power-manager &
 numlockx on &
 # blueberry-tray &
