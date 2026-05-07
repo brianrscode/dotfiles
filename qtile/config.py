@@ -36,10 +36,6 @@ def openMenu():
     qtile.cmd_spawn(powerMenu)
 
 
-left = ""
-right = ""
-
-
 ############################################################
 ##################   Atajos de teclado    ##################
 ############################################################
@@ -164,7 +160,7 @@ keys.extend(
 ##################################################
 
 # group_labels = [" ", " ", "", "", " ", "󰍳 "]
-group_labels = [" ", " ", "", "", " ", "󰍳 "]
+group_labels = [" ", " ", "", ""]
 group_names = [str(i + 1) for i in range(len(group_labels))]
 group_layouts = ["monadtall"] * len(group_labels)
 
@@ -241,6 +237,7 @@ def init_widgets_list():
         ### Grupos ###
         widget.GroupBox(
             font="Mononoki Nerd Font",
+            fontsize=15,
             borderwidth=3,
             active=theme["group_active"],
             inactive=theme["group_inactive"],
@@ -264,14 +261,13 @@ def init_widgets_list():
                 widget.Systray(background=theme["systray"], padding=10),
                 widget.Sep(linewidth=0, padding=6, background=theme["systray"]),
             ],
-            text_closed=" 󰍟 ",
-            text_open=" 󰍟 ",
+            text_closed="  ",
+            text_open="  ",
             background=theme["systray"],
             foreground=theme["segment_fg"],
             font="Mononoki Nerd Font",
             fontsize=14,
         ),
-
         ### Volume ###
         widget.Sep(padding=9, linewidth=0, background=theme["color3"]),
         widget.TextBox(
@@ -279,7 +275,7 @@ def init_widgets_list():
             font="Mononoki Nerd Font",
             foreground=theme["color3fg"],
             background=theme["color3"],
-            fontsize=14,
+            fontsize=16,
             padding=0,
             mouse_callbacks={"Button1": pavucontrol},
         ),
@@ -288,7 +284,6 @@ def init_widgets_list():
             background=theme["color3"],
         ),
         widget.Sep(padding=6, linewidth=0, background=theme["color3"]),
-
         ### Network ###
         widget.Sep(padding=6, linewidth=0, background=theme["color2"]),
         widget.TextBox(
@@ -296,7 +291,7 @@ def init_widgets_list():
             background=theme["color2"],
             text="󰖩 ",
             font="Mononoki Nerd Font",
-            fontsize=14,
+            fontsize=16,
         ),
         widget.Net(
             interface="ens33",
@@ -305,14 +300,13 @@ def init_widgets_list():
             background=theme["color2"],
         ),
         widget.Sep(padding=6, linewidth=0, background=theme["color2"]),
-
         ### Battery (Commented out for future use) ###
         # widget.Sep(padding=6, linewidth=0, background=theme["color4"]),
         # widget.TextBox(
         #    foreground=theme["color4fg"],
         #    background=theme["color4"],
         #    text=" ",
-        #    font="Font Awesome 6 Free Solid",
+        #    font="Font Awesome 8 Free Solid",
         #    fontsize=13,
         # ),
         # widget.Battery(
@@ -322,20 +316,21 @@ def init_widgets_list():
         #    update_interval=30,
         # ),
         # widget.Sep(padding=6, linewidth=0, background=theme["color4"]),
-
         ### Clock (Date) ###
         widget.Sep(padding=6, linewidth=0, background=theme["color1"]),
         widget.TextBox(
             foreground=theme["color1fg"],
             background=theme["color1"],
             text=" ",
-            font="Font Awesome 6 Free Solid",
+            font="Font Awesome 8 Free Solid",
+            fontsize=12,
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Clock(
             foreground=theme["color1fg"],
             background=theme["color1"],
             format="%m/%d/%y",
+            fontsize=12,
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Sep(padding=6, linewidth=0, background=theme["color1"]),
@@ -345,13 +340,15 @@ def init_widgets_list():
             foreground=theme["color5fg"],
             background=theme["color5"],
             text=" ",
-            font="Font Awesome 6 Free Solid",
+            font="Font Awesome 8 Free Solid",
+            fontsize=12,
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Clock(
             foreground=theme["color5fg"],
             background=theme["color5"],
-            format="%A - %H:%M",
+            format="%A - %H:%M:%S",
+            fontsize=12,
             mouse_callbacks={"Button1": openCalendar},
         ),
         widget.Sep(padding=6, linewidth=0, background=theme["color5"]),
@@ -367,7 +364,7 @@ def init_screens():
         Screen(
             top=bar.Bar(
                 widgets=widgets_list,
-                size=20,
+                size=26,
                 margin=0,
                 background=theme["bar_background"],
                 opacity=1.0,
