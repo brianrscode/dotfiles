@@ -36,7 +36,7 @@ fi
 
 # inicie sxhkd para reemplazar las combinaciones de teclas nativas de Qtile
 run sxhkd -c ~/.config/qtile/sxhkd/sxhkdrc &
-xrandr --output Virtual-1 --primary --mode 1680x1050 --pos 0x0 --rotate normal --output Virtual-2 --off --output Virtual-3 --off --output Virtual-4 --off --output Virtual-5 --off --output Virtual-6 --off --output Virtual-7 --off --output Virtual-8 --off
+# xrandr --output Virtual-1 --primary --mode 1680x1050 --pos 0x0 --rotate normal --output Virtual-2 --off --output Virtual-3 --off --output Virtual-4 --off --output Virtual-5 --off --output Virtual-6 --off --output Virtual-7 --off --output Virtual-8 --off
 picom --config $HOME/.config/qtile/scripts/picom.conf &
 
 # Poder ver las conexiones a internet

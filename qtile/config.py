@@ -261,8 +261,8 @@ def init_widgets_list():
                 widget.Systray(background=theme["systray"], padding=10),
                 widget.Sep(linewidth=0, padding=6, background=theme["systray"]),
             ],
-            text_closed="  ",
-            text_open="  ",
+            text_closed=" 󰍟 ",
+            text_open=" 󰍟 ",
             background=theme["systray"],
             foreground=theme["segment_fg"],
             font="Mononoki Nerd Font",
@@ -356,21 +356,50 @@ def init_widgets_list():
     return widgets
 
 
-widgets_list = init_widgets_list()
+def init_widgets_secondary():
+    widgets = init_widgets_list()
+    # Remove the Systray WidgetBox (it's at index 4)
+    del widgets[4]
+    return widgets
 
 
 def init_screens():
-    return [
+    try:
+        num_monitors = (
+            subprocess.check_output('xrandr | grep " connected " | wc -l', shell=True)
+            .decode("utf-8")
+            .strip()
+        )
+        connected_monitors = int(num_monitors)
+    except Exception:
+        connected_monitors = 1
+
+    screens = [
         Screen(
             top=bar.Bar(
-                widgets=widgets_list,
-                size=26,
+                widgets=init_widgets_list(),
+                size=24,
                 margin=0,
                 background=theme["bar_background"],
                 opacity=1.0,
             )
         )
     ]
+
+    if connected_monitors > 1:
+        for _ in range(1, connected_monitors):
+            screens.append(
+                Screen(
+                    top=bar.Bar(
+                        widgets=init_widgets_secondary(),
+                        size=24,
+                        margin=0,
+                        background=theme["bar_background"],
+                        opacity=1.0,
+                    )
+                )
+            )
+    return screens
 
 
 screens = init_screens()
